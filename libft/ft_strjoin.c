@@ -12,7 +12,20 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include "libft.h"
+/*
+size_t	ft_strlen(const char *str)
+{
+	size_t	len;
 
+	len = 0;
+	while (*str && len <= 2147483647)
+	{
+		len++;
+		str++;
+	}
+	return (len);
+}
+*/
 char	*ft_strjoin(const char *s1, const char *s2)
 {
 	char	*res;
@@ -40,12 +53,13 @@ char	*ft_strjoin(const char *s1, const char *s2)
 	res[l] = 0;
 	return (res);
 }
+
+
 /*
 int main()
 {
-	char *s[] = {"1234", "456"};
+	char *s[] = {"123", "123"};
 	char *x = "---";
 
-	printf("%ld\n", arlen(s, 2));
-	printf("%s\n", ft_strjoin(2, s, x));
+	printf("%s\n", ft_strjoin(s[0], x));
 }*/
