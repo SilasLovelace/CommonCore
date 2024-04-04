@@ -23,7 +23,7 @@ void	*ft_memmove(void *dest, const void *src, size_t num)
 	if (src < dest && src + num > dest)
 	{
 		c = num - 1;
-		while (c >= 0)
+		while (c + 1 > 0)
 		{
 			d[c] = s[c];
 			c--;
