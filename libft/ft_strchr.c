@@ -23,3 +23,8 @@ char	*ft_strchr(const char *str, int c)
 		return ((char *)str);
 	return (0);
 }
+
+int main()
+{
+	printf("%x", ft_strchr("teste", 's'));
+}
