@@ -10,8 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 #include "libft.h"
+#include <stdlib.h>
 
-int	isset(char *s, char const *set)
+int	isset(const char *s, char const *set)
 {
 	while (*set)
 	{
@@ -22,7 +23,7 @@ int	isset(char *s, char const *set)
 	return (0);
 }
 
-int	issetend(char *s, char const *set)
+int	issetend(const char *s, char const *set)
 {
 	while (*s)
 	{
@@ -44,7 +45,7 @@ char	*ft_strtrim(char const *s1, char const *set)
 	l = 0;
 	while (isset(s1, set))
 		s1++;
-	start = s1;
+	start = (char *)s1;
 	while (*s1 && !(issetend(s1, set)))
 	{
 		s1++;
@@ -54,7 +55,10 @@ char	*ft_strtrim(char const *s1, char const *set)
 	if (!dup)
 		return (0);
 	while (start[c] && c < l)
-		dup[c] = start[c++];
+	{
+		dup[c] = start[c];
+		c++;
+	}
 	dup[c] = 0;
 	return (dup);
 }

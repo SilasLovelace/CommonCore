@@ -14,30 +14,41 @@
 #include <string.h>
 #include "libft.h"
 
+size_t	ft_strlen(const char *str)
+{
+	size_t	len;
+
+	len = 0;
+	while (*str && len <= 2147483647)
+	{
+		len++;
+		str++;
+	}
+	return (len);
+}
+
 size_t	ft_strlcat(char *dest, const char *src, size_t size)
 {
-	size_t		l;
-	char		*start;
+	size_t	dlen;
+	size_t	slen;
 
-	start = dest;
-	l = 0;
+	dlen = strlen(dest);
+	slen = strlen(src);
 	while (*dest && size > 1)
 	{
 		dest++;
 		size--;
-		l++;
 	}
 	while (*src && size > 1)
 	{
 		*dest++ = *src++;
 		size--;
-		l++;
 	}
 	if (size > 0)
 	{
 		*dest = '\0';
 	}
-	return (l);
+	return (dlen + slen);
 }
 /*
 int main(void)

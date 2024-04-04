@@ -22,7 +22,10 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 		return (0);
 	c = 0;
 	while (s[start + c] && c < len)
-		dup[c] = s[start + c++];
+	{
+		dup[c] = s[start + c];
+		c++;
+	}
 	dup[c] = 0;
 	return (dup);
 }

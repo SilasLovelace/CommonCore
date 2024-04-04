@@ -14,34 +14,20 @@
 #include <unistd.h>
 #include "libft.h"
 
-int	is_seperator(char *str, char *charset)
+int	is_seperator(const char *str, char charset)
 {
-	while (*charset)
-	{
-		if (*charset == *str)
-			return (1);
-		charset++;
-	}
+	if (charset == *str)
+		return (1);
 	return (0);
 }
 
-int	ft_strlen(char *str)
-{
-	int	l;
-
-	l = 0;
-	while (*str++)
-		l++;
-	return (l);
-}
-
-int	countwords(char*str, char *charset)
+int	countwords(const char *str, char charset)
 {
 	int	c;
 
-	if (!*charset && !*str)
+	if (!charset && !*str)
 		return (0);
-	else if (!*charset)
+	else if (!charset)
 		return (1);
 	c = 0;
 	while (*str)
@@ -58,7 +44,7 @@ int	countwords(char*str, char *charset)
 	return (c);
 }
 
-char	*cpystr(char *str, char *charset)
+char	*cpystr(const char *str, char charset)
 {
 	char	*cpy;
 	char	*start;
@@ -67,7 +53,7 @@ char	*cpystr(char *str, char *charset)
 
 	strlen = 0;
 	c = 0;
-	start = str;
+	start = (char *)str;
 	while (*str && !is_seperator(str, charset))
 	{
 		str++;
@@ -86,7 +72,7 @@ char	*cpystr(char *str, char *charset)
 	return (cpy);
 }
 
-char	**ft_split(char *str, char *charset)
+char	**ft_split(const char *str, char charset)
 {
 	char	**arr;
 	int		c;

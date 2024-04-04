@@ -13,77 +13,45 @@
 #include <stdio.h>
 #include "libft.h"
 
-int	ft_strlen(char *str)
+size_t	ft_strlen(const char *str)
 {
-	int	l;
+	size_t	len;
 
-	l = 0;
-	while (*str++)
-		l++;
-	return (l);
-}
-
-long	arlen(char **s, int size)
-{
-	long	c;
-
-	c = 0;
-	while (size > 0)
+	len = 0;
+	while (*str && len <= 2147483647)
 	{
-		c += (ft_strlen(*s));
-		s++;
-		size--;
+		len++;
+		str++;
 	}
-	return (c);
+	return (len);
 }
 
-int	writesep(char *s, char *sep)
+char	*ft_strjoin(const char *s1, const char *s2)
 {
-	int	c;
+	char	*res;
+	size_t	l;
+	size_t	c;
+	size_t	t;
 
+	l = ft_strlen(s1) + ft_strlen(s2) + 1;
+	res = malloc (l);
+	if (!res)
+		return (0);
 	c = 0;
-	while (*sep)
+	while (s1[c])
 	{
-		*s++ = *sep++;
+		res[c] = s1[c];
 		c++;
 	}
-	return (c);
-}
-
-char	*empty_string(void)
-{
-	char	*str;
-
-	str = malloc(1);
-	*str = 0;
-	return (str);
-}
-
-char	*ft_strjoin(int size, char **strs, char *sep)
-{
-	char	*str;
-	char	*start;
-
-	if (size <= 0)
-		return (empty_string());
-	str = malloc(arlen(strs, size) + (ft_strlen(sep) * (size - 1)) + 1);
-	start = str;
-	while (size > 0)
+	t = c;
+	c = 0;
+	while (s2[c])
 	{
-		while (**strs)
-		{
-			*str = **strs;
-			(*strs)++;
-			str++;
-		}
-		strs++;
-		size--;
-		if (size)
-			str += writesep(str, sep);
-		else
-			*str = 0;
+		res[t + c] = s2[c];
+		c++;
 	}
-	return (start);
+	res[l] = 0;
+	return (res);
 }
 /*
 int main()

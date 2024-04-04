@@ -57,7 +57,6 @@ char	*ft_itoa(int n)
 {
 	char	*a;
 	int		digit;
-	int		c;
 	long	num;
 
 	num = n;

@@ -24,7 +24,7 @@ void	*ft_calloc(size_t num, size_t size)
 	s = malloc(num * size);
 	if (!s)
 		return (0);
-	while (mem >= 0)
+	while (mem +1 > 0)
 		s[mem--] = 0;
 	return (s);
 }
