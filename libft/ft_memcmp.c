@@ -24,5 +24,11 @@ int	ft_memcmp(const void *ptr1, const void *ptr2, size_t num)
 	c = 0;
 	while (s1[c] == s2[c] && c < num)
 		c++;
-	return (s1[c] - s2[c]);
+	return (s1[c-1] - s2[c-1]);
 }
+/*
+void main()
+{
+printf ("%d\n",ft_memcmp("abcdefghij", "abcdefgxyz", 7));
+printf ("%d\n",ft_memcmp("abcdefg", "abcdefg", 7));
+}*/
