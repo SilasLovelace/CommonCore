@@ -25,7 +25,7 @@ int	countwords(const char *str, char charset)
 {
 	int	c;
 
-	if (!charset && !*str)
+	if (!charset && !(*str))
 		return (0);
 	else if (!charset)
 		return (1);
@@ -68,7 +68,7 @@ char	*cpystr(const char *str, char charset)
 		cpy[c] = str[c];
 		c++;
 	}
-	cpy[c] = 0;
+	cpy[c] = '\0';
 	return (cpy);
 }
 
@@ -83,7 +83,7 @@ char	**ft_split(const char *str, char charset)
 	arr = malloc((c + 1) * sizeof(char *));
 	if (!arr)
 		return (0);
-	arr[c] = 0;
+	arr[c] = NULL;
 	while (w < c)
 	{
 		while (*str && is_seperator(str, charset))
@@ -101,13 +101,16 @@ char	**ft_split(const char *str, char charset)
 /*
 int main (int argc, char **argv)
 {
-	printf("%d\n", argc);
-	printf("%d\n", countwords(argv[1], argv[2]));
-	char	**arr = ft_split(argv[1], argv[2]);
-	printf("%s\n", arr[0]);
-	printf("%s\n", arr[1]);
-	printf("%s\n", arr[2]);
-	//printf("%s\n", arr[3]);
-	//printf("%d\n", is_seperator(argv[1], argv[2]));
-	//printf("%d\n", count_seperators(argv[1], argv[2]));
-}*/
+	//printf("%d\n", argc);
+	printf("%d\n", countwords(argv[1], argv[2][0]));
+	char	**arr = ft_split(argv[1], argv[2][0]);
+
+	int i = 0;
+	while (arr[i])
+	{
+		printf("[%s]", arr[i]);
+		i++;
+	}
+	printf("[%s]\n", arr[i]);
+}
+*/

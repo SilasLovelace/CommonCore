@@ -18,13 +18,16 @@ void	*ft_calloc(size_t num, size_t size)
 	unsigned char	*s;
 	size_t			mem;
 
-	if (num == 0 || size == 0)
-		return (0);
 	mem = (num * size) - 1;
 	s = malloc(num * size);
 	if (!s)
 		return (0);
-	while (mem +1 > 0)
-		s[mem--] = 0;
+	if (num * size == 0)
+		return (s);
+	while (mem + 1 > 0)
+	{
+		s[mem] = 0;
+		mem--;
+	}
 	return (s);
 }

@@ -24,7 +24,7 @@ void	ft_putnbr_fd(int n, int fd)
 		write (fd, "-", 1);
 		num = -num;
 	}
-	if (num > 10)
+	if (num >= 10)
 	{
 		ft_putnbr_fd(num / 10, fd);
 	}
@@ -34,6 +34,6 @@ void	ft_putnbr_fd(int n, int fd)
 /*
 int main()
 {
-	ft_putnbr_fd(INT_MIN, 1);
+	ft_putnbr_fd(10, 1);
 }
 */

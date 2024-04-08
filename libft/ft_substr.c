@@ -16,10 +16,14 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
 	char	*dup;
 	size_t	c;
-
 	dup = malloc(len + 1);
 	if (!dup)
 		return (0);
+	if(start > ft_strlen(s) || len < 1)
+	{
+		ft_bzero(dup, len);
+		return (dup);	
+	}
 	c = 0;
 	while (s[start + c] && c < len)
 	{
