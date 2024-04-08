@@ -14,14 +14,14 @@
 #include <unistd.h>
 #include "libft.h"
 
-int	is_seperator(const char *str, char charset)
+static int	is_seperator(const char *str, char charset)
 {
 	if (charset == *str)
 		return (1);
 	return (0);
 }
 
-int	countwords(const char *str, char charset)
+static int	countwords(const char *str, char charset)
 {
 	int	c;
 
@@ -37,14 +37,14 @@ int	countwords(const char *str, char charset)
 		else
 		{
 			c++;
-			while (!is_seperator(str, charset))
+			while (!is_seperator(str, charset) && *str)
 				str++;
 		}
 	}
 	return (c);
 }
 
-char	*cpystr(const char *str, char charset)
+static char	*cpystr(const char *str, char charset)
 {
 	char	*cpy;
 	char	*start;
@@ -98,8 +98,9 @@ char	**ft_split(const char *str, char charset)
 	}
 	return (arr);
 }
-/*
-int main (int argc, char **argv)
+
+
+/* int main (int argc, char **argv)
 {
 	//printf("%d\n", argc);
 	printf("%d\n", countwords(argv[1], argv[2][0]));
@@ -112,5 +113,28 @@ int main (int argc, char **argv)
 		i++;
 	}
 	printf("[%s]\n", arr[i]);
+} */
+/* 
+void main(int argc, char **argv)
+{
+	//char	**arr = ft_split("xxxxxxxxhello!",'x');
+	char **arr =ft_split(argv[1], argv[2][0]);
+		int i = 0;
+	while (arr[i])
+	{
+		printf("[%s]", arr[i]);
+		i++;
+	}
 }
-*/
+ */
+/* void main(int argc, char **argv)
+{
+char **arr = ft_split("lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse", ' ');
+
+		int i = 0;
+	while (arr[i])
+	{
+		printf("[%s]", arr[i]);
+		i++;
+	}
+} */
