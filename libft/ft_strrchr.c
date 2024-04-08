@@ -18,11 +18,11 @@ char	*ft_strrchr(const char *str, int c)
 	found = 0;
 	while (*str)
 	{
-		if (*str == c)
+		if (*str == (char)c)
 			found = (char *)str;
 		str++;
 	}
-	if (*str == c)
+	if (*str == (char)c)
 		return ((char *)str);
 	return (found);
 }

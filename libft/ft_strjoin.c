@@ -12,7 +12,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include "libft.h"
-/*
+
 size_t	ft_strlen(const char *str)
 {
 	size_t	len;
@@ -25,7 +25,7 @@ size_t	ft_strlen(const char *str)
 	}
 	return (len);
 }
-*/
+
 char	*ft_strjoin(const char *s1, const char *s2)
 {
 	char	*res;
@@ -54,12 +54,9 @@ char	*ft_strjoin(const char *s1, const char *s2)
 	return (res);
 }
 
-
-/*
 int main()
 {
-	char *s[] = {"123", "123"};
-	char *x = "---";
-
-	printf("%s\n", ft_strjoin(s[0], x));
-}*/
+	printf("%s\n", ft_strjoin("abc", ""));
+	printf("%s\n", ft_strjoin("", ""));
+	//printf("%s", strjoin("abc", ""));
+}

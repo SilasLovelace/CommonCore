@@ -15,16 +15,20 @@ char	*ft_strchr(const char *str, int c)
 {
 	while (*str)
 	{
-		if (*str == c)
+		if (*str == (char)c)
 			return ((char *)str);
 		str++;
 	}
-	if (*str == c)
+	if (*str == (char)c)
 		return ((char *)str);
 	return (0);
 }
 /*
 int main()
-{
-	printf("%x", ft_strchr("teste", 's'));
-}*/
+{	
+	printf("%p\n",ft_strchr("teste",'e'));
+	printf("%p\n",strchr("teste",'e'));
+	printf("%p\n",ft_strchr("teste",'\0'));
+	printf("%p\n",strchr("teste",'\0'));
+}
+*/

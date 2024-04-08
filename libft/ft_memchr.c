@@ -20,9 +20,17 @@ void	*ft_memchr(const void *ptr, int value, size_t num)
 	scan = ptr;
 	while (c < num)
 	{
-		if (scan[c] == value)
-			return ((void *)ptr + c);
+		if (scan[c] == (unsigned char)value)
+			return ((void *)(scan + c));
 		c++;
 	}
 	return (0);
 }
+/*
+void main()
+{
+	int tab[7] = {-49, 49, 1, -1, 0, -2, 2};
+	printf("%p\n", (char *)memchr(tab, -1, 7));
+	printf("%p\n", (char *)ft_memchr(tab, -1, 7));
+}
+*/

@@ -19,7 +19,8 @@ int	ft_atoi(const char *str)
 
 	n = 0;
 	sign = 1;
-	while (*str == '\t' || *str == '\n' || *str == ' ' || *str == '\t' || *str == '\r' || *str == '\v')
+	while (*str == ' ' || *str == '\t' || *str == '\n'
+		|| *str == '\f' || *str == '\r' || *str == '\v')
 		str++;
 	if (*str == '+' || *str == '-')
 	{
@@ -37,9 +38,8 @@ int	ft_atoi(const char *str)
 /*
 int	main(void)
 {
-	printf("%d\n", ft_atoi("1234AS"));
-	printf("%d\n", ft_atoi("--1234	ASD"));
-	printf("%d\n", ft_atoi("     	\n+---+1234asd"));
+	printf("%d\n", atoi("\t\n\r\v\f  469 \n"));
+	printf("%d\n", ft_atoi("\t\n\r\v\f  469 \n"));
 	return (0);
 }
 */
