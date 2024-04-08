@@ -30,6 +30,7 @@ clean:
 
 fclean: clean
 	rm -f $(NAME)
+bonus:
 
 re: fclean all
 
