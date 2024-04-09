@@ -33,7 +33,7 @@ char	*reverse(char *s, size_t l)
 	return (start);
 }
 */
-int	digits(long n)
+static int	digits(long n)
 {
 	int	size;
 
