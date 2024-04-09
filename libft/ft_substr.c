@@ -19,18 +19,21 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	size_t	str_len;
 
 	str_len = ft_strlen(s);
-	if (start >= str_len || len < 1)
-		len = 0;
+	if (start >= str_len)
+		return (ft_strdup(""));
 	else if (str_len - start < len)
-		len = str_len;
+		len = str_len - start;
 	dup = malloc(len + 1);
 	if (!dup)
 		return (0);
 	c = 0;
-	while (s[start + c] && c < len)
+	if (len)
 	{
-		dup[c] = s[start + c];
-		c++;
+		while (s[start + c] && c < len)
+		{
+			dup[c] = s[start + c];
+			c++;
+		}
 	}
 	dup[c] = 0;
 	return (dup);
