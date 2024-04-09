@@ -11,17 +11,17 @@
 /* ************************************************************************** */
 #include "libft.h"
 
-int ft_lstsize(t_list *lst)
+int	ft_lstsize(t_list *lst)
 {
-    int c;
-    t_list  *current;
+	int		c;
+	t_list	*current;
 
-    c = 0;
-    current = lst;
-    while (current)
-    {
-        c++;
-        current = current->next;
-    }
-    return (c);
+	c = 0;
+	current = lst;
+	while (current)
+	{
+		c++;
+		current = current->next;
+	}
+	return (c);
 }

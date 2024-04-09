@@ -99,7 +99,6 @@ char	**ft_split(const char *str, char charset)
 	return (arr);
 }
 
-
 /* int main (int argc, char **argv)
 {
 	//printf("%d\n", argc);
@@ -129,7 +128,8 @@ void main(int argc, char **argv)
  */
 /* void main(int argc, char **argv)
 {
-char **arr = ft_split("lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse", ' ');
+char **arr = ft_split("lorem ipsum dolor sit amet,
+consectetur adipiscing elit. Sed non risus. Suspendisse", ' ');
 
 		int i = 0;
 	while (arr[i])
