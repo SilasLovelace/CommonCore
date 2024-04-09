@@ -11,9 +11,10 @@ SRCS = ft_isalpha.c ft_isdigit.c ft_isalnum.c ft_isascii.c \
        ft_itoa.c ft_strmapi.c ft_striteri.c \
        ft_putchar_fd.c ft_putstr_fd.c ft_putendl_fd.c \
        ft_putnbr_fd.c
+
 BON = 	ft_lstnew.c ft_lstadd_front.c ft_lstsize.c ft_lstlast.c \
-	ft_lstadd_back.c, ft_lstdelone.c, ft_lstclear.c, \
-	ft_lstiter.c, ft_lstmap.c 
+	ft_lstadd_back.c ft_lstdelone.c ft_lstclear.c \
+	ft_lstiter.c ft_lstmap.c 
 #SRCS = $(wildcard *.c)
        
 OBJS = $(SRCS:.c=.o)
@@ -29,7 +30,7 @@ $(NAME): $(OBJS)
 %.o: %.c libft.h
 	$(CC) $(CFLAGS) -c $< -o $@
 
-BONUS: $(BONUS_OBJS)
+bonus: $(BONUS_OBJS)
 	ar rcs $(NAME) $^
 
 clean:

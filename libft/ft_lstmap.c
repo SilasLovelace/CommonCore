@@ -12,28 +12,44 @@
 #include "libft.h"
 #include <stdlib.h>
 
-t_list *ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
+t_list  *ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
 {
     t_list  *cpy;
     t_list  *start;
-    t_list  *current;
-    t_list  *todel;
 
-    current = lst;
-    cpy = ft_lstnew(f(current->content));
+    if (lst == NULL)
+        return (NULL);
+    cpy = ft_lstnew(f(lst->content));
     if (cpy == NULL)
         return (NULL);
     start = cpy;
-    while (current->next)
+    while (lst->next)
     {
-        cpy->next = ft_lstnew(f(current->next->content));
+        cpy->next = ft_lstnew(f(lst->next->content));
         cpy = cpy->next;
         if (cpy == NULL)
-            return (NULL);
-        todel = current;
-        current = current -> next;
-        del(todel->content);
-        free(todel);
+            ft_lstclear(&start, del);
+        lst = lst -> next;
     }
     return (start);
 }
+
+/* t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
+{
+	t_list	*new_lst;
+	t_list	*current;
+	
+	new_lst = NULL;
+	while (lst && f && del)
+	{
+		current = ft_lstnew(f(lst->content));
+		if (current == NULL)
+			ft_lstclear(&new_lst, del);
+		else
+		{
+			ft_lstadd_back(&new_lst, current);
+			lst = lst->next;
+		}
+	}
+	return (new_lst);
+} */
