@@ -12,7 +12,7 @@
 #include "libft.h"
 #include <stdlib.h>
 
-int	isset(const char *s, char const *set)
+static int	isset(const char *s, char const *set)
 {
 	while (*set)
 	{
@@ -23,7 +23,7 @@ int	isset(const char *s, char const *set)
 	return (0);
 }
 
-int	issetend(const char *s, char const *set)
+static int	issetend(const char *s, char const *set)
 {
 	while (*s)
 	{
