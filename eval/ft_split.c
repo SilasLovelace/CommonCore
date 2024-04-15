@@ -91,6 +91,15 @@ char	**ft_split(const char *str, char charset)
 		if (*str)
 		{
 			arr[w] = cpystr(str, charset);
+			if (arr[w] == NULL)
+			{
+				while (w--  >= 0)
+				{
+					free(arr[w]);
+				}
+				free(arr);
+				break;
+			}
 			w++;
 			while (*str && !is_seperator(str, charset))
 				str++;
