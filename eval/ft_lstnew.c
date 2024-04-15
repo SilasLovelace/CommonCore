@@ -1,13 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test.c                                             :+:      :+:    :+:   */
+/*   ft_lstnew.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sopperma <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/15 11:31:21 by sopperma          #+#    #+#             */
-/*   Updated: 2024/04/15 11:31:23 by sopperma         ###   ########.fr       */
+/*   Created: 2024/04/09 10:38:23 by sopperma          #+#    #+#             */
+/*   Updated: 2024/04/09 10:38:24 by sopperma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+#include "libft.h"
+#include <stdlib.h>
 
+t_list	*ft_lstnew(void *content)
+{
+	t_list	*new;
 
+	new = (t_list *)malloc(sizeof(t_list));
+	if (new == NULL)
+		return (NULL);
+	new->content = content;
+	new->next = 0;
+	return (new);
+}
