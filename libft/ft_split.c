@@ -62,7 +62,7 @@ static char	*cpystr(const char *str, char charset)
 	str = start;
 	cpy = malloc ((strlen + 1) * sizeof(char));
 	if (!cpy)
-		return (0);
+		return (NULL);
 	while (c < strlen)
 	{
 		cpy[c] = str[c];
@@ -70,6 +70,17 @@ static char	*cpystr(const char *str, char charset)
 	}
 	cpy[c] = '\0';
 	return (cpy);
+}
+
+static void	ft_free(char **arr, size_t w)
+{
+	while (w >= 0)
+	{
+		free(arr[w]);
+		w--;
+	}
+	free(arr);
+	return ;
 }
 
 char	**ft_split(const char *str, char charset)
@@ -88,17 +99,18 @@ char	**ft_split(const char *str, char charset)
 	{
 		while (*str && is_seperator(str, charset))
 			str++;
-		if (*str)
+		arr[w] = cpystr(str, charset);
+		if (arr[w] == NULL)
 		{
-			arr[w] = cpystr(str, charset);
-			w++;
-			while (*str && !is_seperator(str, charset))
-				str++;
+			ft_free(arr, (w - 1));
+			return (NULL);
 		}
+		w++;
+		while (*str && !is_seperator(str, charset))
+			str++;
 	}
 	return (arr);
 }
-
 /* int main (int argc, char **argv)
 {
 	//printf("%d\n", argc);
@@ -126,9 +138,10 @@ void main(int argc, char **argv)
 	}
 }
  */
-/* void main(int argc, char **argv)
+
+/*void main(int argc, char **argv)
 {
-char **arr = ft_split("lorem ipsum dolor sit amet,
+char **arr = ft_split("lorem ipsum dolor sit amet, \
 consectetur adipiscing elit. Sed non risus. Suspendisse", ' ');
 
 		int i = 0;
@@ -137,4 +150,4 @@ consectetur adipiscing elit. Sed non risus. Suspendisse", ' ');
 		printf("[%s]", arr[i]);
 		i++;
 	}
-} */
+}*/
