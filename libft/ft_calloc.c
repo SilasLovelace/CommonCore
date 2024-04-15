@@ -10,7 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 #include <stdlib.h>
+#include <stdio.h>
 #include <limits.h>
+#include <stdint.h>
 #include "libft.h"
 
 void	*ft_calloc(size_t num, size_t size)
@@ -18,7 +20,7 @@ void	*ft_calloc(size_t num, size_t size)
 	unsigned char	*s;
 	size_t			mem;
 
-	if (num == 0 || size == 0 || SIZE_MAX / num < size)
+	if (SIZE_MAX / num < size)
 		return (NULL);
 	mem = (num * size) - 1;
 	s = malloc(num * size);
@@ -31,3 +33,11 @@ void	*ft_calloc(size_t num, size_t size)
 	}
 	return ((void *)s);
 }
+
+/* void main()
+{ 
+	void *str = ft_calloc(0, 0);
+	void *s = calloc(0, 0);
+	printf("%p", str);
+	printf("%p", s);
+} */

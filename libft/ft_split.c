@@ -74,7 +74,7 @@ static char	*cpystr(const char *str, char charset)
 
 static void	ft_free(char **arr, size_t w)
 {
-	while (w >= 0)
+	while (w + 1 > 0)
 	{
 		free(arr[w]);
 		w--;
