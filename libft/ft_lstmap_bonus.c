@@ -16,19 +16,26 @@ t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
 {
 	t_list	*cpy;
 	t_list	*start;
+	void	*var;
 
-	if (lst == NULL)
+	if (!lst || !f || !del)
 		return (NULL);
-	cpy = ft_lstnew(f(lst->content));
+	var = f(lst->content);
+	cpy = ft_lstnew(var);
 	if (cpy == NULL)
-		return (NULL);
+		return (free(var), NULL);
 	start = cpy;
 	while (lst->next)
 	{
-		cpy->next = ft_lstnew(f(lst->next->content));
+		var = f(lst->next->content);
+		cpy->next = ft_lstnew(var);
 		cpy = cpy->next;
 		if (cpy == NULL)
+		{
+			free(var);
 			ft_lstclear(&start, del);
+			break ;
+		}
 		lst = lst -> next;
 	}
 	return (start);
