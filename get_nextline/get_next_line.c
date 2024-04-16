@@ -10,10 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
-#include <fcntl.h>
-
-char* read_line(int fd)
+char* get_next_line(int fd)
 {
 	static char	buffer[BUFFER_SIZE];
 	ssize_t	bytes_read;
@@ -23,15 +20,11 @@ char* read_line(int fd)
 	i = 0;
 	delim = '\n';
 
+	if (((bytes_read = read(fd, &buffer[i], 1)) > 0) && (buffer[i] == delim))
+		return ("\n");
 	while (((bytes_read = read(fd, &buffer[i], 1)) > 0) && (buffer[i] != delim) && (i < BUFFER_SIZE - 1))
-	{
 		i++;
-	}
-	if (bytes_read < 0)
-	{
-        //perror("Error in reading from file descriptor\n");
-        return NULL;
-	}
-	buffer[i] = '\0';  // Null-terminate the string
+	if (bytes_read <= 0 && i == 0)
+        	return NULL;
 	return buffer;
 }

@@ -8,7 +8,7 @@
 #define BUFFER_SIZE 1024
 #endif
 
-char* read_line(int fd)
+char* get_next_line(int fd)
 {
 	static char	buffer[BUFFER_SIZE];
 	ssize_t	bytes_read;
@@ -18,41 +18,23 @@ char* read_line(int fd)
 	i = 0;
 	delim = '\n';
 
+	if (((bytes_read = read(fd, &buffer[i], 1)) > 0) && (buffer[i] == delim))
+		return ("\n");
 	while (((bytes_read = read(fd, &buffer[i], 1)) > 0) && (buffer[i] != delim) && (i < BUFFER_SIZE - 1))
-	{
 		i++;
-	}
-	if (bytes_read < 0 && i == 0)
-	{
+	if (bytes_read <= 0 && i == 0)
         	return NULL;
-	}
-	if (bytes_read == 0)
-	{
-		printf("END");
-        	return NULL;
-	}
-
 	return buffer;
 }
 
 int main ()
 {
 	int fd = open("test.c", O_RDONLY);
-	int i = 0;
+	int i = 0, x = 0;
 	char *line;
-	
-	printf("%d\n", BUFFER_SIZE);
 
-	while (i++ < 20)
-	{
-		line = read_line(fd);
-		
-		if (*line == 0)
-		{
-			printf("END");
-			break;
-		}
+	printf("%d\n", BUFFER_SIZE);
+	while ((line = get_next_line(fd)) != NULL)
 		printf("%s", line);
-	}
 	close(fd);
 }
