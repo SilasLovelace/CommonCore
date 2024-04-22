@@ -13,8 +13,6 @@
 
 char	*ft_strchr(const char *str, int c)
 {
-	if(!str)
-		return (NULL);
 	while (*str)
 	{
 		if (*str == (char)c)
