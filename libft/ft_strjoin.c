@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 #include "libft.h"
 
-size_t	joinlen(const char *s1, const char *s2)
+static size_t	joinlen(const char *s1, const char *s2)
 {
 	size_t	len;
 
@@ -33,7 +33,7 @@ char	*ft_strjoin(const char *s1, const char *s2)
 		return (NULL);
 	res = malloc (joinlen(s1, s2) + 1);
 	if (!res)
-		return (0);
+		return (NULL);
 	c = 0;
 	t = 0;
 	while (s1 && s1[c])

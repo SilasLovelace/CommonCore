@@ -15,7 +15,9 @@ char	*ft_strrchr(const char *str, int c)
 {
 	char	*found;
 
-	found = 0;
+	if(!str)
+		return (NULL);
+	found = NULL;
 	while (*str)
 	{
 		if (*str == (char)c)

@@ -24,7 +24,7 @@ void	*ft_memchr(const void *ptr, int value, size_t num)
 			return ((void *)(scan + c));
 		c++;
 	}
-	return (0);
+	return (NULL);
 }
 /*
 void main()

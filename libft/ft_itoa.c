@@ -41,7 +41,7 @@ char	*ft_itoa(int n)
 	digit = digits(n);
 	a = malloc(digit + 1);
 	if (!a)
-		return (0);
+		return (NULL);
 	a[digit] = 0;
 	if (num < 0)
 	{

@@ -37,7 +37,7 @@ char	*ft_strnstr(const char *str1, const char *str2, size_t len)
 		len--;
 		str1++;
 	}
-	return (0);
+	return (NULL);
 }
 /*
 #include <stdio.h>
