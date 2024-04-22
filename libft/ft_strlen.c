@@ -9,9 +9,6 @@
 /*   Updated: 2024/02/21 18:25:22 by sopperma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include <limits.h>
-#include <stdio.h>
-#include <stddef.h>
 #include "libft.h"
 
 size_t	ft_strlen(const char *str)
@@ -19,7 +16,7 @@ size_t	ft_strlen(const char *str)
 	size_t	len;
 
 	len = 0;
-	while (*str && len <= 2147483647)
+	while (*str)
 	{
 		len++;
 		str++;
@@ -27,6 +24,9 @@ size_t	ft_strlen(const char *str)
 	return (len);
 }
 /*
+#include <limits.h>
+#include <stdio.h>
+#include <stddef.h>
 int main() {
     printf("Maximum value of int: %u\n", UINT_MAX);
     printf("Maximum value of int: %d\n", INT_MAX);

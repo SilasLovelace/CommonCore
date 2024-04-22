@@ -10,8 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 #include "libft.h"
-#include <stdio.h>
-#include <string.h>
 
 char	*ft_strnstr(const char *str1, const char *str2, size_t len)
 {
@@ -19,6 +17,8 @@ char	*ft_strnstr(const char *str1, const char *str2, size_t len)
 	char	*p2;
 	size_t	l;
 
+	if (!str1 && str2 && !len)
+		return (NULL);
 	if (*str2 == 0)
 		return ((char *)str1);
 	while (*str1 && len > 0)
@@ -40,6 +40,8 @@ char	*ft_strnstr(const char *str1, const char *str2, size_t len)
 	return (0);
 }
 /*
+#include <stdio.h>
+#include <string.h>
 int main(void) {
 
 	char one[] = "111222333";

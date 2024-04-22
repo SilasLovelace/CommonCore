@@ -9,7 +9,6 @@
 /*   Updated: 2024/04/03 14:07:04 by sopperma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include <stdlib.h>
 #include "libft.h"
 
 char	*ft_substr(char const *s, unsigned int start, size_t len)
@@ -18,6 +17,8 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	size_t	c;
 	size_t	str_len;
 
+	if (!s)
+		return (NULL);
 	str_len = ft_strlen(s);
 	if (start >= str_len)
 		return (ft_strdup(""));

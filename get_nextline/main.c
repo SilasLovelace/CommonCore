@@ -3,29 +3,54 @@
 #include <stdio.h>
 #include <string.h>
 #include <stddef.h>
+#include <stdint.h>
+#include <limits.h>
+#include <stdlib.h>		
 
 #ifndef BUFFER_SIZE
 #define BUFFER_SIZE 1024
 #endif
 
-char* get_next_line(int fd)
+//expects a null terminated buffer; Checks for deliminator returns malloced front (includung deliminator) or back both null terminated;
+char *get_front(char *buffer, char delim, char front_back)
 {
-	static char	buffer[BUFFER_SIZE];
-	ssize_t	bytes_read;
-	size_t	i;
-	char	delim;
-	
-	i = 0;
-	delim = '\n';
+	char	*res;
+	char	*delim_pos;
 
-	if (((bytes_read = read(fd, &buffer[i], 1)) > 0) && (buffer[i] == delim))
-		return ("\n");
-	while (((bytes_read = read(fd, &buffer[i], 1)) > 0) && (buffer[i] != delim) && (i < BUFFER_SIZE - 1))
-		i++;
-	if (bytes_read <= 0 && i == 0)
-        	return NULL;
-	return buffer;
+	if (!buffer || !*buffer) return NULL;
+	delim_pos = ft_strchr(buffer, delim);
+	if (!delim_pos) return ft_strdup(buffer);
+	if (front_back == 0)
+	{
+		res = calloc((delim_pos - buffer + 2), sizeof(char));
+		if(!res) return NULL;
+		res = ft_memcpy(res, buffer ,delim_pos - buffer + 1);
+		return (res);
+	}
+	delim_pos++;
+	res = calloc(ft_strlen(delim_pos) + 1, sizeof(char));
+	if(!res) return NULL;
+	res = ft_memcpy(res, delim_pos ,ft_strlen(delim_pos));
+		return (res);
 }
+
+
+
+char	*get_next_line(int fd)
+{
+	static char	*buffer;
+	char		*line;
+
+	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0)
+		return (NULL);
+	buffer = read_file(fd, buffer);
+	if (!buffer)
+		return (NULL);
+	line = ft_line(buffer);
+	buffer = ft_next(buffer);
+	return (line);
+}
+
 
 int main ()
 {

@@ -9,40 +9,8 @@
 /*   Updated: 2024/02/20 15:57:09 by sopperma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-#include <stdio.h>
-#include <string.h>
 #include "libft.h"
-/*
-int	ft_strncmp(const char *str1, const char *str2, size_t num)
-{
-	const char *s1;
-	const char *s2;
-	s1 = str1;
-	s2 = str2;
-	
-	while (*str1 && *str2 && *str1 == *str2 && num > 0)
-	{
-		str1++;
-		str2++;
-		num--;
-		printf("%d\n", *str1);
-		printf("%d\n", *str2);
-	}
-	if (num == 0)
-		return (0);
-	else
-		return (*str1 - *str2);
-}
 
-void main()
-{
-	printf("%d\n", strncmp("test\200", "test\0", 6));
-	printf("%d\n", ft_strncmp("test\200", "test\0", 6));
-	printf("%d\n", strncmp("abcdef", "abc\375xx", 5));
-	printf("%d\n", ft_strncmp("abcdef", "abc\375xx", 5));
-}
-*/
 int	ft_strncmp(const char *str1, const char *str2, size_t num)
 {
 	const unsigned char	*s1;
@@ -62,6 +30,8 @@ int	ft_strncmp(const char *str1, const char *str2, size_t num)
 		return (*s1 - *s2);
 }
 /*
+#include <stdio.h>
+#include <string.h>
 void main()
 {
 	printf("%d\n", strncmp("test\200", "test\0", 6));

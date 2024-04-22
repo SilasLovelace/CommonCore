@@ -9,9 +9,6 @@
 /*   Updated: 2024/03/04 15:18:11 by sopperma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include <stdlib.h>
-#include <stdio.h>
-#include <unistd.h>
 #include "libft.h"
 
 static int	is_seperator(const char *str, char charset)
@@ -89,6 +86,8 @@ char	**ft_split(const char *str, char charset)
 	int		c;
 	int		w;
 
+	if (!str)
+		return (NULL);
 	w = 0;
 	c = countwords(str, charset);
 	arr = malloc((c + 1) * sizeof(char *));
@@ -108,7 +107,10 @@ char	**ft_split(const char *str, char charset)
 	}
 	return (arr);
 }
-/* int main (int argc, char **argv)
+/*
+#include <stdio.h>
+#include <unistd.h>
+ int main (int argc, char **argv)
 {
 	//printf("%d\n", argc);
 	printf("%d\n", countwords(argv[1], argv[2][0]));

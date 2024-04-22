@@ -9,10 +9,6 @@
 /*   Updated: 2024/04/03 12:41:17 by sopperma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include <stdlib.h>
-#include <stdio.h>
-#include <limits.h>
-#include <stdint.h>
 #include "libft.h"
 
 void	*ft_calloc(size_t num, size_t size)
@@ -20,7 +16,7 @@ void	*ft_calloc(size_t num, size_t size)
 	unsigned char	*s;
 	size_t			mem;
 
-	if (SIZE_MAX / num < size)
+	if (num && SIZE_MAX / num < size)
 		return (NULL);
 	mem = (num * size) - 1;
 	s = malloc(num * size);
@@ -35,6 +31,8 @@ void	*ft_calloc(size_t num, size_t size)
 }
 
 /* void main()
+#include <stdio.h>
+
 { 
 	void *str = ft_calloc(0, 0);
 	void *s = calloc(0, 0);

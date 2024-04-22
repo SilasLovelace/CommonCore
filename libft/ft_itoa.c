@@ -9,30 +9,8 @@
 /*   Updated: 2024/04/03 14:46:33 by sopperma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include <stdlib.h>
-#include <stdio.h>
-#include <limits.h>
 #include "libft.h"
-/*
-char	*reverse(char *s, size_t l)
-{
-	char	*end;
-	char	a;
-	char	*start;
 
-	start = s;
-	end = s + l - 1;
-	while (s < end)
-	{
-		a = *s;
-		*s = *end;
-		*end = a;
-		s++;
-		end--;
-	}
-	return (start);
-}
-*/
 static int	digits(long n)
 {
 	int	size;
@@ -81,6 +59,8 @@ char	*ft_itoa(int n)
 	return (a);
 }
 /*
+#include <stdio.h>
+#include <limits.h>
 int main ()
 {
 	char s[] = "abc";

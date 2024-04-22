@@ -9,9 +9,6 @@
 /*   Updated: 2024/02/20 20:00:17 by sopperma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-#include <stdio.h>
-#include <string.h>
 #include "libft.h"
 
 size_t	ft_strlcat(char *dest, const char *src, size_t size)
@@ -21,6 +18,8 @@ size_t	ft_strlcat(char *dest, const char *src, size_t size)
 	size_t	s;
 	size_t	d;
 
+	if (!dest && !size && src)
+		return (ft_strlen(src));
 	dlen = ft_strlen(dest);
 	slen = ft_strlen(src);
 	s = 0;
@@ -39,3 +38,13 @@ size_t	ft_strlcat(char *dest, const char *src, size_t size)
 	dest[d] = 0;
 	return (dlen + slen);
 }
+
+/* #include <stdio.h>
+#include <string.h>
+#include <bsd/string.h>
+int main ()
+{
+	char *s= NULL;
+printf("%zu\n", ft_strlcat(s, "aqweqwqwe", 0));
+printf("%zu\n", strlcat(s, "aqweqwqwe", 0));
+} */

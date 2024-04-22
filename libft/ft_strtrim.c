@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 #include "libft.h"
-#include <stdlib.h>
 
 static int	isset(const char *s, char const *set)
 {
@@ -41,16 +40,15 @@ char	*ft_strtrim(char const *s1, char const *set)
 	size_t	l;
 	size_t	c;
 
+	if (!s1 || !set)
+		return (NULL);
 	c = 0;
 	l = 0;
 	while (isset(s1, set))
 		s1++;
 	start = (char *)s1;
-	while (*s1 && !(issetend(s1, set)))
-	{
-		s1++;
+	while (*s1 && !(issetend(s1++, set)))
 		l++;
-	}
 	dup = malloc(l + 1);
 	if (!dup)
 		return (0);

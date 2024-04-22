@@ -9,7 +9,6 @@
 /*   Updated: 2024/04/03 12:52:52 by sopperma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include <stdlib.h>
 #include "libft.h"
 
 char	*ft_strdup(const char *str)

@@ -9,8 +9,6 @@
 /*   Updated: 2024/04/03 19:10:20 by sopperma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include <unistd.h>
-#include <limits.h>
 #include "libft.h"
 
 void	ft_putnbr_fd(int n, int fd)
@@ -32,6 +30,7 @@ void	ft_putnbr_fd(int n, int fd)
 	write (fd, &c, 1);
 }
 /*
+#include <limits.h>
 int main()
 {
 	ft_putnbr_fd(10, 1);

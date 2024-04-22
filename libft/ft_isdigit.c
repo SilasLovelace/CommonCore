@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 #include "libft.h"
-//#include <stdio.h>
 
 int	ft_isdigit(int c)
 {
@@ -21,6 +20,7 @@ int	ft_isdigit(int c)
 }
 
 /*
+#include <stdio.h>
 void main(){
 
  char str1[] = "123";

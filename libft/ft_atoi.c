@@ -10,13 +10,14 @@
 /*                                                                            */
 /* ************************************************************************** */
 #include "libft.h"
-#include <unistd.h>
 
 int	ft_atoi(const char *str)
 {
 	int		n;
 	int		sign;
+	long	over;
 
+	over = 0;
 	n = 0;
 	sign = 1;
 	while (*str == ' ' || *str == '\t' || *str == '\n'
@@ -30,16 +31,20 @@ int	ft_atoi(const char *str)
 	}
 	while (*str >= '0' && *str <= '9')
 	{
+		if (over != (over * 10 + *str - '0') / 10)
+			return ((sign >= 0) * -1);
+		over = over * 10 + *str - '0';
 		n = n * 10 + *str - '0';
 		str++;
 	}
 	return (n * sign);
 }
 /*
+#include <unistd.h>
 int	main(void)
 {
-	printf("%d\n", atoi("\t\n\r\v\f  469 \n"));
-	printf("%d\n", ft_atoi("\t\n\r\v\f  469 \n"));
+	printf("%d\n", atoi("92233720368547759"));
+	printf("%d\n", ft_atoi("92233720368547759"));
 	return (0);
 }
 */
