@@ -102,7 +102,7 @@ char	*get_buffer(int fd, char *buffer)
 
 	while (!ft_strchr(buffer, '\n'))
 	{
-		scan = calloc(BUFFER_SIZE + 1, 1);
+		scan = ft_calloc(BUFFER_SIZE + 1, 1);
 		if (!scan)
 			return (freeif(&buffer), NULL);
 		bytes_read = read(fd, scan, BUFFER_SIZE);
