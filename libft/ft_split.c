@@ -92,7 +92,7 @@ char	**ft_split(const char *str, char charset)
 	c = countwords(str, charset);
 	arr = malloc((c + 1) * sizeof(char *));
 	if (!arr)
-		return (0);
+		return (NULL);
 	arr[c] = NULL;
 	while (w < c)
 	{
