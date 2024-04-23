@@ -141,7 +141,7 @@ char	*get_next_line(int fd)
 	return (line);
 }
 
-int main ()
+/* int main ()
 {
 	// int fd = open("read_error.txt", O_RDONLY);
 	//int fd = open("giant_line.txt", O_RDONLY);
@@ -165,4 +165,4 @@ int main ()
 	// }
 	// 	printf("%s", line); 
 	// close(fd);
-}
+} */

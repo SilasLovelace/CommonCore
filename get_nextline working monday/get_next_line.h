@@ -22,10 +22,9 @@
 # include <stdlib.h>		
 
 char	*get_next_line(int fd);
-
 char	*ft_strjoin(char const *s1, char const *s2);
-char	*ft_strchr(const char *string, int searchedChar );
-void    freeif(char **p);
+char	*ft_strchr(const char *string, int searchedChar);
 void	*ft_calloc(size_t elementCount, size_t elementSize);
 size_t	ft_strlen(const char *theString);
+void	freeif(char **p);
 #endif
