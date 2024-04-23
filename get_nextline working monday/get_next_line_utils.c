@@ -11,13 +11,17 @@
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+void freeif(char *p)
+{
+	
+}
 
 size_t	ft_strlen(const char *str)
 {
 	size_t	len;
 
 	len = 0;
-    if(!str)
+	if (!str)
 		return (0);
 	while (*str)
 	{

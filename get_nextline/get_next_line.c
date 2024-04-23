@@ -11,7 +11,7 @@
 /* ************************************************************************** */
  #include "get_next_line.h"
 
-char	*free_join(char *temp, char *buffer, int bytes_read)
+char	*free_join(char *scan, char *buffer, int bytes_read)
 {
 	char	*old;
 
@@ -20,16 +20,21 @@ char	*free_join(char *temp, char *buffer, int bytes_read)
     else if (bytes_read == -1)
     {
         free(buffer);
-        free(temp);
+        free(scan);
         return (NULL);
     }
-    old = temp;
-    temp = ft_strjoin(old, buffer);
-    free(old);
-    free(buffer);
-    if (!temp)
-        return (NULL);
-	return (temp);
+	else
+	{
+		old = scan;
+		scan = ft_strjoin(old, buffer);
+		free(old);
+		free(buffer);		
+	}
+	if (!scan)
+	{
+		return (NULL);
+	}	
+	return (scan);
 }
 
 //trims the first part of a processed buffer
@@ -89,7 +94,6 @@ char *get_buffer(int fd, char *buffer)
 {
     char *scan;
     size_t bytes_read;
-	char *old;
 
     while (!ft_strchr(buffer, '\n'))
     {
@@ -97,6 +101,11 @@ char *get_buffer(int fd, char *buffer)
         if (!scan)
             return (NULL);
         bytes_read = read(fd, scan, BUFFER_SIZE);
+		if (bytes_read == 0)
+		{
+            free(scan);
+            break;
+        }
         buffer = free_join(buffer, scan, bytes_read);
 		if (!buffer)
 			return (NULL);
@@ -114,7 +123,8 @@ char	*get_next_line(int fd)
 	static char	*buffer;
 	char		*line;
 
-	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0)
+	//if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0)
+	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
 	buffer = get_buffer(fd, buffer);
 	if (!buffer)
