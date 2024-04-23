@@ -104,7 +104,7 @@ char	*get_buffer(int fd, char *buffer)
 	{
 		scan = calloc(BUFFER_SIZE + 1, 1);
 		if (!scan)
-			return (NULL);
+			return (freeif(&buffer), NULL);
 		bytes_read = read(fd, scan, BUFFER_SIZE);
 		if (bytes_read == 0)
 		{
