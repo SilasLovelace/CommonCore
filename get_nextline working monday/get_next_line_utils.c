@@ -9,11 +9,15 @@
 /*   Updated: 2024/04/15 11:14:57 by sopperma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 #include "get_next_line.h"
-void freeif(char *p)
+
+void	freeif(char **p)
 {
-	
+	if (p != NULL && *p != NULL)
+	{
+		free(*p);
+		*p = NULL;
+	}
 }
 
 size_t	ft_strlen(const char *str)

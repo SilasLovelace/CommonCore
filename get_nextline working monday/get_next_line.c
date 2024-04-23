@@ -12,7 +12,7 @@
 #include "get_next_line.h"
 
 #ifndef BUFFER_SIZE
-# define BUFFER_SIZE 10
+# define BUFFER_SIZE 1
 #endif
 
 char	*free_join(char *scan, char *buffer, int bytes_read)
@@ -21,10 +21,10 @@ char	*free_join(char *scan, char *buffer, int bytes_read)
 
 	if (bytes_read <= 0)
 	{
-		free(buffer);
+		freeif(&buffer);
 		if (bytes_read == -1)
 		{
-			free(scan);
+			freeif(&scan);
 			return (NULL);
 		}
 	}
@@ -32,8 +32,8 @@ char	*free_join(char *scan, char *buffer, int bytes_read)
 	{
 		old = scan;
 		scan = ft_strjoin(old, buffer);
-		free(old);
-		free(buffer);
+		freeif(&old);
+		freeif(&buffer);
 	}
 	if (!scan)
 		return (NULL);
@@ -55,7 +55,7 @@ char	*trim_buffer(char *buffer)
 		i++;
 	if (!buffer[i])
 	{
-		free(buffer);
+		freeif(&buffer);
 		return (NULL);
 	}
 	new = ft_calloc((ft_strlen(buffer) - i + 1), sizeof(char));
@@ -65,7 +65,7 @@ char	*trim_buffer(char *buffer)
 	j = 0;
 	while (buffer[i])
 		new[j++] = buffer[i++];
-	free(buffer);
+	freeif(&buffer);
 	return (new);
 }
 
@@ -108,7 +108,7 @@ char	*get_buffer(int fd, char *buffer)
 		bytes_read = read(fd, scan, BUFFER_SIZE);
 		if (bytes_read == 0)
 		{
-			free(scan);
+			freeif(&scan);
 			break ;
 		}
 		buffer = free_join(buffer, scan, bytes_read);
@@ -137,23 +137,32 @@ char	*get_next_line(int fd)
 	if (line)
 		buffer = trim_buffer(buffer);
 	else
-		free(buffer);
+		freeif(&buffer);
 	return (line);
 }
 
-/* int main ()
+int main ()
 {
-	//int fd = open("read_error.txt", O_RDONLY);
-	int fd = open("giant_line.txt", O_RDONLY);
+	// int fd = open("read_error.txt", O_RDONLY);
+	//int fd = open("giant_line.txt", O_RDONLY);
 	//int fd = open("giant_line_nl.txt", O_RDONLY);
+	int fd = open("1char.txt", O_RDONLY);
 	char *line;
 
-	printf("%d\n", BUFFER_SIZE);
-	while ((line = get_next_line(fd)) != NULL)
-	{
-		printf("%s", line); 
-		free(line);
-	}
-		printf("%s", line); 
+	line = get_next_line(fd);
+	printf("1. >> %s", line);
 	close(fd);
-} */
+	free(line);
+	line = get_next_line(fd);
+	printf("2. >> %s", line);
+	line = get_next_line(fd);
+	printf("2. >> %s", line);
+
+	// while ((line = get_next_line(fd)) != NULL)
+	// {
+	// 	printf("%s", line); 
+	// 	free(line);
+	// }
+	// 	printf("%s", line); 
+	// close(fd);
+}
