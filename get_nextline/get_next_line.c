@@ -75,15 +75,19 @@ char	*get_line(char *buffer)
 	if (!buffer || !*buffer)
 		return (NULL);
 	i = 0;
-	while(*buffer && buffer[i] != '\n')
+	while(*buffer)
+	{
 		i++;
-	line = ft_calloc(i + 2, 1);
+		if (buffer[i] == '\n')
+			break ;
+	}
+	line = ft_calloc(i + 1, 1);
 	if (!line)
 		return (NULL);
-	while (i >= 0)
+	while (--i >= 0)
 	{
 		line[i] = buffer[i];
-		i--;
+		//i--;
 	}
 	return (line);
 }
