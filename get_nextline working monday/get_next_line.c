@@ -60,7 +60,7 @@ char	*trim_buffer(char *buffer)
 	}
 	new = ft_calloc((ft_strlen(buffer) - i + 1), sizeof(char));
 	if (!new)
-		return (NULL);
+		return (freeif(&buffer), NULL);
 	i++;
 	j = 0;
 	while (buffer[i])
@@ -79,15 +79,17 @@ char	*get_lin(char *buffer)
 	if (!buffer || !*buffer)
 		return (NULL);
 	i = 0;
-	while (buffer && buffer[i] != '\n' && buffer[i] != '\0')
-		i++;
-	line = ft_calloc(i + 2, 1);
+	while (buffer && buffer[i] != '\0')
+	{
+		if (buffer[i++] == '\n')
+			break;
+	}
+	line = ft_calloc(i + 1, 1);
 	if (!line)
 		return (NULL);
-	while (i >= 0)
+	while (--i >= 0)
 	{
 		line[i] = buffer[i];
-		i--;
 	}
 	return (line);
 }
