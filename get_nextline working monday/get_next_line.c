@@ -82,7 +82,7 @@ char	*get_lin(char *buffer)
 	while (buffer && buffer[i] != '\0')
 	{
 		if (buffer[i++] == '\n')
-			break;
+			break ;
 	}
 	line = ft_calloc(i + 1, 1);
 	if (!line)
