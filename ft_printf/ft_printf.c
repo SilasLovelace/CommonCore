@@ -24,9 +24,14 @@ void handle_spec(const char	*p, va_list	args)
 		ft_putnbr_fd(va_arg(args, int), 1);
 	else if (*p == 'i')
 		ft_putnbr_fd(va_arg(args, int), 1);
-	//else if (*p == 'u')
-	//else if (*p == 'x')
-	//else if (*p == 'X')
+	else if (*p == 'p')
+		ft_putnbr_base(va_arg(args, int*), "0123456789ABCDEF", 1);
+	else if (*p == 'x')
+		ft_putnbr_base(va_arg(args, int), "0123456789abcdef", 0);
+	else if (*p == 'X')
+		ft_putnbr_base(va_arg(args, int), "0123456789ABCDEF", 0);
+	else if (*p == 'u')
+		ft_putunbr_fd(va_arg(args, int), 1);
 	else if (*p == '%')
 		ft_putchar_fd('%', 1);
 }
@@ -45,6 +50,7 @@ int	ft_printf(const char *s, ...)
 		if (*p == '%')
 		{
 			p++;
+			//if (ft_strchr("csidxXup%", *(p)))
 			handle_spec(p++, args);
 		}
 		else 
@@ -60,6 +66,8 @@ int main ()
 {
 	char* t = "hello";
 	int i = INT_MIN;
-	ft_printf("test %s %c %i %d %%", t, t[0], i, i);
+	unsigned int u = UINT_MAX;
+	ft_printf("%d\n", 	ft_printf	("ft %s %c %i %d %x %X %p %u %%\n", t, t[0], i, i, 123123, 123123, t, u));
+	printf("%d\n",		printf		("pf %s %c %i %d %x %X %p %u %%\n", t, t[0], i, i, 123123, 123123, t, u));
 	return (0);
 }
