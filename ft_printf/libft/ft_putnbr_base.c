@@ -61,8 +61,18 @@ void	ft_putnbr_base(int nbr, char *base, char p)
 	long	n;
 
 	n = nbr;
+	if (p && !nbr)
+	{
+		write(1, "(nil)", 5);
+		return ;
+	}
 	if (p)
 		write(1, "0x", 2);
+	if (!nbr)
+	{
+		write(1, "0", 1);
+		return ;
+	}
 	if (check_valid_base(base))
 	{
 		print_base(n, base);

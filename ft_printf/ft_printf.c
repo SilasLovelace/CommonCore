@@ -10,64 +10,49 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include"ft_printf.h"
-#include"libft.h"
+#include "libftprintf.h"
+#include "libft.h"
 
-void handle_spec(const char	*p, va_list	args)
+void	handle_spec(const char	*p, va_list	args)
 {
 	if (*p == 'c')
-		ft_putchar_fd(va_arg(args, int*), 1);
+		ft_putchar_fd(va_arg(args, int), 1);
 	else if (*p == 's')
-		ft_putstr_fd(va_arg(args, char*), 1);
-	//else if (*p == 'p')
+		ft_putstr_fd(va_arg(args, char *), 1);
 	else if (*p == 'd')
 		ft_putnbr_fd(va_arg(args, int), 1);
 	else if (*p == 'i')
 		ft_putnbr_fd(va_arg(args, int), 1);
 	else if (*p == 'p')
-		ft_putnbr_base(va_arg(args, int*), "0123456789ABCDEF", 1);
+		ft_putnbr_base(va_arg(args, int), "0123456789ABCDEF", 1);
 	else if (*p == 'x')
 		ft_putnbr_base(va_arg(args, int), "0123456789abcdef", 0);
 	else if (*p == 'X')
 		ft_putnbr_base(va_arg(args, int), "0123456789ABCDEF", 0);
 	else if (*p == 'u')
-		ft_putunbr_fd(va_arg(args, int), 1);
+		ft_putunbr_fd(va_arg(args, unsigned int), 1);
 	else if (*p == '%')
 		ft_putchar_fd('%', 1);
 }
 
 int	ft_printf(const char *s, ...)
 {
-	int	count;
+	int		count;
 	va_list	args;
-	const char *p = s;
-	va_start(args, p);
-	
+
+	va_start(args, s);
 	count = 0;
-	while (*p)
+	while (*s)
 	{
 		count++;
-		if (*p == '%')
+		if (*s == '%')
 		{
-			p++;
-			//if (ft_strchr("csidxXup%", *(p)))
-			handle_spec(p++, args);
+			s++;
+			handle_spec(s++, args);
 		}
-		else 
-			ft_putchar_fd(*p++, 1);
+		else
+			ft_putchar_fd(*s++, 1);
 	}
 	va_end(args);
 	return (count);
-}
-
-#include <limits.h>
-
-int main ()
-{
-	char* t = "hello";
-	int i = INT_MIN;
-	unsigned int u = UINT_MAX;
-	ft_printf("%d\n", 	ft_printf	("ft %s %c %i %d %x %X %p %u %%\n", t, t[0], i, i, 123123, 123123, t, u));
-	printf("%d\n",		printf		("pf %s %c %i %d %x %X %p %u %%\n", t, t[0], i, i, 123123, 123123, t, u));
-	return (0);
 }

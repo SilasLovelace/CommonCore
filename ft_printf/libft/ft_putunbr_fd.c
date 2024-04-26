@@ -17,6 +17,11 @@ void	ft_putunbr_fd(unsigned int n, int fd)
 	long	num;
 
 	num = n;
+	if(!num)
+	{
+		write (fd, "0", 1);
+		return ;
+	}
 	if (num >= 10)
 	{
 		ft_putunbr_fd(num / 10, fd);
