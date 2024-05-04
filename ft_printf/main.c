@@ -1,6 +1,6 @@
 #include <limits.h>
 #include <stdio.h>
-#include "libftprintf.h"
+#include "ft_printf.h"
 
 int main ()
 {

@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-#include "libft.h"
+#include "libft/libft.h"
 
 void	handle_spec(const char	*p, va_list	args)
 {
