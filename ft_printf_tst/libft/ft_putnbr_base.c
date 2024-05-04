@@ -56,11 +56,6 @@ void	ft_putnbr_base(unsigned long nbr, char *base, char p)
 	unsigned long	n;
 
 	n = nbr;
-	if (p && !nbr)
-	{
-		write(1, "(nil)", 5);
-		return ;
-	}
 	if (p)
 		write(1, "0x", 2);
 	if (!nbr)

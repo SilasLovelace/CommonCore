@@ -67,8 +67,6 @@ int countBaseDigits(unsigned long num, char *base, int adress)
 int handle_c(int c)
 {
 	ft_putchar_fd(c, 1);
-	if(!c)
-		return(3);
 	return (1);
 }
 int handle_str(char	*s)
@@ -98,10 +96,18 @@ int handle_X(unsigned int i, char *base, int adress)
 	ft_putnbr_base(i, "0123456789ABCDEF", 0);
 	return (countBaseDigits(i , base, adress));
 }
-int handle_p(unsigned int  i,char *base, int adress)
+int handle_p(void *i,char *base, int adress)
 {
-	ft_putnbr_base(i, base, adress);
-	return (countBaseDigits(i , base, adress));
+	if (!i)
+	{
+		write(1, "(nil)", 5);
+		return (5);
+	}
+	uintptr_t n;
+
+	n = (uintptr_t) i;
+	ft_putnbr_base(n, base, adress);
+	return (countBaseDigits(n , base, adress));
 }
 
 int	handle_spec(const char	*p, va_list	args)
@@ -115,7 +121,7 @@ int	handle_spec(const char	*p, va_list	args)
 	else if (*p == 'i')
 		return (handle_i_d(va_arg(args, int)));
 	else if (*p == 'p')
-		return (handle_p(va_arg(args, int), "0123456789ABCDEF", 1));
+		return (handle_p(va_arg(args, void *), "0123456789abcdef", 1));
 	else if (*p == 'x')
 		return (handle_x(va_arg(args, int), "0123456789abcdef", 0));
 	else if (*p == 'X')
@@ -132,6 +138,8 @@ int	ft_printf(const char *s, ...)
 	int		count;
 	va_list	args;
 
+	if (!s)
+		return (-1);
 	va_start(args, s);
 	count = 0;
 	while (*s)
