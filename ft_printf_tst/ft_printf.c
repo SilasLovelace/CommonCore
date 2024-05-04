@@ -13,26 +13,118 @@
 #include "ft_printf.h"
 #include "libft/libft.h"
 
-void	handle_spec(const char	*p, va_list	args)
+int countDigits(int num)
+{
+    int count;
+
+	if (num == 0)
+        return 1;
+	count = 0;
+    if (num < 0)
+	{
+        count++;
+        num = -num;
+    }
+    while (num != 0)
+	{
+        num /= 10;
+        count++;
+    }
+    return count;
+}
+int countUnsignedDigits(unsigned int num)
+{
+    int count;
+
+	count = 0;
+	if (num == 0)
+		return (1);
+    while (num != 0) {
+        num /= 10;
+        count++;
+    }
+    return count;
+}
+int countBaseDigits(unsigned long num, char *base, int adress)
+{
+    int count;
+	int len;
+
+	count = 0;
+	len = ft_strlen(base);
+	if (adress)
+		count += 2;
+	if (num == 0)
+		return (count + 1);
+    while (num != 0)
+	{
+        num /= len;
+        count++;
+    }
+    return count;
+}
+
+int handle_c(int c)
+{
+	ft_putchar_fd(c, 1);
+	if(!c)
+		return(3);
+	return (1);
+}
+int handle_str(char	*s)
+{
+	ft_putstr_fd(s, 1);
+	if(!s)
+		return(6);
+	return (ft_strlen(s));
+}
+int handle_i_d(int i)
+{
+	ft_putnbr_fd(i, 1);
+	return (countDigits(i));
+}
+int handle_u(unsigned int	u)
+{
+	ft_putunbr_fd(u, 1);
+	return (countUnsignedDigits(u));
+}
+int handle_x(unsigned int  i, char *base, int adress)
+{
+	ft_putnbr_base(i, "0123456789abcdef", 0);
+	return (countBaseDigits(i , base, adress));
+}
+int handle_X(unsigned int i, char *base, int adress)
+{
+	ft_putnbr_base(i, "0123456789ABCDEF", 0);
+	return (countBaseDigits(i , base, adress));
+}
+int handle_p(unsigned int  i,char *base, int adress)
+{
+	ft_putnbr_base(i, base, adress);
+	return (countBaseDigits(i , base, adress));
+}
+
+int	handle_spec(const char	*p, va_list	args)
 {
 	if (*p == 'c')
-		ft_putchar_fd(va_arg(args, int), 1);
+		return (handle_c(va_arg(args, int)));
 	else if (*p == 's')
-		ft_putstr_fd(va_arg(args, char *), 1);
+		return (handle_str(va_arg(args, char *)));
 	else if (*p == 'd')
-		ft_putnbr_fd(va_arg(args, int), 1);
+		return (handle_i_d(va_arg(args, int)));
 	else if (*p == 'i')
-		ft_putnbr_fd(va_arg(args, int), 1);
+		return (handle_i_d(va_arg(args, int)));
 	else if (*p == 'p')
-		ft_putnbr_base(va_arg(args, int), "0123456789ABCDEF", 1);
+		return (handle_p(va_arg(args, int), "0123456789ABCDEF", 1));
 	else if (*p == 'x')
-		ft_putnbr_base(va_arg(args, int), "0123456789abcdef", 0);
+		return (handle_x(va_arg(args, int), "0123456789abcdef", 0));
 	else if (*p == 'X')
-		ft_putnbr_base(va_arg(args, int), "0123456789ABCDEF", 0);
+		return (handle_X(va_arg(args, int), "0123456789ABCDEF", 0));
 	else if (*p == 'u')
-		ft_putunbr_fd(va_arg(args, unsigned int), 1);
+		return (handle_u(va_arg(args, unsigned int)));
 	else if (*p == '%')
-		ft_putchar_fd('%', 1);
+		return (handle_c('%'));
+	else return (0);
 }
 
 int	ft_printf(const char *s, ...)
@@ -44,14 +136,16 @@ int	ft_printf(const char *s, ...)
 	count = 0;
 	while (*s)
 	{
-		count++;
 		if (*s == '%')
 		{
 			s++;
-			handle_spec(s++, args);
+			count += handle_spec(s++, args);
 		}
 		else
+		{
+			count++;
 			ft_putchar_fd(*s++, 1);
+		}
 	}
 	va_end(args);
 	return (count);
