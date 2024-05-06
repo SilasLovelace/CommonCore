@@ -6,7 +6,7 @@
 /*   By: sopperma <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 19:17:28 by sopperma          #+#    #+#             */
-/*   Updated: 2024/02/21 19:17:31 by sopperma         ###   ########.fr       */
+/*   Updated: 2024/05/06 10:06:40 by sopperma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "libft.h"
@@ -39,8 +39,8 @@ static char	check_valid_base(char *base)
 
 static void	print_base(unsigned long nbr, char *base)
 {
-	char	*start;
-	unsigned long		l;
+	char			*start;
+	unsigned long	l;
 
 	start = base;
 	l = 0;

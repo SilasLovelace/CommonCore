@@ -5,7 +5,7 @@ INCLUDES = -I.
 
 LIBFT = libft
 
-SRCS = ft_printf.c
+SRCS = ft_printf.c helper_i_d_u.c helper_base.c
 
 OBJS = $(SRCS:.c=.o)
 
