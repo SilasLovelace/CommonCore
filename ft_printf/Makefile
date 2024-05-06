@@ -1,11 +1,11 @@
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
 
-INCLUDES = -I .
+INCLUDES = -I.
 
-LIBFT = libft.a
+LIBFT = libft
 
-SRCS = ft_printf.c
+SRCS = ft_printf.c helper_i_d_u.c helper_base.c
 
 OBJS = $(SRCS:.c=.o)
 
@@ -14,18 +14,19 @@ NAME = libftprintf.a
 all: $(NAME)
 
 $(NAME): $(OBJS)
+	make -C $(LIBFT)
+	cp libft/libft.a $(NAME)
 	ar rc $@ $^
 
 %.o: %.c libft.h
 	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
-bonus: $(BONUS_OBJS) $(OBJS)
-	ar rcs $(NAME) $^
-
 clean:
-	rm -f $(OBJS) $(BONUS_OBJS)
+	make clean -C $(LIBFT)
+	rm -f $(OBJS) 
 
 fclean: clean
+	make fclean -C $(LIBFT)
 	rm -f $(NAME)
 
 

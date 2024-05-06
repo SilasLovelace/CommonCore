@@ -13,7 +13,7 @@
 
 void	ft_putstr_fd(char *s, int fd)
 {
-	if(!s)
+	if (!s)
 	{
 		write (fd, "(null)", 6);
 		return ;

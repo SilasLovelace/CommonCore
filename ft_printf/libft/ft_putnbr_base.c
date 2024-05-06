@@ -6,7 +6,7 @@
 /*   By: sopperma <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 19:17:28 by sopperma          #+#    #+#             */
-/*   Updated: 2024/02/21 19:17:31 by sopperma         ###   ########.fr       */
+/*   Updated: 2024/05/06 10:06:40 by sopperma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "libft.h"
@@ -37,18 +37,13 @@ static char	check_valid_base(char *base)
 	return (1);
 }
 
-static void	print_base(long nbr, char *base)
+static void	print_base(unsigned long nbr, char *base)
 {
-	char	*start;
-	int		l;
+	char			*start;
+	unsigned long	l;
 
 	start = base;
 	l = 0;
-	if (nbr < 0)
-	{
-		nbr = -nbr;
-		write(1, "-", 1);
-	}
 	while (*base++)
 		l++;
 	if (nbr >= l)
@@ -56,16 +51,11 @@ static void	print_base(long nbr, char *base)
 	write(1, (start + nbr % l), 1);
 }
 
-void	ft_putnbr_base(int nbr, char *base, char p)
+void	ft_putnbr_base(unsigned long nbr, char *base, char p)
 {
-	long	n;
+	unsigned long	n;
 
 	n = nbr;
-	if (p && !nbr)
-	{
-		write(1, "(nil)", 5);
-		return ;
-	}
 	if (p)
 		write(1, "0x", 2);
 	if (!nbr)

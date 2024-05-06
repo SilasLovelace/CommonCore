@@ -11,28 +11,44 @@
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-#include "libft.h"
+#include "libft/libft.h"
 
-void	handle_spec(const char	*p, va_list	args)
+static int	handle_c(int c)
+{
+	ft_putchar_fd(c, 1);
+	return (1);
+}
+
+static int	handle_str(char	*s)
+{
+	ft_putstr_fd(s, 1);
+	if (!s)
+		return (6);
+	return (ft_strlen(s));
+}
+
+static int	handle_spec(const char	*p, va_list	args)
 {
 	if (*p == 'c')
-		ft_putchar_fd(va_arg(args, int), 1);
+		return (handle_c(va_arg(args, int)));
 	else if (*p == 's')
-		ft_putstr_fd(va_arg(args, char *), 1);
+		return (handle_str(va_arg(args, char *)));
 	else if (*p == 'd')
-		ft_putnbr_fd(va_arg(args, int), 1);
+		return (handle_i_d(va_arg(args, int)));
 	else if (*p == 'i')
-		ft_putnbr_fd(va_arg(args, int), 1);
+		return (handle_i_d(va_arg(args, int)));
 	else if (*p == 'p')
-		ft_putnbr_base(va_arg(args, int), "0123456789ABCDEF", 1);
+		return (handle_p(va_arg(args, void *), "0123456789abcdef", 1));
 	else if (*p == 'x')
-		ft_putnbr_base(va_arg(args, int), "0123456789abcdef", 0);
+		return (handle_x(va_arg(args, int), "0123456789abcdef", 0));
 	else if (*p == 'X')
-		ft_putnbr_base(va_arg(args, int), "0123456789ABCDEF", 0);
+		return (handle_x_upper(va_arg(args, int), "0123456789ABCDEF", 0));
 	else if (*p == 'u')
-		ft_putunbr_fd(va_arg(args, unsigned int), 1);
+		return (handle_u(va_arg(args, unsigned int)));
 	else if (*p == '%')
-		ft_putchar_fd('%', 1);
+		return (handle_c('%'));
+	else
+		return (0);
 }
 
 int	ft_printf(const char *s, ...)
@@ -40,18 +56,22 @@ int	ft_printf(const char *s, ...)
 	int		count;
 	va_list	args;
 
+	if (!s || (*s == '%' && ft_strlen(s) == 1))
+		return (-1);
 	va_start(args, s);
 	count = 0;
 	while (*s)
 	{
-		count++;
 		if (*s == '%')
 		{
 			s++;
-			handle_spec(s++, args);
+			count += handle_spec(s++, args);
 		}
 		else
+		{
+			count++;
 			ft_putchar_fd(*s++, 1);
+		}
 	}
 	va_end(args);
 	return (count);
