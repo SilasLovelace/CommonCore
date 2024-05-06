@@ -56,7 +56,7 @@ int	ft_printf(const char *s, ...)
 	int		count;
 	va_list	args;
 
-	if (!s)
+	if (!s || (*s == '%' && ft_strlen(s) == 1))
 		return (-1);
 	va_start(args, s);
 	count = 0;
