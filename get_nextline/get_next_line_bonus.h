@@ -1,20 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.h                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sopperma <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 11:15:07 by sopperma          #+#    #+#             */
-/*   Updated: 2024/04/15 11:15:15 by sopperma         ###   ########.fr       */
+/*   Updated: 2024/05/07 13:45:54 by sopperma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#ifndef GET_NEXT_LINE_BONUS_H
+# define GET_NEXT_LINE_BONUS_H
 # include <stdint.h>
 # include <stdlib.h>
-# include <unistd.h>
+# include <unistd.h>	
 
 char	*get_next_line(int fd);
 char	*ft_strjoin(char const *s1, char const *s2);
