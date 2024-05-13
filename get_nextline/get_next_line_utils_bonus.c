@@ -45,7 +45,7 @@ void	*ft_calloc(size_t num, size_t size)
 	mem = (num * size) - 1;
 	s = malloc(num * size);
 	if (!s)
-		return (0);
+		return (NULL);
 	while (mem + 1 > 0)
 	{
 		s[mem] = 0;
@@ -79,7 +79,7 @@ char	*ft_strjoin(const char *s1, const char *s2)
 		return (NULL);
 	res = malloc (ft_strlen(s1) + ft_strlen(s2) + 1);
 	if (!res)
-		return (0);
+		return (NULL);
 	c = 0;
 	t = 0;
 	while (s1 && s1[c])
