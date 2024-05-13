@@ -53,7 +53,7 @@ char	*trim_buffer(char *buffer)
 	i = 0;
 	while (buffer[i] && buffer[i] != '\n')
 		i++;
-	if (!buffer[i])
+	if (!buffer[i] || (buffer[i] == '\n' && buffer[i + 1] == '\0'))
 	{
 		freeif(&buffer);
 		return (NULL);
