@@ -11,10 +11,6 @@
 /* ************************************************************************** */
 #include "get_next_line.h"
 
-#ifndef BUFFER_SIZE
-# define BUFFER_SIZE 1
-#endif
-
 char	*free_join(char *scan, char *buffer, int bytes_read)
 {
 	char	*old;
