@@ -1,13 +1,8 @@
 #include "push_swap.h"
-void printcommand(char *command, char ab)
+void writecommand(char *command, char ab)
 {
-    // printf("command print %s\n", command);
-    // printf("letter print %c\n", ab);
-    // printf("command cond r %d\n", ft_strncmp(command, "r", ft_strlen(command)));
-    // printf("command cond rr %d\n", ft_strncmp(command, "rr", ft_strlen(command)));
     if (!ft_strncmp(command, "r", ft_strlen(command)))
     {
-        // printf("cond %d\n", ab == 'a');
         if(ab == 'a')
             write(1, "ra\n", 3);
         else 
@@ -28,6 +23,54 @@ void printcommand(char *command, char ab)
             write(1, "pb\n", 3);
     } 
 }
+
+/* void printcommand(char *command, char ab)
+{
+    // printf("command print %s\n", command);
+    // printf("letter print %c\n", ab);
+    // printf("command cond r %d\n", ft_strncmp(command, "r", ft_strlen(command)));
+    // printf("command cond rr %d\n", ft_strncmp(command, "rr", ft_strlen(command)));
+    static char* last_command = NULL;
+    static char last_ab = 0;
+    
+    if (last_command)
+    {
+        if (!ft_strncmp(last_command, "r", ft_strlen(last_command)) && !ft_strncmp(command, "r", ft_strlen(command)) && last_ab != ab)
+        {
+            write(1, "rr\n", 3);
+            free(last_command);
+            last_command = NULL;
+            last_ab = 0;
+            return ;
+        }
+        else
+        {
+            writecommand(last_command, last_ab);
+            free(last_command);
+            last_command = ft_strdup(command);
+            last_ab = ab;
+            return;
+        }
+        if (!ft_strncmp(last_command, "rr", ft_strlen(last_command)) && !ft_strncmp(command, "rr", ft_strlen(command)) && last_ab != ab)
+        {
+            write(1, "rrr\n", 4);
+            last_command = NULL;
+            last_ab = 0;
+            return ;
+        }  
+        else
+        {
+            writecommand(last_command, last_ab);
+            free(last_command);
+            last_command = ft_strdup(command);
+            last_ab = ab;
+            return;
+        }
+    }   
+        last_command = ft_strdup(command);
+        last_ab = ab;
+        return;
+} */
 
 static void insert_node(t_num *push_node, t_num **b)
 {
@@ -68,13 +111,10 @@ void push(t_num **a, t_num **b, char ab)
         tail->next = *a;
     }
     insert_node(push_node, b);
-    printcommand("p", ab);
-/*     write(1, "p", 1);
-    write(1, &ab, 1);
-    write(1, "\n", 1); */
+    writecommand("p", ab);
 }
 
-void swap(t_num **a)
+void swap(t_num **a, char ab)
 {
     t_num *first_node;
     t_num *second_node;
@@ -105,6 +145,7 @@ void swap(t_num **a)
         }
         *a = second_node;
     }
+    writecommand ("s", ab);
 }
 void rotate(t_num **stack, int reverse, char ab)
 {
@@ -114,11 +155,11 @@ void rotate(t_num **stack, int reverse, char ab)
     if (reverse)
     {
         *stack =(*stack) -> prev;
-        printcommand("rr", ab);
+        writecommand("rr", ab);
     } 
     else
     {
         *stack = (*stack) -> next;
-        printcommand("r", ab);
+        writecommand("r", ab);
     }
 }
