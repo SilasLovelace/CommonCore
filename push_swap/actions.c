@@ -1,5 +1,30 @@
 #include "push_swap.h"
-void writecommand(char *command, char ab)
+void writecommand(char *command, char ab, t_command **command_list)
+{
+    if (!ft_strncmp(command, "r", ft_strlen(command)))
+    {
+        if(ab == 'a')
+            add_command(command_list, "ra");
+        else 
+            add_command(command_list, "rb");
+    }
+    else if (!ft_strncmp(command, "rr", ft_strlen(command)))
+    {
+        if(ab == 'a')
+            add_command(command_list, "rra");
+        else 
+            add_command(command_list, "rrb");
+    }
+    else if (!ft_strncmp(command, "p", ft_strlen(command)))
+    {
+        if(ab == 'a')
+            add_command(command_list, "pa");
+        else 
+            add_command(command_list, "pb");
+    }
+}
+
+/* void writecommand(char *command, char ab)
 {
     if (!ft_strncmp(command, "r", ft_strlen(command)))
     {
@@ -22,7 +47,7 @@ void writecommand(char *command, char ab)
         else 
             write(1, "pb\n", 3);
     } 
-}
+} */
 
 /* void printcommand(char *command, char ab)
 {
@@ -93,7 +118,7 @@ static void insert_node(t_num *push_node, t_num **b)
     }
 }
 
-void push(t_num **a, t_num **b, char ab)
+void push(t_num **a, t_num **b, char ab, t_command **command_list)
 {
     t_num *push_node;
     t_num *tail;
@@ -111,10 +136,10 @@ void push(t_num **a, t_num **b, char ab)
         tail->next = *a;
     }
     insert_node(push_node, b);
-    writecommand("p", ab);
+    writecommand("p", ab, command_list);
 }
 
-void swap(t_num **a, char ab)
+void swap(t_num **a, char ab, t_command **command_list)
 {
     t_num *first_node;
     t_num *second_node;
@@ -145,9 +170,9 @@ void swap(t_num **a, char ab)
         }
         *a = second_node;
     }
-    writecommand ("s", ab);
+    writecommand ("s", ab, command_list);
 }
-void rotate(t_num **stack, int reverse, char ab)
+void rotate(t_num **stack, int reverse, char ab, t_command **command_list)
 {
     // printf("char %c\n", ab);
     if (reverse < 0)
@@ -155,11 +180,11 @@ void rotate(t_num **stack, int reverse, char ab)
     if (reverse)
     {
         *stack =(*stack) -> prev;
-        writecommand("rr", ab);
+        writecommand("rr", ab, command_list);
     } 
     else
     {
         *stack = (*stack) -> next;
-        writecommand("r", ab);
+        writecommand("r", ab, command_list);
     }
 }
