@@ -58,20 +58,44 @@ int main (int ac, char **av)
                 break;
             rotate(stack_a,find_cheapest(stack_a, lower_limit, upper_limit), 'a');
         }
-        push(stack_a, stack_b);
+        push(stack_a, stack_b, 'b');
         if((*stack_b)->i_sorted < middle)
         {
-            // printf("rot_b\n");
             rotate(stack_b, 0, 'b');
         }
-        // print_list(stack_a, "num");
-        // print_list(stack_b, "num");
         if (find_cheapest(stack_a, lower_limit, upper_limit) < 0)
         {
             lower_limit -= chunk_size;
             upper_limit += chunk_size;
         }
     }
-    // print_list(stack_b, "sorted");
+    int a_elem = ft_stacksize(stack_a);
+    int biggest = ft_biggest(stack_b);
+    // printf("%d\n", a_elem);
+    // printf("%d\n", stack_size);
+    // printf("%d\n", biggest);
+    while (!((*stack_b) -> i_sorted == biggest))
+        rotate(stack_b, find_cheapest(stack_b, biggest, biggest), 'b');
+    while (find_cheapest(stack_b, biggest, biggest) >= 0)
+    {  
+        if((*stack_b) -> i_sorted == biggest)
+        {
+            push(stack_b, stack_a, 'a');
+        }
+        else if (a_elem == 0 || (*stack_b) -> i_sorted > (*stack_a) -> prev -> i_sorted)
+        {
+            push(stack_b, stack_a, 'a');
+            rotate(stack_a, 0, 'a');
+        }
+        else
+        {
+           rotate(stack_b, find_cheapest(stack_b, biggest, biggest), 'b');
+        }
+        biggest = ft_biggest(stack_b);
+        a_elem = ft_stacksize(stack_a);
+        if (biggest == -1)
+            break;
+    }
+    print_list(stack_a, "sorted");
     return (freeif_list (stack_a), freeif_list (stack_b),0);
 }

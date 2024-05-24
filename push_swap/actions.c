@@ -1,4 +1,33 @@
 #include "push_swap.h"
+void printcommand(char *command, char ab)
+{
+    // printf("command print %s\n", command);
+    // printf("letter print %c\n", ab);
+    // printf("command cond r %d\n", ft_strncmp(command, "r", ft_strlen(command)));
+    // printf("command cond rr %d\n", ft_strncmp(command, "rr", ft_strlen(command)));
+    if (!ft_strncmp(command, "r", ft_strlen(command)))
+    {
+        // printf("cond %d\n", ab == 'a');
+        if(ab == 'a')
+            write(1, "ra\n", 3);
+        else 
+            write(1, "rb\n", 3);
+    }
+    else if (!ft_strncmp(command, "rr", ft_strlen(command)))
+    {
+        if(ab == 'a')
+            write(1, "rra\n", 4);
+        else 
+            write(1, "rrb\n", 4);
+    }
+    else if (!ft_strncmp(command, "p", ft_strlen(command)))
+    {
+        if(ab == 'a')
+            write(1, "pa\n", 3);
+        else 
+            write(1, "pb\n", 3);
+    } 
+}
 
 static void insert_node(t_num *push_node, t_num **b)
 {
@@ -21,7 +50,7 @@ static void insert_node(t_num *push_node, t_num **b)
     }
 }
 
-void push(t_num **a, t_num **b)
+void push(t_num **a, t_num **b, char ab)
 {
     t_num *push_node;
     t_num *tail;
@@ -39,7 +68,10 @@ void push(t_num **a, t_num **b)
         tail->next = *a;
     }
     insert_node(push_node, b);
-    write(1, "pb\n", 3);
+    printcommand("p", ab);
+/*     write(1, "p", 1);
+    write(1, &ab, 1);
+    write(1, "\n", 1); */
 }
 
 void swap(t_num **a)
@@ -73,28 +105,6 @@ void swap(t_num **a)
         }
         *a = second_node;
     }
-}
-void printcommand(char *command, char ab)
-{
-    // printf("command print %s\n", command);
-    // printf("letter print %c\n", ab);
-    // printf("command cond r %d\n", ft_strncmp(command, "r", ft_strlen(command)));
-    // printf("command cond rr %d\n", ft_strncmp(command, "rr", ft_strlen(command)));
-    if (!ft_strncmp(command, "r", ft_strlen(command)))
-    {
-        // printf("cond %d\n", ab == 'a');
-        if(ab == 'a')
-            write(1, "ra\n", 3);
-        else 
-            write(1, "rb\n", 3);
-    }
-    else if (!ft_strncmp(command, "rr", ft_strlen(command)))
-    {
-        if(ab == 'a')
-            write(1, "rra\n", 4);
-        else 
-            write(1, "rrb\n", 4);
-    }  
 }
 void rotate(t_num **stack, int reverse, char ab)
 {

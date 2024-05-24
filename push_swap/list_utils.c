@@ -30,3 +30,23 @@ int	ft_stacksize(t_num **stack)
 	}
 	return (c);
 }
+
+int	ft_biggest(t_num **stack)
+{
+	int		biggest;
+	t_num	*current;
+
+	if (!stack || !(*stack))
+		return -1;
+	biggest = 0;
+	current = *stack;
+	while (current)
+	{
+		if (current->i_sorted > biggest)
+			biggest = current -> i_sorted;
+		current = current->next;
+		if (current == (*stack))
+			break ;
+	}
+	return (biggest);
+}

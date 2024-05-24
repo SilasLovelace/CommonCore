@@ -32,14 +32,15 @@ void check_sort(t_num **stack_a);
 void sort_assign (t_num **stack_a);
 
 int find_cheapest(t_num **stack, int range_min, int range_max);
+int	ft_biggest(t_num **stack);
 
 t_num   *ft_lstnew(int num, int i);
 t_num   *ft_lstlast(t_num *lst);
 void    print_list(t_num **stack, char *field);
-void    swap(t_num **a);
+void    swap(t_num **a, char ab);
 void    rotate(t_num **stack, int reverse, char ab);
 void	ft_lstadd_front(t_num **lst, t_num *new_node);
-void    push(t_num **a, t_num **b);
+void    push(t_num **a, t_num **b, char ab);
 void    freeif_list(t_num **list);
 int ft_lstsize(t_num *lst);
 void    sortedInsert(t_num** head_ref, t_num* new_node);
