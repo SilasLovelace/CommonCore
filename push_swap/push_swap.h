@@ -25,6 +25,16 @@ typedef struct s_num
     struct s_num *prev; 
 }   t_num;
 
+typedef struct s_params
+{
+    int stack_size;
+    int chunks;
+    int middle;
+    int chunk_size;
+    int upper_limit;
+    int lower_limit;
+}   t_params;
+
 typedef struct s_command
 {
     char *command;
@@ -48,6 +58,9 @@ void check_push(t_num **stack_a, t_num **stack_b);
 void check_rotate(t_num **stack_a);
 void check_sort(t_num **stack_a);
 void sort_assign (t_num **stack_a);
+t_params    *set_params(t_num **stack_a);
+void first_stage(t_num **stack_a, t_num **stack_b, t_params *params, t_command **command_list);
+void second_stage(t_num **stack_a, t_num **stack_b, t_command **command_list);
 
 int find_cheapest(t_num **stack, int range_min, int range_max);
 int	ft_biggest(t_num **stack);
