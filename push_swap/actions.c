@@ -177,12 +177,12 @@ void rotate(t_num **stack, int reverse, char ab, t_command **command_list)
     // printf("char %c\n", ab);
     if (reverse < 0)
         return;
-    if (reverse)
+    if (reverse == RR)
     {
         *stack =(*stack) -> prev;
         writecommand("rr", ab, command_list);
     } 
-    else
+    else if (reverse == R)
     {
         *stack = (*stack) -> next;
         writecommand("r", ab, command_list);

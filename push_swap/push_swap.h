@@ -31,9 +31,17 @@ typedef struct s_command
     struct s_command *next;
 }   t_command;
 
+typedef enum    s_rotation_directions
+{
+    R,
+    RR,
+}   t_directions;
+
 void trim_command_list(t_command **command_list);
 void add_command(t_command **command_list, char *command);
 void print_command_list(t_command **command_list);
+int num_instructions(t_command **command_list);
+int rotate_combine(t_num **stack, char ab, t_command **command_list, int bottom);
 
 void check_swap(t_num **stack_a);
 void check_push(t_num **stack_a, t_num **stack_b);

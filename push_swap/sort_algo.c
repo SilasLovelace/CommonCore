@@ -7,7 +7,7 @@ int find_cheapest(t_num **stack, int range_min, int range_max)
     int rev_rotate_price;
 
     if (!stack || !(*stack))
-        return -1;
+        return (-1);
     current = *stack;
     rotate_price = 0;
     rev_rotate_price = 0;
@@ -18,7 +18,7 @@ int find_cheapest(t_num **stack, int range_min, int range_max)
         rotate_price++;
         current = current ->next;
         if (current == *stack)
-            return -1;
+            return (-1);
     }
     current = *stack;
     while(current)
@@ -28,7 +28,7 @@ int find_cheapest(t_num **stack, int range_min, int range_max)
         rev_rotate_price++;
         current = current ->prev;
         if (current == *stack)
-            return -1;
+            return (-1);
     }
     // printf("\nrotate_price %d, rev_rotate_price %d", rotate_price, rev_rotate_price);
     if (rotate_price < rev_rotate_price)

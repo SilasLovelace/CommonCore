@@ -1,5 +1,18 @@
 #include "push_swap.h"
 #include <string.h>
+int rotate_combine(t_num **stack, char ab, t_command **command_list, int bottom)
+{
+    t_num *top = *stack;
+    while (top->i_sorted == top->prev->i_sorted + 1)
+    {
+        // write(1, "here", 4);
+        // printf("top = %d, bot = %d\n", top->i_sorted, top->prev->i_sorted);
+        rotate(stack, RR, ab, command_list);
+        bottom--;
+        top = *stack;
+    }
+    return bottom;
+}
 
 void add_command(t_command **command_list, char *command)
 {
@@ -42,6 +55,22 @@ void print_command_list(t_command **command_list)
         write(1, "\n", 1);
         element = element -> next;
     }
+}
+int num_instructions(t_command **command_list)
+{
+    t_command *element;
+    int c;
+
+    c = 0;
+    if(!command_list || !(*command_list))
+        return (0);
+    element = *command_list;
+    while (element)
+    {
+        c++;
+        element = element -> next;
+    }
+    return (c);
 }
 void trim_command_list(t_command **command_list)
 {

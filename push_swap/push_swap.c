@@ -10,6 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 #include "push_swap.h"
+
 int main (int ac, char **av)
 {
     if (ac < 2)
@@ -41,6 +42,8 @@ int main (int ac, char **av)
     int lower_limit;
     middle = stack_size/2;
     
+   
+
     if (stack_size <= 10)
         chunks = 5;
     else if (stack_size <= 150)
@@ -52,6 +55,7 @@ int main (int ac, char **av)
     upper_limit = middle + chunk_size;
     lower_limit = middle - chunk_size;
 
+    // first part
    while (find_cheapest(stack_a, lower_limit, upper_limit) > -1)
     {
         while (find_cheapest(stack_a, lower_limit, upper_limit) > -1)
@@ -67,33 +71,33 @@ int main (int ac, char **av)
             lower_limit -= chunk_size;
         if (find_cheapest(stack_a, middle, upper_limit) < 0)
             upper_limit += chunk_size;
+    
     }
     // second part
-    int a_elem = ft_stacksize(stack_a);
     int biggest = ft_biggest(stack_b);
-    while (!((*stack_b) -> i_sorted == biggest))
+    while (!((*stack_b)->i_sorted == biggest))
         rotate(stack_b, find_cheapest(stack_b, biggest, biggest), 'b', command_list);
-    while (find_cheapest(stack_b, biggest, biggest) >= 0)
+    int bottom = 0;
+    while (ft_biggest(stack_b) >= 0)
     {  
-        if((*stack_b) -> i_sorted == biggest)
+        if (!(ft_stacksize(stack_a)) || (*stack_b)->i_sorted == (*stack_a)->i_sorted -1)
         {
             push(stack_b, stack_a, 'a', command_list);
+            if (bottom)
+                bottom = rotate_combine(stack_a, 'a', command_list, bottom);
         }
-        else if (a_elem == 0 || (*stack_b) -> i_sorted > (*stack_a) -> prev -> i_sorted)
+        else if ((*stack_b)->i_sorted > (*stack_a)->prev->i_sorted || !bottom)
         {
             push(stack_b, stack_a, 'a', command_list);
             rotate(stack_a, 0, 'a', command_list);
+            bottom++;
         }
         else
-        {
-           rotate(stack_b, find_cheapest(stack_b, biggest, biggest), 'b', command_list);
-        }
-        biggest = ft_biggest(stack_b);
-        a_elem = ft_stacksize(stack_a);
-        if (biggest == -1)
-            break;
+            rotate(stack_b, find_cheapest(stack_b, (*stack_a)->prev->i_sorted + 1, (*stack_a)->i_sorted - 1), 'b', command_list);
     }
+    // printf("before trim %d\n", num_instructions(command_list));
     trim_command_list(command_list);
+    // printf("after trim %d\n", num_instructions(command_list));
     print_command_list(command_list);
     // print_list(stack_a, "sorted");
     return (freeif_list (stack_a), freeif_list (stack_b),0);
