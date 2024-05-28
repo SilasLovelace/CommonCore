@@ -3,13 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sopperma <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: sopperma <sopperma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 10:04:40 by sopperma          #+#    #+#             */
-/*   Updated: 2024/05/13 10:04:41 by sopperma         ###   ########.fr       */
+/*   Updated: 2024/05/28 11:54:40 by sopperma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "push_swap.h"
+
 // check_sort(stack_a);
 // check_swap(stack_a);
 // check_push(stack_a, stack_b);
