@@ -6,7 +6,7 @@
 /*   By: sopperma <sopperma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 11:18:54 by sopperma          #+#    #+#             */
-/*   Updated: 2024/05/28 12:19:01 by sopperma         ###   ########.fr       */
+/*   Updated: 2024/05/28 13:54:29 by sopperma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,9 +78,6 @@ void		freeif_list(t_num **list);
 int			ft_lstsize(t_num *lst);
 
 void		bubble_sort(t_num **head, char *field);
-void		sortedInsert(t_num **head_ref, t_num *new_node);
-void		sortedInsert_i(t_num **head_ref, t_num *new_node);
-void		insertionSort(t_num **head, char *field);
 
 void		assign_ordered_i(t_num **head);
 

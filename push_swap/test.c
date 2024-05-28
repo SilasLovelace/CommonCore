@@ -6,25 +6,25 @@
 /*   By: sopperma <sopperma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 11:15:34 by sopperma          #+#    #+#             */
-/*   Updated: 2024/05/28 12:34:50 by sopperma         ###   ########.fr       */
+/*   Updated: 2024/05/28 13:51:29 by sopperma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-/* void	sort_assign(t_num **stack_a)
+void	sort_assign(t_num **stack_a)
 {
 	bubble_sort(stack_a, "num");
 	assign_ordered_i(stack_a);
 	bubble_sort(stack_a, "input");
-} */
+}
 
-void	sort_assign(t_num **stack_a)
+/* void	sort_assign(t_num **stack_a)
 {
 	insertionSort(stack_a, "num");
 	assign_ordered_i(stack_a);
 	insertionSort(stack_a, "input");
-}
+} */
 
 /* int num_instructions(t_command **command_list)
 {
