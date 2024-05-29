@@ -6,7 +6,7 @@
 /*   By: sopperma <sopperma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 11:18:54 by sopperma          #+#    #+#             */
-/*   Updated: 2024/05/28 13:54:29 by sopperma         ###   ########.fr       */
+/*   Updated: 2024/05/29 09:52:15 by sopperma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,8 @@ void		rotate(t_num **stack, int reverse, char ab, \
 	t_command **command_list);
 void		ft_lstadd_front(t_num **lst, t_num *new_node);
 void		push(t_num **a, t_num **b, char ab, t_command **command_list);
-void		freeif_list(t_num **list);
+void		freeif_stack(t_num **list);
+void		freeif_com_list(t_command **list);
 int			ft_lstsize(t_num *lst);
 
 void		bubble_sort(t_num **head, char *field);

@@ -6,7 +6,7 @@
 /*   By: sopperma <sopperma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 11:06:47 by sopperma          #+#    #+#             */
-/*   Updated: 2024/05/28 11:48:41 by sopperma         ###   ########.fr       */
+/*   Updated: 2024/05/29 10:37:36 by sopperma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	add_command(t_command **command_list, char *command)
 		element ->next = new_command;
 	}
 }
-
+#include <stdio.h>
 void	print_command_list(t_command **command_list)
 {
 	t_command	*element;

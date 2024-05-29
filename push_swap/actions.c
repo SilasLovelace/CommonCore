@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   actions.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sopperma <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: sopperma <sopperma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 17:16:19 by sopperma          #+#    #+#             */
-/*   Updated: 2024/05/27 17:16:21 by sopperma         ###   ########.fr       */
+/*   Updated: 2024/05/29 09:58:00 by sopperma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "push_swap.h"
 
 void	writecommand(char *command, char ab, t_command **command_list)

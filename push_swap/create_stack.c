@@ -6,7 +6,7 @@
 /*   By: sopperma <sopperma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 12:36:51 by sopperma          #+#    #+#             */
-/*   Updated: 2024/05/28 12:39:36 by sopperma         ###   ########.fr       */
+/*   Updated: 2024/05/29 09:51:21 by sopperma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static t_num	**create_link_stack(t_num *first, t_num *last)
 
 	stack = malloc(sizeof(t_num));
 	if (!stack)
-		return (freeif_list(&first), NULL);
+		return (freeif_stack(&first), NULL);
 	*stack = first;
 	last -> next = first;
 	first -> prev = last;
@@ -41,7 +41,7 @@ t_num	**create_stack(int ac, char **av)
 	{
 		last ->next = ft_lstnew(ft_atoi(av[c]), c - 1);
 		if (!last -> next)
-			return (freeif_list (&first), NULL);
+			return (freeif_stack(&first), NULL);
 		last->next->prev = last;
 		last = last -> next;
 		c++;

@@ -6,13 +6,35 @@
 /*   By: sopperma <sopperma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 11:12:19 by sopperma          #+#    #+#             */
-/*   Updated: 2024/05/28 11:14:26 by sopperma         ###   ########.fr       */
+/*   Updated: 2024/05/29 10:10:26 by sopperma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	freeif_list(t_num **list)
+void	freeif_com_list(t_command **list)
+{
+	t_command	*current;
+	t_command	*next;
+
+	if (!list || !*list)
+		return ;
+	current = *list;
+	while (current)
+	{
+		next = current -> next;
+		free(current->command);
+		free(current);
+		current = next;
+		if (current == *list)
+		{
+			free(list);
+			break ;
+		}
+	}
+}
+
+void	freeif_stack(t_num **list)
 {
 	t_num	*current;
 	t_num	*next;
