@@ -1,13 +1,13 @@
 /* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   push_swap.c                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: sopperma <sopperma@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/13 10:04:40 by sopperma          #+#    #+#             */
-/*   Updated: 2024/05/31 12:23:49 by sopperma         ###   ########.fr       */
-/*                                                                            */
+/*																			*/
+/*														:::	  ::::::::   */
+/*   push_swap.c										:+:	  :+:	:+:   */
+/*													+:+ +:+		 +:+	 */
+/*   By: sopperma <sopperma@student.42.fr>		  +#+  +:+	   +#+		*/
+/*												+#+#+#+#+#+   +#+		   */
+/*   Created: 2024/05/13 10:04:40 by sopperma		  #+#	#+#			 */
+/*   Updated: 2024/05/31 14:24:14 by sopperma		 ###   ########.fr	   */
+/*																			*/
 /* ************************************************************************** */
 
 #include "push_swap.h"
@@ -16,7 +16,7 @@
 // check_swap(stack_a);
 // check_push(stack_a, stack_b);
 // check_rotate(stack_a);
-t_everything	*set_everything(t_everything *everything, int ac, char **av)
+static t_everything	*set_everything(t_everything *everything, int ac, char **av)
 {
 	everything = malloc(sizeof(t_everything));
 	if (!everything || ac < 2)
@@ -35,10 +35,65 @@ t_everything	*set_everything(t_everything *everything, int ac, char **av)
 	return (everything);
 }
 
+static void	is_not_overflow(char *s)
+{
+	long	num;
+
+	num = ft_atol(s);
+	if (num > INT_MAX || num < INT_MIN)
+	{
+		write(1, "Error\n", 6);
+		exit(EXIT_FAILURE);
+	}
+}
+
+static void	is_num(char *s)
+{
+	int	i;
+
+	i = 0;
+	while (s[i])
+	{
+		if (s[i] == '-')
+			i++;
+		if (!ft_isdigit(s[i++]))
+		{
+			write(1, "Error\n", 6);
+			exit(EXIT_FAILURE);
+		}
+	}
+}
+
+static void	check_input(int ac, char **av)
+{
+	int	i;
+	int	j;
+
+	i = 1;
+	j = 0;
+	while (i < ac)
+	{
+		is_not_overflow(av[i]);
+		is_num(av[i]);
+		j = i + 1;
+		while (j < ac)
+		{
+			if (ft_strcmp(av[i], av[j]) == 0)
+			{
+				write(1, "Error\n", 6);
+				exit(EXIT_FAILURE);
+			}
+			j++;
+		}
+		i++;
+	}
+}
+
 int	main(int ac, char **av)
 {
 	t_everything	*everything;
 
+	check_input(ac, av);
 	everything = NULL;
 	everything = set_everything(everything, ac, av);
 	if (!everything)

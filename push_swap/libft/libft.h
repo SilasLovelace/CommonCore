@@ -6,7 +6,7 @@
 /*   By: sopperma <sopperma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 14:04:02 by sopperma          #+#    #+#             */
-/*   Updated: 2024/05/28 11:18:01 by sopperma         ###   ########.fr       */
+/*   Updated: 2024/05/31 13:55:24 by sopperma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ void	*ft_memchr(const void *ptr, int value, size_t num);
 int		ft_memcmp(const void *ptr1, const void *ptr2, size_t num);
 char	*ft_strnstr(const char *str1, const char *str2, size_t len);
 int		ft_atoi(const char *str);
+long	ft_atol(const char *str);
 void	*ft_calloc(size_t num, size_t size);
 char	*ft_strdup(const char *str);
 int		ft_strcmp(char *s1, char *s2);
