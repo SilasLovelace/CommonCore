@@ -56,11 +56,12 @@ static void	is_num(char *s)
 	{
 		if (s[i] == '-')
 			i++;
-		if (!ft_isdigit(s[i++]))
+		if (!ft_isdigit(s[i]) || (s[i] == '0' && s[i - 1] == '-'))
 		{
 			write(1, "Error\n", 6);
 			exit(EXIT_FAILURE);
 		}
+		i++;
 	}
 }
 
