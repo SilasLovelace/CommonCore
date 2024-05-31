@@ -6,7 +6,7 @@
 /*   By: sopperma <sopperma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 13:52:26 by sopperma          #+#    #+#             */
-/*   Updated: 2024/05/28 13:53:49 by sopperma         ###   ########.fr       */
+/*   Updated: 2024/05/31 13:23:00 by sopperma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,12 @@ static void	bubble_swap(t_num *a, t_num *b)
 	temp = a->num;
 	a->num = b->num;
 	b->num = temp;
-	temp = a->i_input;
-	a->i_input = b->i_input;
-	b->i_input = temp;
-	temp = a->i_sorted;
-	a->i_sorted = b->i_sorted;
-	b->i_sorted = temp;
+	temp = a->i_in;
+	a->i_in = b->i_in;
+	b->i_in = temp;
+	temp = a->i_srt;
+	a->i_srt = b->i_srt;
+	b->i_srt = temp;
 }
 
 static int	check_cond(t_num *ptr, char *field)
@@ -32,7 +32,7 @@ static int	check_cond(t_num *ptr, char *field)
 	if (!ft_strcmp(field, "num"))
 		return (ptr->num > ptr->next->num);
 	else if (!ft_strcmp(field, "input"))
-		return (ptr->i_input > ptr->next->i_input);
+		return (ptr->i_in > ptr->next->i_in);
 	else
 		return (-1);
 }

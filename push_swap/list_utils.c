@@ -19,7 +19,7 @@ t_num	*ft_lstnew(int num, int i)
 	new = (t_num *)malloc(sizeof(t_num));
 	if (new == NULL)
 		return (NULL);
-	new->i_input = i;
+	new->i_in = i;
 	new->num = num;
 	new->next = NULL;
 	new->prev = NULL;
@@ -54,8 +54,8 @@ int	ft_biggest(t_num **stack)
 	current = *stack;
 	while (current)
 	{
-		if (current->i_sorted > biggest)
-			biggest = current -> i_sorted;
+		if (current->i_srt > biggest)
+			biggest = current -> i_srt;
 		current = current->next;
 		if (current == (*stack))
 			break ;
@@ -68,7 +68,7 @@ int	rotate_combine(t_num **stack, char ab, t_command **command_list, int bottom)
 	t_num	*top;
 
 	top = *stack;
-	while (top->i_sorted == top->prev->i_sorted + 1)
+	while (top->i_srt == top->prev->i_srt + 1)
 	{
 		rotate(stack, RR, ab, command_list);
 		bottom--;

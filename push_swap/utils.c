@@ -6,54 +6,11 @@
 /*   By: sopperma <sopperma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 11:12:19 by sopperma          #+#    #+#             */
-/*   Updated: 2024/05/29 10:10:26 by sopperma         ###   ########.fr       */
+/*   Updated: 2024/05/31 13:27:18 by sopperma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-
-void	freeif_com_list(t_command **list)
-{
-	t_command	*current;
-	t_command	*next;
-
-	if (!list || !*list)
-		return ;
-	current = *list;
-	while (current)
-	{
-		next = current -> next;
-		free(current->command);
-		free(current);
-		current = next;
-		if (current == *list)
-		{
-			free(list);
-			break ;
-		}
-	}
-}
-
-void	freeif_stack(t_num **list)
-{
-	t_num	*current;
-	t_num	*next;
-
-	if (!list || !*list)
-		return ;
-	current = *list;
-	while (current)
-	{
-		next = current -> next;
-		free(current);
-		current = next;
-		if (current == *list)
-		{
-			free(list);
-			break ;
-		}
-	}
-}
 
 void	print_list(t_num **stack, char *field)
 {
@@ -70,9 +27,9 @@ void	print_list(t_num **stack, char *field)
 		if (ft_strncmp(field, "num", ft_strlen(field)) == 0)
 			ft_putnbr_fd(list->num, 1);
 		if (ft_strncmp(field, "input", ft_strlen(field)) == 0)
-			ft_putnbr_fd(list->i_input, 1);
+			ft_putnbr_fd(list->i_in, 1);
 		if (ft_strncmp(field, "sorted", ft_strlen(field)) == 0)
-			ft_putnbr_fd(list->i_sorted, 1);
+			ft_putnbr_fd(list->i_srt, 1);
 		write(1, " ", 1);
 		list = list -> next;
 		if (list == *stack)
@@ -81,7 +38,7 @@ void	print_list(t_num **stack, char *field)
 	write(1, "\n", 1);
 }
 
-void	assign_ordered_i(t_num **head)
+static void	assign_ordered_i(t_num **head)
 {
 	int		c;
 	t_num	*current;
@@ -92,9 +49,16 @@ void	assign_ordered_i(t_num **head)
 	current = *head;
 	while (current)
 	{
-		current ->i_sorted = c++;
+		current ->i_srt = c++;
 		current = current ->next;
 		if (current == *head)
 			break ;
 	}
+}
+
+void	sort_assign(t_num **stack_a)
+{
+	bubble_sort(stack_a, "num");
+	assign_ordered_i(stack_a);
+	bubble_sort(stack_a, "input");
 }

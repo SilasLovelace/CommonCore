@@ -6,7 +6,7 @@
 /*   By: sopperma <sopperma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 11:18:54 by sopperma          #+#    #+#             */
-/*   Updated: 2024/05/29 09:52:15 by sopperma         ###   ########.fr       */
+/*   Updated: 2024/05/31 13:27:34 by sopperma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@
 
 typedef struct s_num
 {
-	int				i_input;
-	int				i_sorted;
+	int				i_in;
+	int				i_srt;
 	int				num;
 	struct s_num	*next;
 	struct s_num	*prev;
@@ -30,8 +30,8 @@ typedef struct s_params
 	int	chunks;
 	int	middle;
 	int	chunk_size;
-	int	upper_limit;
-	int	lower_limit;
+	int	upper;
+	int	lower;
 }	t_params;
 
 typedef struct s_command
@@ -46,6 +46,14 @@ typedef enum s_rotation_directions
 	RR,
 }	t_directions;
 
+typedef struct s_everything
+{
+	t_num		**stack_a;
+	t_num		**stack_b;
+	t_command	**commands;
+	t_params	*params;
+}	t_everything;
+
 void		trim_command_list(t_command **command_list);
 void		add_command(t_command **command_list, char *command);
 void		print_command_list(t_command **command_list);
@@ -58,10 +66,8 @@ void		check_rotate(t_num **stack_a);
 void		check_sort(t_num **stack_a);
 void		sort_assign(t_num **stack_a);
 t_params	*set_params(t_num **stack_a);
-void		first_stage(t_num **stack_a, t_num **stack_b, \
-	t_params *params, t_command **command_list);
-void		second_stage(t_num **stack_a, t_num **stack_b, \
-	t_command **command_list);
+void		first_stage(t_everything *everything);
+void		second_stage(t_everything *everything);
 
 int			find_cheapest(t_num **stack, int range_min, int range_max);
 int			ft_biggest(t_num **stack);
@@ -74,13 +80,16 @@ void		rotate(t_num **stack, int reverse, char ab, \
 	t_command **command_list);
 void		ft_lstadd_front(t_num **lst, t_num *new_node);
 void		push(t_num **a, t_num **b, char ab, t_command **command_list);
+
 void		freeif_stack(t_num **list);
 void		freeif_com_list(t_command **list);
+void		free_everything(t_everything *everything);
+void		free_num_list(t_num *num_list);
+void		free_command_list(t_command *command_list);
+
 int			ft_lstsize(t_num *lst);
 
 void		bubble_sort(t_num **head, char *field);
-
-void		assign_ordered_i(t_num **head);
 
 int			ft_stacksize(t_num **stack);
 t_num		**create_stack(int ac, char **av);

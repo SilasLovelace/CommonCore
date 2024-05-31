@@ -6,7 +6,7 @@
 /*   By: sopperma <sopperma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 11:06:47 by sopperma          #+#    #+#             */
-/*   Updated: 2024/05/29 10:37:36 by sopperma         ###   ########.fr       */
+/*   Updated: 2024/05/31 13:19:00 by sopperma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	add_command(t_command **command_list, char *command)
 	new_command = malloc(sizeof(t_command));
 	if (!new_command)
 		return ;
-	new_command->command = ft_strdup(command);
+	new_command->command = command;
 	if (!new_command->command)
 		return (free(new_command));
 	new_command->next = NULL;
@@ -38,7 +38,7 @@ void	add_command(t_command **command_list, char *command)
 		element ->next = new_command;
 	}
 }
-#include <stdio.h>
+
 void	print_command_list(t_command **command_list)
 {
 	t_command	*element;
@@ -69,10 +69,9 @@ static void	freereplace(t_command *element, char *descriptor)
 {
 	t_command	*to_free;
 
-	element->command = ft_strdup(descriptor);
+	element->command = descriptor;
 	to_free = element->next;
 	element->next = element->next->next;
-	free(to_free->command);
 	free(to_free);
 }
 

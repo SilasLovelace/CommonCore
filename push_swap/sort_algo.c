@@ -6,7 +6,7 @@
 /*   By: sopperma <sopperma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 10:20:35 by sopperma          #+#    #+#             */
-/*   Updated: 2024/05/28 10:56:30 by sopperma         ###   ########.fr       */
+/*   Updated: 2024/05/31 13:25:13 by sopperma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static int	find_price(t_num **stack, int direction, \
 	current = *stack;
 	while (current)
 	{
-		if (current->i_sorted >= range_min && current->i_sorted <= range_max)
+		if (current->i_srt >= range_min && current->i_srt <= range_max)
 			break ;
 		rotate_price++;
 		if (!direction)
