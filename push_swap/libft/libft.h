@@ -6,7 +6,7 @@
 /*   By: sopperma <sopperma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 14:04:02 by sopperma          #+#    #+#             */
-/*   Updated: 2024/05/31 13:55:24 by sopperma         ###   ########.fr       */
+/*   Updated: 2024/06/10 16:35:13 by sopperma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ void	ft_putchar_fd(char c, int fd);
 void	ft_putstr_fd(char *s, int fd);
 void	ft_putendl_fd(char *s, int fd);
 void	ft_putnbr_fd(int n, int fd);
+int		countwords(const char *str, char charset);
 
 typedef struct s_list
 {

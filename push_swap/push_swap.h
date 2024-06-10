@@ -6,7 +6,7 @@
 /*   By: sopperma <sopperma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 11:18:54 by sopperma          #+#    #+#             */
-/*   Updated: 2024/05/31 15:40:20 by sopperma         ###   ########.fr       */
+/*   Updated: 2024/06/10 16:36:06 by sopperma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,6 @@
 
 # include "libft/libft.h"
 # include <limits.h>
-
-# include<stdio.h>
 
 typedef struct s_num
 {
@@ -83,6 +81,10 @@ void		rotate(t_num **stack, int reverse, char ab, \
 	t_command **command_list);
 void		ft_lstadd_front(t_num **lst, t_num *new_node);
 void		push(t_num **a, t_num **b, char ab, t_command **command_list);
+void		check_input(int ac, char **av);
+void		check_input_2(int ac, char **av);
+
+void		hardcode_solution(t_everything *e);
 
 void		freeif_stack(t_num **list);
 void		freeif_com_list(t_command **list);

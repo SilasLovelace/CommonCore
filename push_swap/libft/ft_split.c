@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sopperma <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: sopperma <sopperma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 14:16:53 by sopperma          #+#    #+#             */
-/*   Updated: 2024/03/04 15:18:11 by sopperma         ###   ########.fr       */
+/*   Updated: 2024/06/10 16:58:34 by sopperma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "libft.h"
 
 static int	is_seperator(const char *str, char charset)
@@ -18,7 +19,7 @@ static int	is_seperator(const char *str, char charset)
 	return (0);
 }
 
-static int	countwords(const char *str, char charset)
+int	countwords(const char *str, char charset)
 {
 	int	c;
 

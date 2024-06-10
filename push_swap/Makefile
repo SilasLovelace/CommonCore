@@ -6,7 +6,8 @@ INCLUDES = -I.
 LIBFT = libft
 
 SRCS = push_swap.c list_utils.c create_stack.c actions.c \
-	sort_algo.c utils.c test.c output.c stages.c bubble_sort.c free.c
+	sort_algo.c utils.c test.c output.c stages.c bubble_sort.c free.c \
+	checks.c small_input_solutions.c
 
 OBJS = $(SRCS:.c=.o)
 

@@ -6,7 +6,7 @@
 /*   By: sopperma <sopperma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 17:16:19 by sopperma          #+#    #+#             */
-/*   Updated: 2024/05/31 15:41:48 by sopperma         ###   ########.fr       */
+/*   Updated: 2024/06/10 16:03:34 by sopperma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,30 +17,26 @@ void	writecommand(char *command, char ab, t_command **commands)
 	if (!ft_strncmp(command, "r", ft_strlen(command)))
 	{
 		if (ab == 'a')
-			add_command(commands, "ra");
-		else
-			add_command(commands, "rb");
+			return (add_command(commands, "ra"));
+		add_command(commands, "rb");
 	}
 	else if (!ft_strncmp(command, "rr", ft_strlen(command)))
 	{
 		if (ab == 'a')
-			add_command(commands, "rra");
-		else
-			add_command(commands, "rrb");
+			return (add_command(commands, "rra"));
+		add_command(commands, "rrb");
 	}
 	else if (!ft_strncmp(command, "p", ft_strlen(command)))
 	{
 		if (ab == 'a')
-			add_command(commands, "pa");
-		else
-			add_command(commands, "pb");
+			return (add_command(commands, "pa"));
+		add_command(commands, "pb");
 	}
 	else if (!ft_strncmp(command, "s", ft_strlen(command)))
 	{
 		if (ab == 'a')
-			add_command(commands, "sa");
-		else
-			add_command(commands, "sb");
+			return (add_command(commands, "sa"));
+		add_command(commands, "sb");
 	}
 }
 
@@ -85,12 +81,15 @@ void	push(t_num **a, t_num **b, char ab, t_command **commands)
 	insert_node(push_node, b);
 	writecommand("p", ab, commands);
 }
+
 void	swap(t_num **stack, char ab, t_command **commands)
 {
-	t_num	*a = *stack;
-	t_num	*b = (*stack)->next;
+	t_num	*a;
+	t_num	*b;
 	t_num	*temp;
 
+	a = *stack;
+	b = (*stack)->next;
 	if (!stack || !*stack)
 		return ;
 	temp = a;
@@ -100,7 +99,7 @@ void	swap(t_num **stack, char ab, t_command **commands)
 	b->num = temp->num;
 	b->i_in = temp->i_in;
 	b->i_srt = temp->i_srt;
-    writecommand ("s", ab, commands);
+	writecommand ("s", ab, commands);
 }
 
 void	rotate(t_num **stack, int reverse, char ab, t_command **commands)
