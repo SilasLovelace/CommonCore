@@ -6,7 +6,7 @@
 /*   By: sopperma <sopperma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 11:18:54 by sopperma          #+#    #+#             */
-/*   Updated: 2024/06/10 16:36:06 by sopperma         ###   ########.fr       */
+/*   Updated: 2024/06/11 18:50:56 by sopperma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,12 @@ typedef struct s_everything
 	t_num		**stack_b;
 	t_command	**commands;
 	t_params	*params;
+	char		*joined;
+	char		**av;
+	char		*single;
+	int			one_param_assigned;
+	int			ac;
+	int			true_ac;
 }	t_everything;
 
 void		trim_command_list(t_command **command_list);
@@ -81,8 +87,8 @@ void		rotate(t_num **stack, int reverse, char ab, \
 	t_command **command_list);
 void		ft_lstadd_front(t_num **lst, t_num *new_node);
 void		push(t_num **a, t_num **b, char ab, t_command **command_list);
-void		check_input(int ac, char **av);
-void		check_input_2(int ac, char **av);
+void		check_input(t_everything *everything);
+int			check_sorted(t_num **head);
 
 void		hardcode_solution(t_everything *e);
 
@@ -91,6 +97,7 @@ void		freeif_com_list(t_command **list);
 void		free_everything(t_everything *everything);
 void		free_num_list(t_num *num_list);
 void		free_command_list(t_command *command_list);
+void		free_av(char **strings, int ac);
 
 int			ft_lstsize(t_num *lst);
 

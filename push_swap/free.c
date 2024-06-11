@@ -6,7 +6,7 @@
 /*   By: sopperma <sopperma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 12:09:16 by sopperma          #+#    #+#             */
-/*   Updated: 2024/05/31 13:16:29 by sopperma         ###   ########.fr       */
+/*   Updated: 2024/06/11 18:56:14 by sopperma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,36 @@ void	free_command_list(t_command *command_list)
 	}
 }
 
+void	free_av(char **strings, int ac)
+{
+	int	i;
+
+	i = 0;
+	while (i < ac)
+	{
+		free(strings[i++]);
+	}
+}
+
+static void	free_everything_helper(t_everything *everything)
+{
+	if (everything)
+	{
+		if (everything->params)
+			free(everything->params);
+		if (everything->joined)
+			free(everything->joined);
+		if (everything->ac != everything->true_ac || \
+			everything->one_param_assigned)
+		{
+			free_av(everything->av, everything->ac);
+			free(everything->av);
+		}
+		if (everything->single)
+			free(everything->single);
+	}
+}
+
 void	free_everything(t_everything *everything)
 {
 	if (everything)
@@ -59,10 +89,7 @@ void	free_everything(t_everything *everything)
 			free_command_list(*(everything->commands));
 			free(everything->commands);
 		}
-		if (everything->params)
-		{
-			free(everything->params);
-		}
+		free_everything_helper(everything);
 		free(everything);
 		everything = NULL;
 	}

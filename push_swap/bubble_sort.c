@@ -6,7 +6,7 @@
 /*   By: sopperma <sopperma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 13:52:26 by sopperma          #+#    #+#             */
-/*   Updated: 2024/05/31 13:23:00 by sopperma         ###   ########.fr       */
+/*   Updated: 2024/06/11 18:51:08 by sopperma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,22 @@ static int	check_cond(t_num *ptr, char *field)
 		return (ptr->i_in > ptr->next->i_in);
 	else
 		return (-1);
+}
+
+int	check_sorted(t_num **head)
+{
+	t_num	*ptr;
+
+	ptr = *head;
+	while (ptr->next)
+	{
+		if (ptr->next == *head)
+			break ;
+		if (ptr->num > ptr->next->num)
+			return (0);
+		ptr = ptr->next;
+	}
+	return (1);
 }
 
 void	bubble_sort(t_num **head, char *field)

@@ -18,11 +18,8 @@
 
 static t_everything	*set_everything(t_everything *everything, int ac, char **av)
 {
-	everything = malloc(sizeof(t_everything));
-	if (!everything || ac < 2)
-		return (free_everything(everything), NULL);
 	everything->stack_a = create_stack(ac, av);
-	if (!everything->stack_a)
+	if (!everything->stack_a || check_sorted(everything->stack_a))
 		return (free_everything(everything), NULL);
 	everything->stack_b = malloc(sizeof(t_num));
 	if (!everything->stack_b)
@@ -35,28 +32,76 @@ static t_everything	*set_everything(t_everything *everything, int ac, char **av)
 	return (everything);
 }
 
-//single line input
-//don't sort already sorted
+static t_everything	*create_everything(t_everything *everything)
+{
+	everything = malloc(sizeof(t_everything));
+	if (!everything)
+		return (free_everything(everything), NULL);
+	ft_bzero(everything, sizeof(t_everything));
+	return (everything);
+}
 
+static int	check_single(t_everything *everything, char **av)
+{
+	if (countwords(av[1], ' ') == 1)
+	{
+		everything->single = ft_strtrim(av[1], " ");
+		if (!everything->single)
+			return (free_everything(everything), 0);
+		everything->joined = ft_strjoin("test ", everything->single);
+		if (!everything->joined)
+			return (free_everything(everything), 0);
+		everything->one_param_assigned = 1;
+	}
+	else
+	{
+		everything->joined = ft_strjoin("test ", av[1]);
+		if (!everything->joined)
+			return (free_everything(everything), 0);
+	}
+	everything->av = ft_split(everything->joined, ' ');
+	if (!everything->av)
+		return (free_everything(everything), 0);
+	everything->ac = countwords(everything->joined, ' ');
+	return (1);
+}
+
+static t_everything	*prepare_everything(int ac, char **av)
+{
+	t_everything	*everything;
+
+	everything = NULL;
+	everything = create_everything(everything);
+	if (!everything || ac == 1 || !av[1][0])
+		return (free_everything(everything), NULL);
+	if (ac == 2)
+	{
+		if (!check_single(everything, av))
+			return (NULL);
+	}
+	else
+	{
+		everything->av = av;
+		everything->ac = ac;
+	}
+	everything->true_ac = ac;
+	return (everything);
+}
+
+//potentially handle -0 0 ???
 int	main(int ac, char **av)
 {
 	t_everything	*everything;
-	
-	if (ac == 2)
-	{
-		ac = countwords(av[1], ' ');
-		av = ft_split(av[1], ' ');
-		check_input_2(ac, av);
-	}
-	else
-		check_input(ac, av);
-	everything = NULL;
-	everything = set_everything(everything, ac, av);
-	print_list(everything->stack_a, "num");
+
+	everything = prepare_everything(ac, av);
+	if (!everything)
+		return (0);
+	check_input(everything);
+	everything = set_everything(everything, everything->ac, everything->av);
 	if (!everything)
 		return (0);
 	sort_assign(everything->stack_a);
-	if (ac <= 6)
+	if (everything->ac <= 6)
 		hardcode_solution(everything);
 	else
 	{
