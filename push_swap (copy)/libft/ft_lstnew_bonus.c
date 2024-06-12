@@ -1,16 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   so_long.h                                          :+:      :+:    :+:   */
+/*   ft_lstnew.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sopperma <sopperma@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sopperma <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/28 11:18:54 by sopperma          #+#    #+#             */
-/*   Updated: 2024/06/12 14:17:31 by sopperma         ###   ########.fr       */
+/*   Created: 2024/04/09 10:38:23 by sopperma          #+#    #+#             */
+/*   Updated: 2024/04/09 10:38:24 by sopperma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+#include "libft.h"
 
-#ifndef SO_LONG_H
-# define SO:LONG_H
+t_list	*ft_lstnew(void *content)
+{
+	t_list	*new;
 
-#endif
+	new = (t_list *)malloc(sizeof(t_list));
+	if (new == NULL)
+		return (NULL);
+	new->content = content;
+	new->next = 0;
+	return (new);
+}

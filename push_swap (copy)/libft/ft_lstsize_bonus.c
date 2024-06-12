@@ -1,16 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   so_long.h                                          :+:      :+:    :+:   */
+/*   ft_lstsize.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sopperma <sopperma@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sopperma <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/28 11:18:54 by sopperma          #+#    #+#             */
-/*   Updated: 2024/06/12 14:17:31 by sopperma         ###   ########.fr       */
+/*   Created: 2024/04/09 10:39:02 by sopperma          #+#    #+#             */
+/*   Updated: 2024/04/09 10:39:04 by sopperma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+#include "libft.h"
 
-#ifndef SO_LONG_H
-# define SO:LONG_H
+int	ft_lstsize(t_list *lst)
+{
+	int		c;
+	t_list	*current;
 
-#endif
+	c = 0;
+	current = lst;
+	while (current)
+	{
+		c++;
+		current = current->next;
+	}
+	return (c);
+}

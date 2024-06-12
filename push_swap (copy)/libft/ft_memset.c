@@ -1,16 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   so_long.h                                          :+:      :+:    :+:   */
+/*   ft_memset.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sopperma <sopperma@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sopperma <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/28 11:18:54 by sopperma          #+#    #+#             */
-/*   Updated: 2024/06/12 14:17:31 by sopperma         ###   ########.fr       */
+/*   Created: 2024/04/03 10:59:01 by sopperma          #+#    #+#             */
+/*   Updated: 2024/04/03 10:59:15 by sopperma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+#include "libft.h"
 
-#ifndef SO_LONG_H
-# define SO:LONG_H
+void	*ft_memset(void *ptr, int value, size_t num)
+{
+	unsigned char	*proxy;
 
-#endif
+	proxy = ptr;
+	while (num > 0)
+	{
+		*proxy++ = value;
+		num--;
+	}
+	return (ptr);
+}

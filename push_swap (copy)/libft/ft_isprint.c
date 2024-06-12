@@ -1,16 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   so_long.h                                          :+:      :+:    :+:   */
+/*   ft_isprint.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sopperma <sopperma@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sopperma <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/28 11:18:54 by sopperma          #+#    #+#             */
-/*   Updated: 2024/06/12 14:17:31 by sopperma         ###   ########.fr       */
+/*   Created: 2024/04/02 16:18:38 by sopperma          #+#    #+#             */
+/*   Updated: 2024/04/02 16:18:40 by sopperma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+#include "libft.h"
 
-#ifndef SO_LONG_H
-# define SO:LONG_H
-
-#endif
+int	ft_isprint(int c)
+{
+	if (c >= 32 && c <= 126)
+		return (1);
+	else
+		return (0);
+}

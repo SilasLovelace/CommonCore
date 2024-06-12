@@ -1,16 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   so_long.h                                          :+:      :+:    :+:   */
+/*   ft_putchar_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sopperma <sopperma@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sopperma <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/28 11:18:54 by sopperma          #+#    #+#             */
-/*   Updated: 2024/06/12 14:17:31 by sopperma         ###   ########.fr       */
+/*   Created: 2024/04/03 19:05:19 by sopperma          #+#    #+#             */
+/*   Updated: 2024/04/03 19:05:20 by sopperma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+#include "libft.h"
 
-#ifndef SO_LONG_H
-# define SO:LONG_H
-
-#endif
+void	ft_putchar_fd(char c, int fd)
+{
+	write (fd, &c, 1);
+}
