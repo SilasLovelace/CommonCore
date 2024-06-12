@@ -6,7 +6,7 @@
 /*   By: sopperma <sopperma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 13:52:26 by sopperma          #+#    #+#             */
-/*   Updated: 2024/06/11 18:51:08 by sopperma         ###   ########.fr       */
+/*   Updated: 2024/06/12 11:44:51 by sopperma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,11 @@ int	check_sorted(t_num **head)
 			break ;
 		if (ptr->num > ptr->next->num)
 			return (0);
+		if (ptr->num == ptr->next->num)
+		{
+			write(1, "Error\n", 6);
+			return (1);
+		}
 		ptr = ptr->next;
 	}
 	return (1);

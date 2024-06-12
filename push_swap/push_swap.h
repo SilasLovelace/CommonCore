@@ -6,7 +6,7 @@
 /*   By: sopperma <sopperma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 11:18:54 by sopperma          #+#    #+#             */
-/*   Updated: 2024/06/12 11:33:23 by sopperma         ###   ########.fr       */
+/*   Updated: 2024/06/12 11:45:31 by sopperma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void		check_swap(t_num **stack_a);
 void		check_push(t_num **stack_a, t_num **stack_b);
 void		check_rotate(t_num **stack_a);
 void		check_sort(t_num **stack_a);
-void		sort_assign(t_everything *everything);
+int			sort_assign(t_everything *everything);
 t_params	*set_params(t_num **stack_a);
 void		first_stage(t_everything *everything);
 void		second_stage(t_everything *everything);

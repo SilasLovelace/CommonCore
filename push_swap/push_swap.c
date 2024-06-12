@@ -88,7 +88,6 @@ static t_everything	*prepare_everything(int ac, char **av)
 	return (everything);
 }
 
-//potentially handle -0 0 ???
 int	main(int ac, char **av)
 {
 	t_everything	*everything;
@@ -100,7 +99,8 @@ int	main(int ac, char **av)
 	everything = set_everything(everything, everything->ac, everything->av);
 	if (!everything)
 		return (0);
-	sort_assign(everything);
+	if (!sort_assign(everything))
+		return (free_everything(everything), 0);
 	if (everything->ac <= 6)
 		hardcode_solution(everything);
 	else
