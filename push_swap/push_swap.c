@@ -100,7 +100,7 @@ int	main(int ac, char **av)
 	everything = set_everything(everything, everything->ac, everything->av);
 	if (!everything)
 		return (0);
-	sort_assign(everything->stack_a);
+	sort_assign(everything);
 	if (everything->ac <= 6)
 		hardcode_solution(everything);
 	else
