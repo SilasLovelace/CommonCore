@@ -5,14 +5,6 @@ INCLUDES = -I.
 
 LIBFT = libft
 
-SRCS = push_swap.c list_utils.c create_stack.c actions.c \
-	sort_algo.c utils.c test.c output.c stages.c bubble_sort.c free.c \
-	checks.c small_input_solutions.c
-
-OBJS = $(SRCS:.c=.o)
-
-NAME = push_swap
-
 BONUS_SRCS = get_next_line/get_next_line.c get_next_line/get_next_line_utils.c bonus.c \
 	bonus_actions.c list_utils.c create_stack.c actions.c \
 	sort_algo.c utils.c test.c output.c stages.c bubble_sort.c free.c \
@@ -20,16 +12,7 @@ BONUS_SRCS = get_next_line/get_next_line.c get_next_line/get_next_line_utils.c b
 BONUS_OBJS = $(BONUS_SRCS:.c=.o)
 BONUS = checker
 
-all: $(NAME)
-
-$(NAME): $(OBJS)
-	make -C $(LIBFT)
-	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) -L$(LIBFT) -lft
-
-%.o: %.c libft.h
-	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
-
-bonus: $(BONUS)
+all: $(BONUS)
 
 $(BONUS): $(BONUS_OBJS)
 	make -C $(LIBFT)
@@ -45,4 +28,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all clean fclean bonus re
+.PHONY: all clean fclean re

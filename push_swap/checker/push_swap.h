@@ -6,7 +6,7 @@
 /*   By: sopperma <sopperma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 11:18:54 by sopperma          #+#    #+#             */
-/*   Updated: 2024/06/13 14:31:02 by sopperma         ###   ########.fr       */
+/*   Updated: 2024/06/13 16:25:21 by sopperma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,4 +105,6 @@ void		bubble_sort(t_num **head, char *field);
 
 int			ft_stacksize(t_num **stack);
 t_num		**create_stack(int ac, char **av);
+
+int			perform_operation(t_everything *e);
 #endif
