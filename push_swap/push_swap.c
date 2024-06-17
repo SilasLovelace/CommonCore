@@ -112,6 +112,5 @@ int	main(int ac, char **av)
 			second_stage(everything);
 		}
 	}
-	print_list(everything->stack_a, "num");
 	return (free_everything(everything), 0);
 }
