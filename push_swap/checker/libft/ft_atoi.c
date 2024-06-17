@@ -3,21 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sopperma <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: sopperma <sopperma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 18:48:24 by sopperma          #+#    #+#             */
-/*   Updated: 2024/02/21 18:48:28 by sopperma         ###   ########.fr       */
+/*   Updated: 2024/06/17 14:33:55 by sopperma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "libft.h"
 
-int	ft_atoi(const char *str)
+int	ft_atoi(const char *str, int *ptr)
 {
-	int		n;
-	int		sign;
-	long	over;
+	long		n;
+	int			sign;
 
-	over = 0;
 	n = 0;
 	sign = 1;
 	while (*str == ' ' || *str == '\t' || *str == '\n'
@@ -31,13 +30,13 @@ int	ft_atoi(const char *str)
 	}
 	while (*str >= '0' && *str <= '9')
 	{
-		if (over != (over * 10 + *str - '0') / 10)
-			return ((sign >= 0) * -1);
-		over = over * 10 + *str - '0';
 		n = n * 10 + *str - '0';
+		if (n > (long)INT_MAX + (long)(sign == -1))
+			return (0);
 		str++;
 	}
-	return (n * sign);
+	*ptr = (n * sign);
+	return (1);
 }
 /*
 #include <unistd.h>

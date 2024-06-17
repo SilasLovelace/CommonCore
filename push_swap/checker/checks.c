@@ -6,7 +6,7 @@
 /*   By: sopperma <sopperma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 15:50:32 by sopperma          #+#    #+#             */
-/*   Updated: 2024/06/13 16:32:47 by sopperma         ###   ########.fr       */
+/*   Updated: 2024/06/17 14:33:31 by sopperma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,10 @@
 static void	is_not_overflow(t_everything *everything, char *s)
 {
 	long	num;
+	int		number;
 
-	num = ft_atol(s);
-	if (num > INT_MAX || num < INT_MIN)
+	num = ft_atoi(s, &number);
+	if (!num)
 	{
 		free_everything(everything);
 		write(1, "Error\n", 6);
