@@ -6,7 +6,7 @@
 /*   By: sopperma <sopperma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 11:18:54 by sopperma          #+#    #+#             */
-/*   Updated: 2024/06/18 12:28:05 by sopperma         ###   ########.fr       */
+/*   Updated: 2024/06/19 20:06:35 by sopperma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,12 @@
 # include <stdio.h>
 # include <mlx.h>
 # include <X11/keysym.h>
-# include "get_nextline/get_next_line.h"
+# include "libft/libft.h"
 # include <fcntl.h>
+
+#define MALLOC_ERROR	1
+#define ASSET_W		   20
+#define ASSET_H		   20
 
 typedef struct s_img
 {
@@ -35,20 +39,11 @@ typedef struct s_data
     void    *win_ptr;
     t_img   img;
     char     **map;
+    int     map_h;
+    int     map_w;
+    int     player_x;
+    int     player_y;
 }   t_mlx_data;
 
-typedef enum movement
-{
-	move_up = 119,
-	move_down = 115,
-	move_left = 97,
-	move_right = 100,
-    escape = 65307
-	// ON_MOUSEDOWN = 4,
-	// ON_MOUSEUP = 5,
-	// ON_MOUSEMOVE = 6,
-	// ON_EXPOSE = 12,
-	// ON_DESTROY = 17
-}   t_key_enum;
-
+int paint_map(t_mlx_data *data);
 #endif
