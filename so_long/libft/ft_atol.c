@@ -6,7 +6,7 @@
 /*   By: sopperma <sopperma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 18:48:24 by sopperma          #+#    #+#             */
-/*   Updated: 2024/05/31 13:53:19 by sopperma         ###   ########.fr       */
+/*   Updated: 2024/06/20 16:53:00 by sopperma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 long	ft_atol(const char *str)
 {
 	long		n;
-	int		sign;
-	long	over;
+	int			sign;
+	long		over;
 
 	over = 0;
 	n = 0;

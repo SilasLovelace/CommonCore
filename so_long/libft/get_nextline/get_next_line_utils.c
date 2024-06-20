@@ -6,7 +6,7 @@
 /*   By: sopperma <sopperma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 11:14:56 by sopperma          #+#    #+#             */
-/*   Updated: 2024/06/19 18:39:07 by sopperma         ###   ########.fr       */
+/*   Updated: 2024/06/20 12:56:32 by sopperma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	freeif(char **p)
 	}
 }
 
-size_t	ft_strlen(const char *str)
+size_t	ft_strlen_gnl(const char *str)
 {
 	size_t	len;
 
@@ -78,7 +78,7 @@ char	*ft_strjoin_gnl(const char *s1, const char *s2)
 
 	if (!s1 && !s2)
 		return (NULL);
-	res = malloc (ft_strlen(s1) + ft_strlen(s2) + 1);
+	res = malloc (ft_strlen_gnl(s1) + ft_strlen_gnl(s2) + 1);
 	if (!res)
 		return (NULL);
 	c = 0;

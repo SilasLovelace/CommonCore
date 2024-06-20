@@ -6,7 +6,7 @@
 /*   By: sopperma <sopperma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 11:14:41 by sopperma          #+#    #+#             */
-/*   Updated: 2024/06/19 18:39:21 by sopperma         ###   ########.fr       */
+/*   Updated: 2024/06/20 12:59:27 by sopperma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ char	*trim_buffer(char *buffer)
 		freeif(&buffer);
 		return (NULL);
 	}
-	new = ft_calloc((ft_strlen(buffer) - i + 1), sizeof(char));
+	new = ft_calloc((ft_strlen_gnl(buffer) - i + 1), sizeof(char));
 	if (!new)
 		return (freeif(&buffer), NULL);
 	i++;
