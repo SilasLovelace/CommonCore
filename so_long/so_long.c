@@ -6,7 +6,7 @@
 /*   By: sopperma <sopperma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 14:13:35 by sopperma          #+#    #+#             */
-/*   Updated: 2024/06/24 13:55:29 by sopperma         ###   ########.fr       */
+/*   Updated: 2024/06/24 14:44:22 by sopperma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,26 +30,17 @@ char	**create_map(char	*mapname, int *fail)
 {
 	int			fd;
 	char		*line;
-	char		*file = NULL;
+	char		*file;
 	char		**map;
 	char		*tmp;
-	
-	// int i = 0;
-	// printf("int before %d\n", *fail);
 
+	file = NULL;
 	fd = open(mapname, O_RDONLY);
 	line = get_next_line(fd, fail);
 	if (!line)
 		return (NULL);
 	while (line)
 	{
-		// if ( i == 5)	
-		// {
-		// 	line = NULL;
-		// 	*fail = 1;
-		// 	break;
-		// }
-		// i++;
 		tmp = file;
 		file = ft_strjoin(tmp, line);
 		if (!file)
@@ -59,18 +50,15 @@ char	**create_map(char	*mapname, int *fail)
 		line = get_next_line(fd, fail);
 	}
 	map = ft_split(file, '\n');
-	free(file);
-	// printf("int after %d\n", *fail);
 	if ((close(fd) == -1 || *fail) && map)
-		return (free_map(map), printf("Map creation failed\n"), NULL);
-	return (map);
+		return (free_map(map), free(file), printf("Mapmaker failed\n"), NULL);
+	return (free(file), map);
 }
-
 
 int	set_windowsize_player_pos(t_mlx_data *data)
 {
 	int	i;
-	
+
 	i = 0;
 	while (data->map[i])
 		i++;
@@ -83,25 +71,37 @@ int	set_windowsize_player_pos(t_mlx_data *data)
 	return (1);
 }
 
+int	initialize_game(t_mlx_data	*data, char *mapname)
+{
+	if (ft_strlen(mapname) < 5 || ft_strncmp(mapname + ft_strlen(mapname) - 4, \
+		".ber", 4))
+		return (printf("Invalid Map name\n"), 0);
+	if (open(mapname, O_RDONLY) == -1)
+		return (printf("Map not found\n"), 0);
+	ft_bzero(data, sizeof(data));
+	data->map = create_map(mapname, &data->readline_failed);
+	if (!data->map)
+		return (0);
+	set_windowsize_player_pos(data);
+	if (!validate_map(data, mapname))
+	{
+		if (data->map)
+			free_map(data->map);
+		return (0);
+	}
+	data->mlx_ptr = mlx_init();
+	if (data->mlx_ptr == NULL)
+		return (0);
+	return (1);
+}
+
 int	main(int ac, char **av)
 {
 	static t_mlx_data	data;
 
 	if (ac == 2)
 	{
-		ft_bzero(&data, sizeof(data));
-		data.map = create_map(av[1], &data.readline_failed);
-		if (!data.map)
-			return (0);
-		set_windowsize_player_pos(&data);
-		if (!validate_map(&data, av[1]))
-		{
-			if (data.map)	
-				free_map(data.map);
-			return (0);
-		}
-		data.mlx_ptr = mlx_init();
-		if (data.mlx_ptr == NULL)
+		if (!initialize_game(&data, av[1]))
 			return (0);
 		data.win_ptr = mlx_new_window(data.mlx_ptr, (ASSET_W * data.map_w), \
 			(ASSET_H * data.map_h), "GAME");
@@ -113,6 +113,8 @@ int	main(int ac, char **av)
 		}
 		paint_map(&data);
 		mlx_key_hook(data.win_ptr, keyhandler, &data);
+		mlx_hook(data.win_ptr, DestroyNotify, StructureNotifyMask, \
+			&close_game, &data);
 		mlx_loop(data.mlx_ptr);
 	}
 	printf("Wrong amount of arguments!!!!\n");

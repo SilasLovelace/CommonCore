@@ -6,7 +6,7 @@ INCLUDES = -I.
 LIBFT = libft
 
 SRCS = so_long.c map_maker.c keyhandler.c map_validator.c \
-	map_validations.c map_parser.c
+	map_validations.c map_parser.c closer.c
 
 OBJS = $(SRCS:.c=.o)
 

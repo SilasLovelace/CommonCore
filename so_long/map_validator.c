@@ -1,18 +1,18 @@
 /* ************************************************************************** */
-/*																			*/
-/*														:::	  ::::::::   */
-/*   map_validator.c									:+:	  :+:	:+:   */
-/*													+:+ +:+		 +:+	 */
-/*   By: sopperma <sopperma@student.42.fr>		  +#+  +:+	   +#+		*/
-/*												+#+#+#+#+#+   +#+		   */
-/*   Created: 2024/06/20 12:34:15 by sopperma		  #+#	#+#			 */
-/*   Updated: 2024/06/20 15:06:49 by sopperma		 ###   ########.fr	   */
-/*																			*/
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   map_validator.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sopperma <sopperma@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/06/24 13:58:59 by sopperma          #+#    #+#             */
+/*   Updated: 2024/06/24 14:18:20 by sopperma         ###   ########.fr       */
+/*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-int get_obj_pos(char **map, int *y, int *x, char obj)
+int	get_obj_pos(char **map, int *y, int *x, char obj)
 {
 	int	i;
 
@@ -24,7 +24,7 @@ int get_obj_pos(char **map, int *y, int *x, char obj)
 	return (1);
 }
 
-static int flood_fill(t_mlx_data *data, int y, int x, char c)
+static int	flood_fill(t_mlx_data *data, int y, int x, char c)
 {
 	int	i;
 
@@ -35,30 +35,32 @@ static int flood_fill(t_mlx_data *data, int y, int x, char c)
 		return (i);
 	if (c == COLL && data->map[y][x] == EXIT)
 		return (i);
-	if(data->map[y][x] == c)
+	if (data->map[y][x] == c)
 		i++;
 	data->map[y][x] = PLAYER;
-	i += flood_fill(data, y, x+1, c);
-    i += flood_fill(data, y, x-1, c);
-    i += flood_fill(data, y+1, x, c);
-    i += flood_fill(data, y-1, x, c);
+	i += flood_fill(data, y, x + 1, c);
+	i += flood_fill(data, y, x - 1, c);
+	i += flood_fill(data, y + 1, x, c);
+	i += flood_fill(data, y - 1, x, c);
 	return (i);
 }
 
-static int accessible_by_player(t_mlx_data *data, int y, int x)
+static int	accessible_by_player(t_mlx_data *data, int y, int x)
 {
 	if (data->map[y - 1][x] == PLAYER || data->map[y + 1][x] == PLAYER \
 		|| data->map[y][x - 1] == PLAYER || data->map[y][x + 1] == PLAYER)
 		return (1);
 	return (0);
 }
+
 static int	validate_map_2(t_mlx_data *data, char *mapname)
 {
-	int exit_y;
-	int exit_x ;
+	int	exit_y;
+	int	exit_x ;
 
 	data->map[data->player_y][data->player_x] = EMPTY;
-	if (!(flood_fill(data, data->player_y, data->player_x, COLL) == data->diamonds))
+	if (!(flood_fill(data, data->player_y, data->player_x, COLL) \
+		== data->diamonds))
 	{
 		printf("ERROR: Collectibles not accesible\n");
 		return (0);
@@ -71,7 +73,6 @@ static int	validate_map_2(t_mlx_data *data, char *mapname)
 		printf("ERROR: Exit not accessible\n");
 		return (0);
 	}
-	// (void)mapname;
 	free_map(data->map);
 	data->map = create_map(mapname, &data->readline_failed);
 	if (!data->map)
@@ -96,5 +97,5 @@ int	validate_map(t_mlx_data *data, char *mapname)
 		printf("ERROR: Wrong assets\n");
 		return (0);
 	}
-	return (validate_map_2(data, mapname));;
+	return (validate_map_2(data, mapname));
 }

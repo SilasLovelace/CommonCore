@@ -6,7 +6,7 @@
 /*   By: sopperma <sopperma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 12:13:33 by sopperma          #+#    #+#             */
-/*   Updated: 2024/06/24 11:30:01 by sopperma         ###   ########.fr       */
+/*   Updated: 2024/06/24 14:44:11 by sopperma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,13 +71,7 @@ int	check_move(char move, t_mlx_data *data)
 int	keyhandler(int key, t_mlx_data	*data)
 {
 	if (key == XK_Escape)
-	{
-		mlx_destroy_window(data->mlx_ptr, data->win_ptr);
-		mlx_destroy_display(data->mlx_ptr);
-		free(data->mlx_ptr);
-		free_map(data->map);
-		exit(1);
-	}
+		close_game(data);
 	if (key == XK_w)
 		check_move(UP, data);
 	if (key == XK_s)
@@ -94,14 +88,5 @@ int	keyhandler(int key, t_mlx_data	*data)
 		printf("height: %d\n", data->map_h);
 		printf("width: %d\n", data->map_w);
 	}
-	// if (key == XK_f)
-	// {
-	// 	printf("flodding\n");
-	// 	data->map[data->player_y][data->player_x] = EMPTY;
-	// 	paint_map(data);
-	// 	printf("coins found %d\n", flood_fill(data, data->player_y, data->player_x, COLL));
-	// 	// printf("doors found %d\n", flood_fill(data, data->player_y, data->player_x, EXIT));
-	// 	printf("flooded\n");
-	// }
 	return (0);
 }

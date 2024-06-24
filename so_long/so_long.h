@@ -1,13 +1,13 @@
 /* ************************************************************************** */
-/*                                      */
-/*                            :::     ::::::::   */
-/*   so_long.h                      :+:   :+:    :+:   */
-/*                          +:+ +:+       +:+    */
-/*   By: sopperma <sopperma@student.42.fr>      +#+  +:+       +#+    */
-/*                        +#+#+#+#+#+   +#+     */
-/*   Created: 2024/05/28 11:18:54 by sopperma        #+#  #+#          */
-/*   Updated: 2024/06/20 16:00:19 by sopperma       ###   ########.fr    */
-/*                                      */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   so_long.h                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sopperma <sopperma@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/06/24 13:59:59 by sopperma          #+#    #+#             */
+/*   Updated: 2024/06/24 14:32:52 by sopperma         ###   ########.fr       */
+/*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SO_LONG_H
@@ -17,6 +17,7 @@
 # include <stdio.h>
 # include <mlx.h>
 # include <X11/keysym.h>
+# include <X11/X.h>
 # include "libft/libft.h"
 # include <fcntl.h>
 
@@ -75,13 +76,11 @@ typedef struct s_data
 	int		readline_failed;
 }	t_mlx_data;
 
-// int		flood_fill(t_mlx_data *data, char **map, int x, int y, char c);
-// int		flood_fill(t_mlx_data *data, int x, int y, char c);
-
 int		paint_map(t_mlx_data *data);
 int		keyhandler(int key, t_mlx_data	*data);
 void	free_map(char **map);
 char	**create_map(char	*mapname, int *fail);
+int		close_game(t_mlx_data	*data);
 
 int		validate_map(t_mlx_data *data, char *mapname);
 
