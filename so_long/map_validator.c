@@ -12,41 +12,19 @@
 
 #include "so_long.h"
 
-int get_obj_pos(t_mlx_data *data, char obj)
+int get_obj_pos(char **map, int *y, int *x, char obj)
 {
 	int	i;
 
 	i = 0;
-	while (!ft_strchr(data->map[i], obj))
+	while (map[i] && !ft_strchr(map[i], obj))
 		i++;
-	data->player_y = i;
-	data->player_x = ft_strchr(data->map[i], obj) - data->map[i];
+	*y = i;
+	*x = ft_strchr(map[i], obj) - map[i];
 	return (1);
 }
 
-int flood_fill(char **map, int y, int x, char c)
-{
-	int	i;
-
-	i = 0;
-	if (x < 0 || !map[x] || y < 0 || !map[y])
-		return (i);
-	if (map[y][x] == WALL || map[y][x] == PLAYER)
-		return (i);
-	if (c == COLL && map[y][x] == EXIT)
-		return (i);
-	if(map[y][x] == c)
-		i++;
-	map[y][x] = PLAYER;
-	// paint_map(data);
-	i += flood_fill(map, y, x+1, c);
-    i += flood_fill(map, y, x-1, c);
-    i += flood_fill(map, y+1, x, c);
-    i += flood_fill(map, y-1, x, c);
-	return (i);
-}
-
-/* int flood_fill(t_mlx_data *data, int y, int x, char c)
+static int flood_fill(t_mlx_data *data, int y, int x, char c)
 {
 	int	i;
 
@@ -60,21 +38,49 @@ int flood_fill(char **map, int y, int x, char c)
 	if(data->map[y][x] == c)
 		i++;
 	data->map[y][x] = PLAYER;
-	// paint_map(data);
 	i += flood_fill(data, y, x+1, c);
     i += flood_fill(data, y, x-1, c);
     i += flood_fill(data, y+1, x, c);
     i += flood_fill(data, y-1, x, c);
 	return (i);
-} */
+}
+
+static int accessible_by_player(t_mlx_data *data, int y, int x)
+{
+	if (data->map[y - 1][x] == PLAYER || data->map[y + 1][x] == PLAYER \
+		|| data->map[y][x - 1] == PLAYER || data->map[y][x + 1] == PLAYER)
+		return (1);
+	return (0);
+}
+static int	validate_map_2(t_mlx_data *data, char *mapname)
+{
+	int exit_y;
+	int exit_x ;
+
+	data->map[data->player_y][data->player_x] = EMPTY;
+	if (!(flood_fill(data, data->player_y, data->player_x, COLL) == data->diamonds))
+	{
+		printf("ERROR: Collectibles not accesible\n");
+		return (0);
+	}
+	exit_y = 0;
+	exit_x = 0;
+	get_obj_pos(data->map, &exit_y, &exit_x, EXIT);
+	if (!accessible_by_player(data, exit_y, exit_x))
+	{
+		printf("ERROR: Exit not accesible\n");
+		return (0);
+	}
+	(void)mapname;
+	// free_map(data->map);
+	// data->map = create_map(mapname);
+	// if (!data->map)
+	// 		return (0);
+	return (1);
+}
 
 int	validate_map(t_mlx_data *data, char *mapname)
 {
-	char	**mapcopy;
-
-	mapcopy = create_map(mapname);
-	
-	(void)mapname;
 	if (!check_rectanglar(data))
 	{
 		printf("ERROR: Map not rectangular\n");
@@ -90,15 +96,5 @@ int	validate_map(t_mlx_data *data, char *mapname)
 		printf("ERROR: Wrong assets\n");
 		return (0);
 	}
-	mapcopy[data->player_y][data->player_x] = EMPTY;
-	printf("colls : %d\n", data->diamonds);
-	printf("colls accesible: %d\n", flood_fill(mapcopy, data->player_y, data->player_x, COLL));
-	data->map[data->player_y][data->player_x] = EMPTY;
-	printf("colls accesible: %d\n", flood_fill(data->map, data->player_y, data->player_x, COLL));
-	/* if (!(flood_fill(mapcopy, data->player_y, data->player_x, COLL) == data->diamonds))
-	{
-		printf("ERROR: colls not accesible\n");
-		return (0);
-	} */
-	return (1);
+	return (validate_map_2(data, mapname));;
 }

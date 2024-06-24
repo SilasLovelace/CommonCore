@@ -74,7 +74,7 @@ typedef struct s_data
 	int		steps;
 }	t_mlx_data;
 
-int		flood_fill(char **map, int x, int y, char c);
+// int		flood_fill(t_mlx_data *data, char **map, int x, int y, char c);
 // int		flood_fill(t_mlx_data *data, int x, int y, char c);
 
 
@@ -88,5 +88,5 @@ int		validate_map(t_mlx_data *data, char *mapname);
 int		check_rectanglar(t_mlx_data *data);
 int		check_walls(t_mlx_data *data);
 int		parse_map(t_mlx_data *data);
-int		get_obj_pos(t_mlx_data *data, char obj);
+int		get_obj_pos(char **map, int *y, int *x, char obj);
 #endif

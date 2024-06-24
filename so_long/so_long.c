@@ -6,7 +6,7 @@
 /*   By: sopperma <sopperma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 14:13:35 by sopperma          #+#    #+#             */
-/*   Updated: 2024/06/24 10:47:59 by sopperma         ###   ########.fr       */
+/*   Updated: 2024/06/24 12:30:13 by sopperma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ int	count_diamonds(char *map)
 	}
 	return (diamonds);
 }
-// char	*file = NULL??;
 
 char	**create_map(char	*mapname)
 {
@@ -69,11 +68,9 @@ int	set_windowsize_player_pos(t_mlx_data *data)
 	while (data->map[0][i])
 		i++;
 	data->map_w = i;
-	get_obj_pos(data, PLAYER);
+	get_obj_pos(data->map, &data->player_y, &data->player_x, PLAYER);
 	return (1);
 }
-
-// check statics allowed?
 
 int	main(int ac, char **av)
 {

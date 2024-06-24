@@ -6,7 +6,7 @@
 /*   By: sopperma <sopperma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 12:13:33 by sopperma          #+#    #+#             */
-/*   Updated: 2024/06/20 17:56:19 by sopperma         ###   ########.fr       */
+/*   Updated: 2024/06/24 11:30:01 by sopperma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,14 +94,14 @@ int	keyhandler(int key, t_mlx_data	*data)
 		printf("height: %d\n", data->map_h);
 		printf("width: %d\n", data->map_w);
 	}
-	if (key == XK_f)
-	{
-		printf("flodding\n");
-		data->map[data->player_y][data->player_x] = EMPTY;
-		paint_map(data);
-		printf("coins found %d\n", flood_fill(data, data->player_y, data->player_x, COLL));
-		// printf("doors found %d\n", flood_fill(data, data->player_y, data->player_x, EXIT));
-		printf("flooded\n");
-	}
+	// if (key == XK_f)
+	// {
+	// 	printf("flodding\n");
+	// 	data->map[data->player_y][data->player_x] = EMPTY;
+	// 	paint_map(data);
+	// 	printf("coins found %d\n", flood_fill(data, data->player_y, data->player_x, COLL));
+	// 	// printf("doors found %d\n", flood_fill(data, data->player_y, data->player_x, EXIT));
+	// 	printf("flooded\n");
+	// }
 	return (0);
 }
