@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sopperma <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: sopperma <sopperma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 14:04:02 by sopperma          #+#    #+#             */
-/*   Updated: 2024/04/09 14:20:04 by sopperma         ###   ########.fr       */
+/*   Updated: 2024/06/24 15:01:34 by sopperma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,16 @@
 # include <stdint.h>
 # include <unistd.h>
 # include "get_nextline/get_next_line.h"
+
+# include <stdarg.h>
+
+int		ft_printf(const char *s, ...);
+int		handle_i_d(int i);
+int		handle_u(unsigned int u);
+int		handle_x(unsigned int i, char *base, int adress);
+int		handle_x_upper(unsigned int i, char *base, int adress);
+int		handle_p(void *i, char *base, int adress);
+void	ft_putnbr_base(unsigned long nbr, char *base, char p);
 
 int		ft_isalpha(int c);
 int		ft_isdigit(int c);
@@ -54,6 +64,7 @@ void	ft_putchar_fd(char c, int fd);
 void	ft_putstr_fd(char *s, int fd);
 void	ft_putendl_fd(char *s, int fd);
 void	ft_putnbr_fd(int n, int fd);
+void	ft_putunbr_fd(unsigned int n, int fd);
 
 typedef struct s_list
 {

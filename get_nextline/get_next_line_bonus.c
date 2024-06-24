@@ -138,13 +138,15 @@ char	*get_next_line(int fd)
 		freeif(&(buffer[fd]));
 	return (line);
 }
-
-/* int main ()
+/*
+#include <fcntl.h>
+#include <stdio.h>
+int main ()
 {
 	// int fd = open("read_error.txt", O_RDONLY);
 	//int fd = open("giant_line.txt", O_RDONLY);
 	//int fd = open("giant_line_nl.txt", O_RDONLY);
-	int fd = open("1char.txt", O_RDONLY);
+	int fd = open("test.txt", O_RDONLY);
 	char *line;
 
 	line = get_next_line(fd);
@@ -163,4 +165,4 @@ char	*get_next_line(int fd)
 	// }
 	// 	printf("%s", line); 
 	// close(fd);
-} */
+}*/

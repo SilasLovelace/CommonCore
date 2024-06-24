@@ -6,7 +6,7 @@
 /*   By: sopperma <sopperma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/24 13:58:59 by sopperma          #+#    #+#             */
-/*   Updated: 2024/06/24 14:18:20 by sopperma         ###   ########.fr       */
+/*   Updated: 2024/06/24 15:05:33 by sopperma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ static int	validate_map_2(t_mlx_data *data, char *mapname)
 	if (!(flood_fill(data, data->player_y, data->player_x, COLL) \
 		== data->diamonds))
 	{
-		printf("ERROR: Collectibles not accesible\n");
+		ft_printf("ERROR: Collectibles not accesible\n");
 		return (0);
 	}
 	exit_y = 0;
@@ -70,7 +70,7 @@ static int	validate_map_2(t_mlx_data *data, char *mapname)
 	get_obj_pos(data->map, &exit_y, &exit_x, EXIT);
 	if (!accessible_by_player(data, exit_y, exit_x))
 	{
-		printf("ERROR: Exit not accessible\n");
+		ft_printf("ERROR: Exit not accessible\n");
 		return (0);
 	}
 	free_map(data->map);
@@ -84,17 +84,17 @@ int	validate_map(t_mlx_data *data, char *mapname)
 {
 	if (!check_rectanglar(data))
 	{
-		printf("ERROR: Map not rectangular\n");
+		ft_printf("ERROR: Map not rectangular\n");
 		return (0);
 	}
 	if (!check_walls(data))
 	{
-		printf("ERROR: walls not surround\n");
+		ft_printf("ERROR: walls not surround\n");
 		return (0);
 	}
 	if (!parse_map(data))
 	{
-		printf("ERROR: Wrong assets\n");
+		ft_printf("ERROR: Wrong assets\n");
 		return (0);
 	}
 	return (validate_map_2(data, mapname));

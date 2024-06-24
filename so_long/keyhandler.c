@@ -6,7 +6,7 @@
 /*   By: sopperma <sopperma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 12:13:33 by sopperma          #+#    #+#             */
-/*   Updated: 2024/06/24 14:44:11 by sopperma         ###   ########.fr       */
+/*   Updated: 2024/06/24 15:04:57 by sopperma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int	perform_move(t_mlx_data *data, char move, int y, int x)
 		data->player_x += x;
 		data->map[data->player_y - y][data->player_x - x] = EMPTY;
 		data->steps++;
-		printf("steps: %d\n", data->steps);
+		ft_printf("steps: %d\n", data->steps);
 	}
 	return (1);
 }
@@ -82,11 +82,11 @@ int	keyhandler(int key, t_mlx_data	*data)
 		check_move(RIGHT, data);
 	if (key == XK_space)
 	{
-		printf("player at x:%d y:%d\n", data->player_x, data->player_y);
-		printf("diamonds: %d\n", data->diamonds);
-		printf("steps: %d\n", data->steps);
-		printf("height: %d\n", data->map_h);
-		printf("width: %d\n", data->map_w);
+		ft_printf("player at x:%d y:%d\n", data->player_x, data->player_y);
+		ft_printf("diamonds: %d\n", data->diamonds);
+		ft_printf("steps: %d\n", data->steps);
+		ft_printf("height: %d\n", data->map_h);
+		ft_printf("width: %d\n", data->map_w);
 	}
 	return (0);
 }

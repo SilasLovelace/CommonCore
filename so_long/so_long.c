@@ -6,7 +6,7 @@
 /*   By: sopperma <sopperma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 14:13:35 by sopperma          #+#    #+#             */
-/*   Updated: 2024/06/24 14:44:22 by sopperma         ###   ########.fr       */
+/*   Updated: 2024/06/24 15:06:29 by sopperma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ char	**create_map(char	*mapname, int *fail)
 	}
 	map = ft_split(file, '\n');
 	if ((close(fd) == -1 || *fail) && map)
-		return (free_map(map), free(file), printf("Mapmaker failed\n"), NULL);
+		return (free_map(map), free(file), ft_printf("Mapmake fail\n"), NULL);
 	return (free(file), map);
 }
 
@@ -75,9 +75,9 @@ int	initialize_game(t_mlx_data	*data, char *mapname)
 {
 	if (ft_strlen(mapname) < 5 || ft_strncmp(mapname + ft_strlen(mapname) - 4, \
 		".ber", 4))
-		return (printf("Invalid Map name\n"), 0);
+		return (ft_printf("Invalid Map name\n"), 0);
 	if (open(mapname, O_RDONLY) == -1)
-		return (printf("Map not found\n"), 0);
+		return (ft_printf("Map not found\n"), 0);
 	ft_bzero(data, sizeof(data));
 	data->map = create_map(mapname, &data->readline_failed);
 	if (!data->map)
@@ -117,6 +117,6 @@ int	main(int ac, char **av)
 			&close_game, &data);
 		mlx_loop(data.mlx_ptr);
 	}
-	printf("Wrong amount of arguments!!!!\n");
+	ft_printf("Wrong amount of arguments!!!!\n");
 	return (0);
 }
