@@ -6,7 +6,7 @@
 /*   By: sopperma <sopperma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 14:13:35 by sopperma          #+#    #+#             */
-/*   Updated: 2024/06/20 17:58:09 by sopperma         ###   ########.fr       */
+/*   Updated: 2024/06/24 10:47:59 by sopperma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ char	**create_map(char	*mapname)
 {
 	int			fd;
 	char		*line;
-	static char	*file = NULL;
+	char		*file = NULL;
 	char		**map;
 	char		*tmp;
 
@@ -56,10 +56,10 @@ char	**create_map(char	*mapname)
 	return (map);
 }
 
+
 int	set_windowsize_player_pos(t_mlx_data *data)
 {
 	int	i;
-	int	y;
 	
 	i = 0;
 	while (data->map[i])
@@ -69,11 +69,7 @@ int	set_windowsize_player_pos(t_mlx_data *data)
 	while (data->map[0][i])
 		i++;
 	data->map_w = i;
-	y = 0;
-	while (!ft_strchr(data->map[y], PLAYER))
-		y++;
-	data->player_y = y;
-	data->player_x = ft_strchr(data->map[y], PLAYER) - data->map[y];
+	get_obj_pos(data, PLAYER);
 	return (1);
 }
 
