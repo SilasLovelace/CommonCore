@@ -6,7 +6,7 @@
 /*   By: sopperma <sopperma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 14:13:35 by sopperma          #+#    #+#             */
-/*   Updated: 2024/06/24 12:30:13 by sopperma         ###   ########.fr       */
+/*   Updated: 2024/06/24 13:55:29 by sopperma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,32 +26,43 @@ int	count_diamonds(char *map)
 	return (diamonds);
 }
 
-char	**create_map(char	*mapname)
+char	**create_map(char	*mapname, int *fail)
 {
 	int			fd;
 	char		*line;
 	char		*file = NULL;
 	char		**map;
 	char		*tmp;
+	
+	// int i = 0;
+	// printf("int before %d\n", *fail);
 
 	fd = open(mapname, O_RDONLY);
-	line = get_next_line(fd);
+	line = get_next_line(fd, fail);
 	if (!line)
 		return (NULL);
 	while (line)
 	{
+		// if ( i == 5)	
+		// {
+		// 	line = NULL;
+		// 	*fail = 1;
+		// 	break;
+		// }
+		// i++;
 		tmp = file;
 		file = ft_strjoin(tmp, line);
 		if (!file)
-			return (free(tmp), free(line), get_next_line(-1), NULL);
+			return (free(tmp), free(line), get_next_line(-1, fail), NULL);
 		free(tmp);
 		free(line);
-		line = get_next_line(fd);
+		line = get_next_line(fd, fail);
 	}
 	map = ft_split(file, '\n');
 	free(file);
-	if (close(fd) == -1)
-		return (free_map(map), NULL);
+	// printf("int after %d\n", *fail);
+	if ((close(fd) == -1 || *fail) && map)
+		return (free_map(map), printf("Map creation failed\n"), NULL);
 	return (map);
 }
 
@@ -79,12 +90,16 @@ int	main(int ac, char **av)
 	if (ac == 2)
 	{
 		ft_bzero(&data, sizeof(data));
-		data.map = create_map(av[1]);
+		data.map = create_map(av[1], &data.readline_failed);
 		if (!data.map)
 			return (0);
 		set_windowsize_player_pos(&data);
 		if (!validate_map(&data, av[1]))
-			return (free_map(data.map), 0);
+		{
+			if (data.map)	
+				free_map(data.map);
+			return (0);
+		}
 		data.mlx_ptr = mlx_init();
 		if (data.mlx_ptr == NULL)
 			return (0);

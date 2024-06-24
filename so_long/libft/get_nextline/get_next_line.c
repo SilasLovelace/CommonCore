@@ -6,13 +6,13 @@
 /*   By: sopperma <sopperma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 11:14:41 by sopperma          #+#    #+#             */
-/*   Updated: 2024/06/20 12:59:27 by sopperma         ###   ########.fr       */
+/*   Updated: 2024/06/24 13:37:23 by sopperma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-char	*free_join(char *scan, char *buffer, int bytes_read)
+char	*free_join(char *scan, char *buffer, int bytes_read, int *fail)
 {
 	char	*old;
 
@@ -21,6 +21,7 @@ char	*free_join(char *scan, char *buffer, int bytes_read)
 		freeif(&buffer);
 		if (bytes_read == -1)
 		{
+			*fail = 1;
 			freeif(&scan);
 			return (NULL);
 		}
@@ -33,7 +34,10 @@ char	*free_join(char *scan, char *buffer, int bytes_read)
 		freeif(&buffer);
 	}
 	if (!scan)
+	{
+		*fail = 1;
 		return (NULL);
+	}
 	return (scan);
 }
 
@@ -68,7 +72,7 @@ char	*trim_buffer(char *buffer)
 
 //extracts everything up to the first newline or terminator
 // of the buffer or NULL uf the BUFFER is EMPTY
-char	*get_lin(char *buffer)
+char	*get_lin(char *buffer, int *fail)
 {
 	char	*line;
 	int		i;
@@ -83,7 +87,10 @@ char	*get_lin(char *buffer)
 	}
 	line = ft_calloc(i + 1, 1);
 	if (!line)
+	{
+		*fail = 1;
 		return (NULL);
+	}
 	while (--i >= 0)
 	{
 		line[i] = buffer[i];
@@ -94,7 +101,7 @@ char	*get_lin(char *buffer)
 //gets the file descriptor and a potentially partially filled old buffer
 //returns either the buffer unmodified if there is a part up to newline or 
 //makes a new read and adds to the buffer until a newline or EOF is found
-char	*get_buffer(int fd, char *buffer)
+char	*get_buffer(int fd, char *buffer, int *fail)
 {
 	char	*scan;
 	size_t	bytes_read;
@@ -103,16 +110,22 @@ char	*get_buffer(int fd, char *buffer)
 	{
 		scan = ft_calloc(BUFFER_SIZE + 1, 1);
 		if (!scan)
+		{
+			*fail = 1;
 			return (freeif(&buffer), NULL);
+		}
 		bytes_read = read(fd, scan, BUFFER_SIZE);
 		if (bytes_read == 0)
 		{
 			freeif(&scan);
 			break ;
 		}
-		buffer = free_join(buffer, scan, bytes_read);
+		buffer = free_join(buffer, scan, bytes_read, fail);
 		if (!buffer)
+		{
+			*fail = 1;
 			return (NULL);
+		}
 	}
 	return (buffer);
 }
@@ -122,7 +135,7 @@ char	*get_buffer(int fd, char *buffer)
 //Buffer gets filled up to \n or EOF OR including all newlines
 //line gets extracted
 //Buffer is adjusted
-char	*get_next_line(int fd)
+char	*get_next_line(int fd, int *fail)
 {
 	static char	*buffer;
 	char		*line;
@@ -131,10 +144,10 @@ char	*get_next_line(int fd)
 		return (NULL);
 	if (fd < 0)
 		return (freeif(&buffer), NULL);
-	buffer = get_buffer(fd, buffer);
+	buffer = get_buffer(fd, buffer, fail);
 	if (!buffer)
 		return (NULL);
-	line = get_lin(buffer);
+	line = get_lin(buffer, fail);
 	if (line)
 		buffer = trim_buffer(buffer);
 	else

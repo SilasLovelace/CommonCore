@@ -68,14 +68,14 @@ static int	validate_map_2(t_mlx_data *data, char *mapname)
 	get_obj_pos(data->map, &exit_y, &exit_x, EXIT);
 	if (!accessible_by_player(data, exit_y, exit_x))
 	{
-		printf("ERROR: Exit not accesible\n");
+		printf("ERROR: Exit not accessible\n");
 		return (0);
 	}
-	(void)mapname;
-	// free_map(data->map);
-	// data->map = create_map(mapname);
-	// if (!data->map)
-	// 		return (0);
+	// (void)mapname;
+	free_map(data->map);
+	data->map = create_map(mapname, &data->readline_failed);
+	if (!data->map)
+		return (0);
 	return (1);
 }
 

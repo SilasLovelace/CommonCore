@@ -72,16 +72,16 @@ typedef struct s_data
 	int		player_y;
 	int		diamonds;
 	int		steps;
+	int		readline_failed;
 }	t_mlx_data;
 
 // int		flood_fill(t_mlx_data *data, char **map, int x, int y, char c);
 // int		flood_fill(t_mlx_data *data, int x, int y, char c);
 
-
 int		paint_map(t_mlx_data *data);
 int		keyhandler(int key, t_mlx_data	*data);
 void	free_map(char **map);
-char	**create_map(char	*mapname);
+char	**create_map(char	*mapname, int *fail);
 
 int		validate_map(t_mlx_data *data, char *mapname);
 
