@@ -6,7 +6,7 @@
 /*   By: sopperma <sopperma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 14:54:04 by sopperma          #+#    #+#             */
-/*   Updated: 2024/06/26 16:29:05 by sopperma         ###   ########.fr       */
+/*   Updated: 2024/06/26 16:16:54 by sopperma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,15 +39,7 @@ int    *encrypt_char(char msg)
 }
 
 
-void  signal_handler (int signum, siginfo_t *info, void *data)
-{
-    (void)info;
-    (void)data;
 
-    write(1, "res\n", 4);
-    if(signum == SIGUSR2)
-        sig_rec = 0;
-}
 
 int main(int ac, char* av[])
 {
@@ -59,15 +51,6 @@ int main(int ac, char* av[])
     int     x;
     i = 0;
     
-    struct sigaction action;
-    ft_bzero(&action, sizeof(action));
-    action.sa_flags = SA_SIGINFO;
-    action.sa_sigaction = signal_handler;
-    sigaction(SIGUSR1, &action, NULL);
-    sigaction(SIGUSR2, &action, NULL);
-
-    
-    kill(server_pid, SIGUSR1);
     while (av[2][i])
     {
         x = 0;
@@ -77,19 +60,23 @@ int main(int ac, char* av[])
             // printf("sending %d -> %d to %d\n", x, e_char[x], server_pid);
             if (e_char[x] == 1)
             {
-            // printf("sending 1\n");
+            printf("sending 1\n");
                 kill(server_pid, SIGUSR1);   
             }
             else if (e_char[x] == 0)
             {
-            // printf("sending 0\n");
+            printf("sending 0\n");
                 kill(server_pid, SIGUSR2);    
             } 
-            sleep(100);
+            usleep(50);
             x++;
         }
         free(e_char);
         i++;
     }
+/*     while (1)
+    {
+        pause();
+    } */
   return 0;
 }
