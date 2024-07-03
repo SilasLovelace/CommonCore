@@ -6,7 +6,7 @@
 /*   By: sopperma <sopperma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 14:51:38 by sopperma          #+#    #+#             */
-/*   Updated: 2024/06/26 19:07:06 by sopperma         ###   ########.fr       */
+/*   Updated: 2024/07/03 18:47:17 by sopperma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,4 +28,11 @@ typedef struct s_bits
     int size;
 }   t_bits;
 
+typedef struct s_bits_recieved
+{
+    int current;
+    int *bit;
+    int *size_bits;
+    int size;
+}   t_bits_recieved;
 #endif
