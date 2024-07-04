@@ -6,7 +6,7 @@
 /*   By: sopperma <sopperma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 14:54:04 by sopperma          #+#    #+#             */
-/*   Updated: 2024/07/04 15:44:20 by sopperma         ###   ########.fr       */
+/*   Updated: 2024/07/04 16:53:44 by sopperma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 t_bits bits;
 
-int    *encrypt(int input, int size)
+int static  *encrypt(int input, int size)
 {
     int     *e_bit;
     int     i;
@@ -34,15 +34,10 @@ int    *encrypt(int input, int size)
     return (e_bit);
 }
 
-
-void  signal_handler (int signum, siginfo_t *info, void *data)
+void static signal_handler (int signum, siginfo_t *info, void *data)
 {
-    (void)info;
     (void)data;
-    (void)signum;
-    // write (1, "rec\n", 4);
     bits.current += 1;
-    // if(!(bits.current >= bits.size) && signum == SIGUSR1)
     if (signum == SIGUSR1)
     {
         if(bits.bit[bits.current] == 1)
@@ -57,79 +52,71 @@ void  signal_handler (int signum, siginfo_t *info, void *data)
     }
 }
 
-int main(int ac, char* av[])
+int static encode_size ()
 {
-    (void)ac;
-    __pid_t server_pid;
-    server_pid = ft_atoi(av[1]);
     int    *e_bits;
-    int     i;
-    int     x;
-    i = 0;
-
     
-    bits.bit = malloc(sizeof(int) * ((ft_strlen(av[2]) * 8) + 32));
-    int bit = 0;
-    bits.size = (ft_strlen(av[2]) * 8) + 32;
-    
-    struct sigaction action;
-    ft_bzero(&action, sizeof(action));
-    action.sa_flags = SA_SIGINFO;
-    action.sa_sigaction = signal_handler;
-    sigaction(SIGUSR1, &action, NULL);
-    sigaction(SIGUSR2, &action, NULL);
-
-    x = 0;
     e_bits = encrypt(bits.size, 32);
-    while (x < 32)
+    if (!e_bits)
+        return (0);
+    while (bits.encoded_bits < 32)
     {
-        // printf("sending %d -> %d to %d\n", x, e_bit[x], server_pid);
-        if (e_bits[x] == 1)
-        {
-            bits.bit[bit] = 1;
-            // printf("1");  
-        }
-        else if (e_bits[x] == 0)
-        {
-            bits.bit[bit] = 0;
-            // printf("0");   
-        } 
-        bit++;
-        x++;
+        bits.bit[bits.encoded_bits] = e_bits[bits.encoded_bits];
+        bits.encoded_bits++;
     }
     free(e_bits);
-    // printf("\n");
-    while (av[2][i])
+    return (1);
+}
+
+int static encode_string (char *string)
+{
+    int     x;
+    int     i;
+    int    *e_bits;
+    
+    i = 0;
+    while (string[i])
     {
         x = 0;
-        e_bits = encrypt(av[2][i], 8);
+        e_bits = encrypt(string[i], 8);
+        if (!e_bits)
+            return (0);
         while (x < 8)
         {
-            // printf("sending %d -> %d to %d\n", x, e_bit[x], server_pid);
-            if (e_bits[x] == 1)
-            {
-                bits.bit[bit] = 1;
-                // printf("1");  
-            }
-            else if (e_bits[x] == 0)
-            {
-                bits.bit[bit] = 0;
-                // printf("0");   
-            } 
-            bit++;
+            bits.bit[bits.encoded_bits] = e_bits[x];
+            bits.encoded_bits++;
             x++;
         }
-        // printf("\n");
         free(e_bits);
         i++;
     }
-    if(bits.bit[bits.current] == 1)
-        kill(server_pid, SIGUSR1);
-    else if(bits.bit[bits.current] == 0)
-        kill(server_pid, SIGUSR2);
-    while (1)
-    {
-        pause();
+    return(1);
+}
+
+int main(int ac, char* av[])
+{
+    if (ac == 3)
+    {  
+        __pid_t server_pid;
+        server_pid = ft_atoi(av[1]);
+        bits.bit = malloc(sizeof(int) * ((ft_strlen(av[2]) * 8) + 32));
+        if (!bits.bit)
+            return (0);
+        bits.size = (ft_strlen(av[2]) * 8) + 32;
+        struct sigaction action;
+        ft_bzero(&action, sizeof(action));
+        action.sa_flags = SA_SIGINFO;
+        action.sa_sigaction = signal_handler;
+        sigaction(SIGUSR1, &action, NULL);
+        sigaction(SIGUSR2, &action, NULL);
+        if (!encode_size() || !encode_string(av[2]))
+            return(free(bits.bit), 0);
+        if(bits.bit[bits.current] == 1)
+            kill(server_pid, SIGUSR1);
+        else if(bits.bit[bits.current] == 0)
+            kill(server_pid, SIGUSR2);
+        while (1)
+            pause();
     }
-  return 0;
+    return 0;
 }
