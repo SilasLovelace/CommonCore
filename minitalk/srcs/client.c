@@ -6,7 +6,7 @@
 /*   By: sopperma <sopperma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 14:54:04 by sopperma          #+#    #+#             */
-/*   Updated: 2024/07/03 18:58:07 by sopperma         ###   ########.fr       */
+/*   Updated: 2024/07/04 14:09:45 by sopperma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,26 +14,24 @@
 
 t_bits bits;
 
-int    *encrypt(char input, int size)
+int    *encrypt(int input, int size)
 {
-    int     *e_char;
+    int     *e_bit;
     int     i;
     int     x;
     
     i = size - 1;
     x = 0;
-    e_char = malloc(sizeof(int) * size);
-    if (!e_char)
+    e_bit = malloc(sizeof(int) * size);
+    if (!e_bit)
         return (NULL);
     while (x < size)
     {
-        e_char[x] = (input >> i) & 1;
+        e_bit[x] = (input >> i) & 1;
         i--;
-        // ft_printf("%d", e_char[x]);
         x++;
     }
-    // ft_printf("\n");
-    return (e_char);
+    return (e_bit);
 }
 
 
@@ -83,7 +81,7 @@ int main(int ac, char* av[])
     e_bits = encrypt(bits.size, 32);
     while (x < 32)
     {
-        // printf("sending %d -> %d to %d\n", x, e_char[x], server_pid);
+        // printf("sending %d -> %d to %d\n", x, e_bit[x], server_pid);
         if (e_bits[x] == 1)
         {
             bits.bit[bit] = 1;
@@ -105,7 +103,7 @@ int main(int ac, char* av[])
         e_bits = encrypt(av[2][i], 8);
         while (x < 8)
         {
-            // printf("sending %d -> %d to %d\n", x, e_char[x], server_pid);
+            // printf("sending %d -> %d to %d\n", x, e_bit[x], server_pid);
             if (e_bits[x] == 1)
             {
                 bits.bit[bit] = 1;
