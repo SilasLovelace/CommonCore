@@ -6,7 +6,7 @@
 /*   By: sopperma <sopperma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 14:54:04 by sopperma          #+#    #+#             */
-/*   Updated: 2024/07/04 14:09:45 by sopperma         ###   ########.fr       */
+/*   Updated: 2024/07/04 15:44:20 by sopperma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,15 +42,17 @@ void  signal_handler (int signum, siginfo_t *info, void *data)
     (void)signum;
     // write (1, "rec\n", 4);
     bits.current += 1;
-    if(!(bits.current >= bits.size))
+    // if(!(bits.current >= bits.size) && signum == SIGUSR1)
+    if (signum == SIGUSR1)
     {
         if(bits.bit[bits.current] == 1)
             kill(info->si_pid, SIGUSR1);
         else if(bits.bit[bits.current] == 0)
             kill(info->si_pid, SIGUSR2);  
     }
-    else
+    else if (signum == SIGUSR2)
     {
+        free(bits.bit);
         exit(1);
     }
 }
@@ -75,7 +77,7 @@ int main(int ac, char* av[])
     action.sa_flags = SA_SIGINFO;
     action.sa_sigaction = signal_handler;
     sigaction(SIGUSR1, &action, NULL);
-    // sigaction(SIGUSR2, &action, NULL);
+    sigaction(SIGUSR2, &action, NULL);
 
     x = 0;
     e_bits = encrypt(bits.size, 32);
@@ -85,18 +87,18 @@ int main(int ac, char* av[])
         if (e_bits[x] == 1)
         {
             bits.bit[bit] = 1;
-            printf("1");  
+            // printf("1");  
         }
         else if (e_bits[x] == 0)
         {
             bits.bit[bit] = 0;
-            printf("0");   
+            // printf("0");   
         } 
         bit++;
         x++;
     }
     free(e_bits);
-    printf("\n");
+    // printf("\n");
     while (av[2][i])
     {
         x = 0;
@@ -107,25 +109,20 @@ int main(int ac, char* av[])
             if (e_bits[x] == 1)
             {
                 bits.bit[bit] = 1;
-                printf("1");  
+                // printf("1");  
             }
             else if (e_bits[x] == 0)
             {
                 bits.bit[bit] = 0;
-                printf("0");   
+                // printf("0");   
             } 
             bit++;
             x++;
         }
-        printf("\n");
+        // printf("\n");
         free(e_bits);
         i++;
     }
-   /*  int f = 0;
-    while (f < bit)
-    {
-        printf("%d", bits.bit[f++]);
-    } */
     if(bits.bit[bits.current] == 1)
         kill(server_pid, SIGUSR1);
     else if(bits.bit[bits.current] == 0)
