@@ -41,9 +41,9 @@ void static	signal_handler(int signum, siginfo_t *info, void *data)
 	if (signum == SIGUSR1)
 	{
 		if (g_bits.bit[g_bits.current] == 1)
-			kill(info->si_pid, SIGUSR1);
+			send_signal(info->si_pid, SIGUSR1, &g_bits);
 		else if (g_bits.bit[g_bits.current] == 0)
-			kill(info->si_pid, SIGUSR2);
+			send_signal(info->si_pid, SIGUSR2, &g_bits);
 	}
 	else if (signum == SIGUSR2)
 	{
@@ -111,11 +111,11 @@ int	main(int ac, char *av[])
 		sigaction(SIGUSR1, &action, NULL);
 		sigaction(SIGUSR2, &action, NULL);
 		if (!encode_size() || !encode_string(av[2]))
-			return (free(bits.bit), 0);
-		if (bits.bit[bits.current] == 1)
-			kill(server_pid, SIGUSR1);
-		else if (bits.bit[bits.current] == 0)
-			kill(server_pid, SIGUSR2);
+			return (free(g_bits.bit), 0);
+		if (g_bits.bit[g_bits.current] == 1)
+			send_signal(server_pid, SIGUSR1, &g_bits);
+		else if (g_bits.bit[g_bits.current] == 0)
+			send_signal(server_pid, SIGUSR2, &g_bits);
 		while (1)
 			pause();
 	}

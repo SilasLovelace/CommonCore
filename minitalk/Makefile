@@ -14,7 +14,8 @@ SRCSDIR		= srcs
 INCLUDES	= includes
 
 SRCS		= \
-			$(SRCSDIR)/client.c
+			$(SRCSDIR)/client.c \
+			$(SRCSDIR)/send.c
 
 SRCS_B		= \
 			$(SRCSDIR)/server.c

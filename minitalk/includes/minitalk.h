@@ -6,7 +6,7 @@
 /*   By: sopperma <sopperma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 17:05:41 by sopperma          #+#    #+#             */
-/*   Updated: 2024/07/04 17:06:03 by sopperma         ###   ########.fr       */
+/*   Updated: 2024/07/05 10:14:05 by sopperma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,4 +33,6 @@ typedef struct s_bits_recieved
 	int	*bit;
 	int	size;
 }	t_bits_recieved;
+
+void	send_signal(char *pid, int signum, t_bits *g_bits);
 #endif
