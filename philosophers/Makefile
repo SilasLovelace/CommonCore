@@ -7,25 +7,21 @@ RM			= rm -rf
 CFLAGS		= -Wall -Wextra -Werror -MD -MP -g -I $(INCLUDES)
 MAKEFLAGS	= -j$(nproc) --no-print-directory
 
-NAME		= client
-NAME_B		= server
+NAME		= philosophers
 
 SRCSDIR		= srcs
 INCLUDES	= includes
 
 SRCS		= \
-			$(SRCSDIR)/phlisophers.c
+			$(SRCSDIR)/philosophers.c \
+			$(SRCSDIR)/process.c \
+			$(SRCSDIR)/setup.c \
+			$(SRCSDIR)/testing.c
 
-SRCS_B		= \
-			$(SRCSDIR)/
 
 OBJSDIR		= objs
 OBJS		= $(addprefix $(OBJSDIR)/, $(SRCS:.c=.o))
 DEPS		= $(addprefix $(OBJSDIR)/, $(SRCS:.c=.d))
-
-OBJSDIR_B	= objs_bonus
-OBJS_B		= $(addprefix $(OBJSDIR_B)/, $(SRCS_B:.c=.o))
-DEPS_B		= $(addprefix $(OBJSDIR_B)/, $(SRCS_B:.c=.d))
 
 ################################################################################
 ######                               LIBFT                                ######
@@ -45,9 +41,6 @@ bonus	: $(NAME_B)
 $(NAME)	: ${OBJS}
 		$(MAKE) -C ${LIBDIR} all
 		$(CC) ${CFLAGS} -o $@ $^ -L. ${LIBFT}
-
-# -Lminilibx-linux -lmlx_Linux -lX11 -lXext
-# -lX11 -lXext -lmlx
 
 $(NAME_B)	: ${OBJS_B}
 		$(MAKE) -C ${LIBDIR} all
