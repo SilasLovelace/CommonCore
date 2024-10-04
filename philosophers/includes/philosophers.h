@@ -6,7 +6,7 @@
 /*   By: sopperma <sopperma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 17:05:41 by sopperma          #+#    #+#             */
-/*   Updated: 2024/10/04 12:38:00 by sopperma         ###   ########.fr       */
+/*   Updated: 2024/10/04 13:54:20 by sopperma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,8 @@ typedef struct s_philosopher
 	pthread_mutex_t	*fork_mutex;
 	long long		last_meal;
 	pthread_mutex_t	*last_meal_mutex;
-	int				is_dead;
-	pthread_mutex_t	*is_dead_mutex;
+	// int				is_dead;
+	// pthread_mutex_t	*is_dead_mutex;
 	int				num;
 	int				times_eaten;
 	t_memory		*memory;
