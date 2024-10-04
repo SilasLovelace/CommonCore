@@ -6,7 +6,7 @@
 /*   By: sopperma <sopperma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 17:05:41 by sopperma          #+#    #+#             */
-/*   Updated: 2024/09/26 14:17:07 by sopperma         ###   ########.fr       */
+/*   Updated: 2024/10/04 12:19:50 by sopperma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,37 +28,45 @@ typedef struct s_memory
 	int	t_eat;
 	int	t_sleep;
 	int	max_meals;
-	int died;
-	int all_ate;
-	int full_philosophers;
 	long long start_time;
+	int died;
+	pthread_mutex_t	*died_mutex;
+	int full_philosophers;
+	pthread_mutex_t	*full_mutex;
 	pthread_t		overseer_thread;
 	t_philosopher	*philosophers;
-	pthread_mutex_t	*full;
-	pthread_mutex_t	*print;
+	pthread_mutex_t	*print_mutex;
 	pthread_mutex_t	*get_time;
-	pthread_mutex_t	*death;
 }	t_memory;
 
 typedef struct s_philosopher
 {
-	pthread_t		p_thread;
-	pthread_mutex_t	*mutex;
-	pthread_mutex_t	*is_eating_mutex;
-	int				num;
+	pthread_t		fork;
+	pthread_mutex_t	*fork_mutex;
+	long long		last_meal;
+	pthread_mutex_t	*last_meal_mutex;
 	int				is_dead;
-	int 			is_eating;
+	pthread_mutex_t	*is_dead_mutex;
+	int				num;
 	int				times_eaten;
-	long long			last_eat_time;
 	t_memory		*memory;
 	struct s_philosopher	*next;
 	struct s_philosopher	*prev;
 }	t_philosopher;
 
+#define EATING 1
+#define SLEEPING 2
+#define THINKING 3
+#define FULL 4
+#define DEAD 5
 
 //process.c
-void *do_something(void *philosopher);
+void *philo_process(void *philosopher);
 int get_current_time(t_philosopher *phil);
+// void my_usleep(long time, t_philosopher *phil);
+// int is_odd(int i);
+int print_event(t_philosopher *phil, char event);
+void *overseer(void *memory);
 
 //setup.c
 void create_philosophers(t_memory *memory);

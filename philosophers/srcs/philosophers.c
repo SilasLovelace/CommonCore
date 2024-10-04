@@ -6,7 +6,7 @@
 /*   By: sopperma <sopperma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/06 14:18:52 by sopperma          #+#    #+#             */
-/*   Updated: 2024/09/26 14:17:30 by sopperma         ###   ########.fr       */
+/*   Updated: 2024/10/03 14:21:05 by sopperma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,14 +24,14 @@ static void initialze_memory(t_memory *memory, int ac, char **av)
     memory->t_sleep = ft_atoi(av[4]);
     if (ac == 6)
         memory->max_meals = ft_atoi(av[5]);
-    memory->print = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t));
-    pthread_mutex_init(memory->print, NULL);
+    memory->print_mutex = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t));
+    pthread_mutex_init(memory->print_mutex, NULL);
     memory->get_time = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t));
     pthread_mutex_init(memory->get_time, NULL);
-    memory->death = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t));
-    pthread_mutex_init(memory->death, NULL);
-    memory->full = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t));
-    pthread_mutex_init(memory->full, NULL);
+    memory->died_mutex = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t));
+    pthread_mutex_init(memory->died_mutex, NULL);
+    memory->full_mutex = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t));
+    pthread_mutex_init(memory->full_mutex, NULL);
     create_philosophers(memory);
 }
 
