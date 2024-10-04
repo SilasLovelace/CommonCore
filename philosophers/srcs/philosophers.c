@@ -6,7 +6,7 @@
 /*   By: sopperma <sopperma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/06 14:18:52 by sopperma          #+#    #+#             */
-/*   Updated: 2024/09/25 16:09:42 by sopperma         ###   ########.fr       */
+/*   Updated: 2024/09/26 14:17:30 by sopperma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,10 @@ static void initialze_memory(t_memory *memory, int ac, char **av)
     pthread_mutex_init(memory->print, NULL);
     memory->get_time = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t));
     pthread_mutex_init(memory->get_time, NULL);
+    memory->death = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t));
+    pthread_mutex_init(memory->death, NULL);
+    memory->full = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t));
+    pthread_mutex_init(memory->full, NULL);
     create_philosophers(memory);
 }
 

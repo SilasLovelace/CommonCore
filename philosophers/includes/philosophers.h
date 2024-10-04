@@ -6,7 +6,7 @@
 /*   By: sopperma <sopperma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 17:05:41 by sopperma          #+#    #+#             */
-/*   Updated: 2024/09/25 16:29:15 by sopperma         ###   ########.fr       */
+/*   Updated: 2024/09/26 14:17:07 by sopperma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,17 +29,22 @@ typedef struct s_memory
 	int	t_sleep;
 	int	max_meals;
 	int died;
+	int all_ate;
+	int full_philosophers;
 	long long start_time;
 	pthread_t		overseer_thread;
 	t_philosopher	*philosophers;
+	pthread_mutex_t	*full;
 	pthread_mutex_t	*print;
 	pthread_mutex_t	*get_time;
+	pthread_mutex_t	*death;
 }	t_memory;
 
 typedef struct s_philosopher
 {
 	pthread_t		p_thread;
 	pthread_mutex_t	*mutex;
+	pthread_mutex_t	*is_eating_mutex;
 	int				num;
 	int				is_dead;
 	int 			is_eating;
