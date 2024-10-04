@@ -6,7 +6,7 @@
 /*   By: sopperma <sopperma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 14:01:46 by sopperma          #+#    #+#             */
-/*   Updated: 2024/10/04 12:19:36 by sopperma         ###   ########.fr       */
+/*   Updated: 2024/10/04 12:37:38 by sopperma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ t_philosopher *create_philosopher(int num, t_memory *memory)
     philosopher->memory = memory;
     return (philosopher);
 }
+
 
 void create_threads(t_memory *memory)
 {

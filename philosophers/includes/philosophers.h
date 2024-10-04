@@ -6,7 +6,7 @@
 /*   By: sopperma <sopperma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 17:05:41 by sopperma          #+#    #+#             */
-/*   Updated: 2024/10/04 12:19:50 by sopperma         ###   ########.fr       */
+/*   Updated: 2024/10/04 12:38:00 by sopperma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,14 @@ typedef struct s_memory
 	long long start_time;
 	int died;
 	pthread_mutex_t	*died_mutex;
+	int all_full;
+	pthread_mutex_t	*all_full_mutex;
 	int full_philosophers;
 	pthread_mutex_t	*full_mutex;
 	pthread_t		overseer_thread;
 	t_philosopher	*philosophers;
 	pthread_mutex_t	*print_mutex;
-	pthread_mutex_t	*get_time;
+	// pthread_mutex_t	*get_time;
 }	t_memory;
 
 typedef struct s_philosopher

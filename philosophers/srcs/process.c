@@ -6,7 +6,7 @@
 /*   By: sopperma <sopperma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 14:03:41 by sopperma          #+#    #+#             */
-/*   Updated: 2024/10/04 12:29:17 by sopperma         ###   ########.fr       */
+/*   Updated: 2024/10/04 12:42:05 by sopperma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,10 @@ int is_odd(int i)
 int print_event(t_philosopher *phil, char event)
 {
     pthread_mutex_lock(phil->memory->print_mutex);
+    if (event == FULL)
+        printf("All philosophers ate %d times\n", phil->memory->max_meals);
+    if (event == DEAD)
+        printf("%d %d is dead\n", get_current_time(phil), phil->num);
     
     pthread_mutex_lock(phil->memory->died_mutex);
     if (phil->memory->died == 1)
@@ -49,27 +53,20 @@ int print_event(t_philosopher *phil, char event)
     }
     pthread_mutex_unlock(phil->memory->died_mutex);
 
-    pthread_mutex_lock(phil->memory->full_mutex);
-    if (phil->memory->num_philo == phil->memory->full_philosophers)
-    {
-        pthread_mutex_unlock(phil->memory->full_mutex);
-        pthread_mutex_unlock(phil->memory->print_mutex);
-        return (0);
-    }
-    pthread_mutex_unlock(phil->memory->full_mutex);
-
+    pthread_mutex_lock(phil->memory->all_full_mutex);
+        if(phil->memory->all_full == 1)
+        {
+            pthread_mutex_unlock(phil->memory->all_full_mutex);
+            pthread_mutex_unlock(phil->memory->print_mutex);
+            return (0);
+        }
+    pthread_mutex_unlock(phil->memory->all_full_mutex);
     if (event == EATING)
         printf("%d %d is eating, ate %d times\n",get_current_time(phil) ,phil->num, phil->times_eaten + 1);
-    else if (event == SLEEPING)
+    if (event == SLEEPING)
         printf("%d %d is sleeping\n",get_current_time(phil), phil->num);
-    else if (event == THINKING)    
+    if (event == THINKING)    
         printf("%d %d is thinking\n", get_current_time(phil), phil->num);
-
-    
-    else if (event == FULL)
-        printf("All philosophers ate %d times\n", phil->memory->max_meals);
-    else if (event == DEAD)
-        printf("%d %d is dead\n", get_current_time(phil), phil->num);
     pthread_mutex_unlock(phil->memory->print_mutex);
     return (1);
 }
@@ -92,6 +89,15 @@ void eats(t_philosopher *phil)
     phil->times_eaten++;
     if (phil->times_eaten == phil->memory->max_meals)
         phil->memory->full_philosophers++;
+    if (phil->memory->full_philosophers == phil->memory->num_philo)
+    {
+        pthread_mutex_lock(phil->memory->all_full_mutex);
+        phil->memory->all_full = 1;
+        pthread_mutex_unlock(phil->memory->all_full_mutex);
+        print_event(phil, FULL);
+        pthread_mutex_unlock(phil->memory->full_mutex);
+        exit(0);
+    }
     pthread_mutex_unlock(phil->memory->full_mutex);
 }
 
@@ -115,9 +121,8 @@ void *overseer(void *memory)
             pthread_mutex_lock(philosopher->memory->died_mutex);
             philosopher->memory->died = 1;
             pthread_mutex_unlock(philosopher->memory->died_mutex);
-
             print_event(philosopher, DEAD);
-            return (NULL);
+            exit(0);
         }
         pthread_mutex_unlock(philosopher->last_meal_mutex);
         philosopher = philosopher->next;
@@ -130,26 +135,10 @@ void *philo_process(void *philosopher)
     
     while (1)
     {
-        // pthread_mutex_lock(philo->memory->full_mutex);
-        // if (philo->memory->full_philosophers == philo->memory->num_philo)
-        // {
-        //     print_event(philo, FULL);
-        //     pthread_mutex_unlock(philo->memory->full_mutex);
-        //     break;
-        // }
-        // pthread_mutex_unlock(philo->memory->full_mutex);
-
-        // pthread_mutex_lock(philo->last_meal_mutex);
-        // if (get_current_time(philosopher) - philo->last_meal > philo->memory->t_death)
-        // {
-        //     pthread_mutex_lock(philo->memory->died_mutex);
-        //     philo->memory->died = 1;
-        //     pthread_mutex_unlock(philo->memory->died_mutex);
-        //     print_event(philosopher, DEAD);
-        //     break;
-        // }
-        // pthread_mutex_unlock(philo->last_meal_mutex);
-
+        // pthread_mutex_lock(philo->memory->died_mutex);
+        // if (philo->memory->died == 1)
+        //     print_event(philo, DEAD);
+        // pthread_mutex_unlock(philo->memory->died_mutex);
         if(is_odd(philo->num))
         {
             eats(philosopher);
