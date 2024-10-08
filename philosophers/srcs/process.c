@@ -6,7 +6,7 @@
 /*   By: sopperma <sopperma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 14:03:41 by sopperma          #+#    #+#             */
-/*   Updated: 2024/10/08 17:52:07 by sopperma         ###   ########.fr       */
+/*   Updated: 2024/10/08 18:20:40 by sopperma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,25 +154,40 @@ void *philo_process(void *philosopher)
     
     while (1)
     {
-        if(is_odd(philo->num))
-        {
-            if (eats(philosopher) == 0 || sleeps(philosopher) == 0 || print_event(philosopher, THINKING) == 0)
-                return (NULL);
-            // sleeps(philosopher);
-            // print_event(philosopher, THINKING);
-            my_usleep(philo->memory->t_eat, philo);
-        }
-        else
-        {
-            if (print_event(philosopher, THINKING) == 0)
-                return (NULL);
-            print_event(philosopher, THINKING);
-            my_usleep(philo->memory->t_eat, philo);
-            if (eats(philosopher) == 0 || sleeps(philosopher) == 0)
-                return (NULL);
-            // eats(philo);
-            // sleeps(philo); 
-        }
-    }
+        // if (is_odd(philo->memory->num_philo))
+        // {
+            if(is_odd(philo->num))
+            {
+                if (eats(philosopher) == 0 || sleeps(philosopher) == 0 || print_event(philosopher, THINKING) == 0)
+                    return (NULL);
+                my_usleep(philo->memory->t_eat, philo);
+            }
+            else
+            {
+                if (print_event(philosopher, THINKING) == 0)
+                    return (NULL);
+                my_usleep(philo->memory->t_eat, philo);
+                if (eats(philosopher) == 0 || sleeps(philosopher) == 0)
+                    return (NULL);
+            }
+        // }
+        // else
+        // {
+        //     if(is_odd(philo->num))
+        //     {
+        //         if (eats(philosopher) == 0 || sleeps(philosopher) == 0 || print_event(philosopher, THINKING) == 0)
+        //             return (NULL);
+        //         my_usleep(philo->memory->t_eat - philo->memory->t_sleep, philo);
+        //     }
+        //     else
+        //     {
+        //         if (print_event(philosopher, THINKING) == 0)
+        //             return (NULL);
+        //         my_usleep(philo->memory->t_eat - philo->memory->t_sleep, philo);
+        //         if (eats(philosopher) == 0 || sleeps(philosopher) == 0)
+        //             return (NULL);
+        //     }
+        // }
     return (NULL);
+    }
 }
