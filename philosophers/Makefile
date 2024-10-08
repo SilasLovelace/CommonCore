@@ -16,7 +16,8 @@ SRCS		= \
 			$(SRCSDIR)/philosophers.c \
 			$(SRCSDIR)/process.c \
 			$(SRCSDIR)/setup.c \
-			$(SRCSDIR)/testing.c
+			$(SRCSDIR)/testing.c \
+			$(SRCSDIR)/cleanup.c
 
 
 OBJSDIR		= objs

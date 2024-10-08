@@ -6,7 +6,7 @@
 /*   By: sopperma <sopperma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 17:05:41 by sopperma          #+#    #+#             */
-/*   Updated: 2024/10/04 13:54:20 by sopperma         ###   ########.fr       */
+/*   Updated: 2024/10/08 17:35:41 by sopperma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,6 @@ typedef struct s_philosopher
 //process.c
 void *philo_process(void *philosopher);
 int get_current_time(t_philosopher *phil);
-// void my_usleep(long time, t_philosopher *phil);
-// int is_odd(int i);
 int print_event(t_philosopher *phil, char event);
 void *overseer(void *memory);
 
@@ -76,5 +74,8 @@ void create_philosophers(t_memory *memory);
 //testing.c
 void print_philosophers(t_memory *memory);
 void print_memory(t_memory *memory);
+
+//cleanup.c
+void cleanup(t_memory *memory);
 
 #endif

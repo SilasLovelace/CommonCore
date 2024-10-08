@@ -6,7 +6,7 @@
 /*   By: sopperma <sopperma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 14:03:41 by sopperma          #+#    #+#             */
-/*   Updated: 2024/10/04 13:44:09 by sopperma         ###   ########.fr       */
+/*   Updated: 2024/10/08 17:52:07 by sopperma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,11 +134,13 @@ void *overseer(void *memory)
             pthread_mutex_lock(philosopher->memory->all_full_mutex);
             if (philosopher->memory->all_full == 0)
             {
-                pthread_mutex_unlock(philosopher->memory->all_full_mutex);                
+                pthread_mutex_unlock(philosopher->memory->all_full_mutex);
+                pthread_mutex_unlock(philosopher->last_meal_mutex);
                 print_event(philosopher, DEAD);
                 return(NULL);
             }
-            pthread_mutex_unlock(philosopher->memory->all_full_mutex);                
+            pthread_mutex_unlock(philosopher->memory->all_full_mutex);
+            pthread_mutex_unlock(philosopher->last_meal_mutex);
             return(NULL);
         }
         pthread_mutex_unlock(philosopher->last_meal_mutex);

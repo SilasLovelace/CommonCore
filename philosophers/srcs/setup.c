@@ -6,7 +6,7 @@
 /*   By: sopperma <sopperma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 14:01:46 by sopperma          #+#    #+#             */
-/*   Updated: 2024/10/04 12:37:38 by sopperma         ###   ########.fr       */
+/*   Updated: 2024/10/08 17:33:57 by sopperma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,6 @@ t_philosopher *create_philosopher(int num, t_memory *memory)
     philosopher = malloc(sizeof(t_philosopher));
     philosopher->fork_mutex = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t)); 
     pthread_mutex_init(philosopher->fork_mutex, NULL);
-    philosopher->is_dead_mutex = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t));
-    pthread_mutex_init(philosopher->is_dead_mutex, NULL);
     philosopher->last_meal_mutex = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t));
     pthread_mutex_init(philosopher->last_meal_mutex, NULL);
     philosopher->num = num;
@@ -58,6 +56,7 @@ void create_threads(t_memory *memory)
         philosopher = philosopher->next;
         i++;
     }
+    pthread_join(memory->overseer_thread, NULL);
 }
 
 void create_philosophers(t_memory *memory)
