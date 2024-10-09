@@ -6,7 +6,7 @@
 /*   By: sopperma <sopperma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 14:03:41 by sopperma          #+#    #+#             */
-/*   Updated: 2024/10/08 17:52:07 by sopperma         ###   ########.fr       */
+/*   Updated: 2024/10/09 14:24:15 by sopperma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int print_event(t_philosopher *phil, char event)
 {
     pthread_mutex_lock(phil->memory->print_mutex);
     if (event == DEAD)
-        printf("%d %d is dead\n", get_current_time(phil), phil->num);
+        printf("%d %d died\n", get_current_time(phil), phil->num);
     if (event == FULL)
         printf("All philosophers ate %d times\n", phil->memory->max_meals);
     
@@ -64,6 +64,8 @@ int print_event(t_philosopher *phil, char event)
 
         // printf("%d %d is eating, ate %d times\n",get_current_time(phil) ,phil->num, phil->times_eaten + 1);
     
+    if (event == FORK)
+        printf("%d %d has taken a fork\n", get_current_time(phil), phil->num);
     if (event == EATING)
         printf("%d %d is eating\n",get_current_time(phil) ,phil->num);
     else if (event == SLEEPING)
@@ -77,7 +79,10 @@ int print_event(t_philosopher *phil, char event)
 int eats(t_philosopher *phil)
 {
     pthread_mutex_lock(phil->fork_mutex);
+    print_event(phil, FORK);
     pthread_mutex_lock(phil->next->fork_mutex);
+    print_event(phil, FORK);
+
     if (print_event(phil, EATING) == 0)
     {
         pthread_mutex_unlock(phil->next->fork_mutex);
@@ -151,27 +156,27 @@ void *overseer(void *memory)
 void *philo_process(void *philosopher)
 {
     t_philosopher *philo = (t_philosopher *)philosopher;
-    
+    int i = 0;
+
     while (1)
     {
         if(is_odd(philo->num))
         {
             if (eats(philosopher) == 0 || sleeps(philosopher) == 0 || print_event(philosopher, THINKING) == 0)
                 return (NULL);
-            // sleeps(philosopher);
-            // print_event(philosopher, THINKING);
-            my_usleep(philo->memory->t_eat, philo);
         }
         else
         {
             if (print_event(philosopher, THINKING) == 0)
                 return (NULL);
             print_event(philosopher, THINKING);
+            if (i == 0)
+            {
             my_usleep(philo->memory->t_eat, philo);
+                i++;
+            }
             if (eats(philosopher) == 0 || sleeps(philosopher) == 0)
                 return (NULL);
-            // eats(philo);
-            // sleeps(philo); 
         }
     }
     return (NULL);
