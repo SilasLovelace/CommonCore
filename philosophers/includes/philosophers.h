@@ -6,7 +6,7 @@
 /*   By: sopperma <sopperma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 17:05:41 by sopperma          #+#    #+#             */
-/*   Updated: 2024/10/09 14:22:08 by sopperma         ###   ########.fr       */
+/*   Updated: 2024/10/09 14:26:09 by sopperma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ typedef struct s_philosopher
 #define THINKING 3
 #define FULL 4
 #define DEAD 5
+#define FORK 6
 #define FORK 6
 
 //process.c
