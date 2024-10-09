@@ -6,7 +6,7 @@
 /*   By: sopperma <sopperma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 14:01:46 by sopperma          #+#    #+#             */
-/*   Updated: 2024/10/08 17:33:57 by sopperma         ###   ########.fr       */
+/*   Updated: 2024/10/09 14:39:58 by sopperma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ t_philosopher *create_philosopher(int num, t_memory *memory)
     philosopher->num = num;
     philosopher->times_eaten = 0;
     philosopher->memory = memory;
+    philosopher->last_meal = philosopher->memory->start_time;
     return (philosopher);
 }
 

@@ -6,7 +6,7 @@
 /*   By: sopperma <sopperma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 14:03:41 by sopperma          #+#    #+#             */
-/*   Updated: 2024/10/09 14:29:48 by sopperma         ###   ########.fr       */
+/*   Updated: 2024/10/09 14:39:38 by sopperma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,6 @@ int print_event(t_philosopher *phil, char event)
         printf("%d %d died\n", get_current_time(phil), phil->num);
     if (event == FULL)
         printf("All philosophers ate %d times\n", phil->memory->max_meals);
-    if (event == FORK)
-        printf("%d %d has taken a fork\n", get_current_time(phil), phil->num);
     
     pthread_mutex_lock(phil->memory->died_mutex);
     if (phil->memory->died == 1)
@@ -81,7 +79,6 @@ int print_event(t_philosopher *phil, char event)
 int eats(t_philosopher *phil)
 {
     pthread_mutex_lock(phil->fork_mutex);
-    print_event(phil, FORK);
     print_event(phil, FORK);
     pthread_mutex_lock(phil->next->fork_mutex);
     print_event(phil, FORK);
@@ -171,7 +168,6 @@ void *philo_process(void *philosopher)
         {
             if (print_event(philosopher, THINKING) == 0)
                 return (NULL);
-            print_event(philosopher, THINKING);
             if (i == 0)
             {
             my_usleep(philo->memory->t_eat, philo);
