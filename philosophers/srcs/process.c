@@ -6,7 +6,7 @@
 /*   By: sopperma <sopperma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 14:03:41 by sopperma          #+#    #+#             */
-/*   Updated: 2024/10/15 13:24:57 by sopperma         ###   ########.fr       */
+/*   Updated: 2024/10/15 14:44:42 by sopperma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,12 +54,12 @@ int print_event(t_philosopher *phil, char event)
     pthread_mutex_unlock(phil->memory->died_mutex);
 
     pthread_mutex_lock(phil->memory->all_full_mutex);
-        if(phil->memory->all_full == 1)
-        {
-            pthread_mutex_unlock(phil->memory->all_full_mutex);
-            pthread_mutex_unlock(phil->memory->print_mutex);
-            return (0);
-        }
+    if(phil->memory->all_full == 1)
+    {
+        pthread_mutex_unlock(phil->memory->all_full_mutex);
+        pthread_mutex_unlock(phil->memory->print_mutex);
+        return (0);
+    }
     pthread_mutex_unlock(phil->memory->all_full_mutex);
 
         // printf("%d %d is eating, ate %d times\n",get_current_time(phil) ,phil->num, phil->times_eaten + 1);
@@ -76,25 +76,52 @@ int print_event(t_philosopher *phil, char event)
     return (1);
 }
 
-int eats(t_philosopher *phil)
+void lock (t_philosopher *phil)
 {
-/* if ((uintptr_t)&(phil->fork_mutex) < (uintptr_t)&(phil->next->fork_mutex)) {
-    pthread_mutex_lock(&(phil->fork_mutex));
-    pthread_mutex_lock(&(phil->next->fork_mutex));
-} else {
-    pthread_mutex_lock(&(phil->next->fork_mutex));
-    pthread_mutex_lock(&(phil->fork_mutex));
-} */
+    if (is_odd(phil->num))
+    {
+        pthread_mutex_lock(phil->fork_mutex);
+        print_event(phil, FORK);
+        pthread_mutex_lock(phil->next->fork_mutex);
+        print_event(phil, FORK);
+    }
+    else
+    {
+        pthread_mutex_lock(phil->next->fork_mutex);
+        print_event(phil, FORK);
+        pthread_mutex_lock(phil->fork_mutex);
+        print_event(phil, FORK);
+    }
+}
 
-    pthread_mutex_lock(phil->fork_mutex);
-    print_event(phil, FORK);
-    pthread_mutex_lock(phil->next->fork_mutex);
-    print_event(phil, FORK);
-
-    if (print_event(phil, EATING) == 0)
+void unlock (t_philosopher *phil)
+{
+    if (is_odd(phil->num))
     {
         pthread_mutex_unlock(phil->next->fork_mutex);
         pthread_mutex_unlock(phil->fork_mutex);
+    }
+    else
+    {
+        pthread_mutex_unlock(phil->fork_mutex);
+        pthread_mutex_unlock(phil->next->fork_mutex);
+    }
+}
+
+int eats(t_philosopher *phil)
+{
+    // pthread_mutex_lock(phil->fork_mutex);
+    // print_event(phil, FORK);
+    // pthread_mutex_lock(phil->next->fork_mutex);
+    // print_event(phil, FORK);
+
+    lock(phil);
+
+    if (print_event(phil, EATING) == 0)
+    {
+        // pthread_mutex_unlock(phil->next->fork_mutex);
+        // pthread_mutex_unlock(phil->fork_mutex);
+        unlock(phil);
         return (0);
     }
     pthread_mutex_lock(phil->last_meal_mutex);
@@ -102,8 +129,9 @@ int eats(t_philosopher *phil)
     pthread_mutex_unlock(phil->last_meal_mutex);
     
     my_usleep(phil->memory->t_eat, phil);
-    pthread_mutex_unlock(phil->next->fork_mutex); 
-    pthread_mutex_unlock(phil->fork_mutex);
+    // pthread_mutex_unlock(phil->next->fork_mutex); 
+    // pthread_mutex_unlock(phil->fork_mutex);
+    unlock(phil);
     
     pthread_mutex_lock(phil->memory->full_mutex);
     phil->times_eaten++;
@@ -128,6 +156,7 @@ int sleeps(t_philosopher *phil)
     my_usleep(phil->memory->t_sleep, phil);
     return (1);
 }
+
 
 void *overseer(void *memory)
 {
@@ -158,6 +187,13 @@ void *overseer(void *memory)
             return(NULL);
         }
         pthread_mutex_unlock(philosopher->last_meal_mutex);
+        pthread_mutex_lock(philosopher->memory->died_mutex);
+        if (philosopher->memory->died == 1)
+        {
+            pthread_mutex_unlock(philosopher->memory->died_mutex);
+            return(NULL);
+        }
+        pthread_mutex_unlock(philosopher->memory->died_mutex);
         philosopher = philosopher->next;
         usleep(10);
     }
@@ -169,6 +205,18 @@ void *philo_process(void *philosopher)
     int i = 0;
     pthread_mutex_lock(philo->memory->threads_created_mutex);
     pthread_mutex_unlock(philo->memory->threads_created_mutex);
+    if(philo->memory->num_philo == 1)
+    {
+        pthread_mutex_lock(philo->fork_mutex);
+        print_event(philo, FORK);
+        my_usleep(philo->memory->t_death, philo);
+        pthread_mutex_unlock(philo->fork_mutex);
+        print_event(philo, DEAD);
+        pthread_mutex_lock(philo->memory->died_mutex);
+        philo->memory->died = 1;
+        pthread_mutex_unlock(philo->memory->died_mutex);
+        return (NULL);
+    }
     while (1)
     {
         if(is_odd(philo->num))

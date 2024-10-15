@@ -4,7 +4,7 @@
 
 CC			= cc
 RM			= rm -rf
-CFLAGS		= -Wall -Wextra -Werror -MD -MP -g -I -fsanitize $(INCLUDES)
+CFLAGS		= -Wall -Wextra -Werror -MD -MP -g -I $(INCLUDES) #-fsanitize=thread,undefined 
 MAKEFLAGS	= -j$(nproc) --no-print-directory
 
 NAME		= philosophers

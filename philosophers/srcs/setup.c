@@ -6,7 +6,7 @@
 /*   By: sopperma <sopperma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 14:01:46 by sopperma          #+#    #+#             */
-/*   Updated: 2024/10/15 13:21:42 by sopperma         ###   ########.fr       */
+/*   Updated: 2024/10/15 14:33:53 by sopperma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ t_philosopher *create_philosopher(int num, t_memory *memory)
     pthread_mutex_init(philosopher->fork_mutex, NULL);
     philosopher->last_meal_mutex = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t));
     pthread_mutex_init(philosopher->last_meal_mutex, NULL);
-    philosopher->num = num;
+    philosopher->num = num + 1;
     philosopher->times_eaten = 0;
     philosopher->memory = memory;
     philosopher->last_meal = philosopher->memory->start_time;

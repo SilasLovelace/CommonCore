@@ -6,7 +6,7 @@
 /*   By: sopperma <sopperma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/06 14:18:52 by sopperma          #+#    #+#             */
-/*   Updated: 2024/10/15 13:19:40 by sopperma         ###   ########.fr       */
+/*   Updated: 2024/10/15 14:39:37 by sopperma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,24 @@ int main (int ac, char **av)
     ft_bzero(memory, sizeof(t_memory));
     if (ac == 5 || ac == 6)
     {
+        if (ft_atoi(av[1]) < 1 || ft_atoi(av[1]) > 200)
+        {
+            printf("Error: There must be at least 1 and max 200 philosophers\n");
+            free(memory);
+            return (0);
+        }
+        if (ac == 6 && ft_atoi(av[5]) < 1)
+        {
+            printf("Error: Philosophers must eat at least once\n");
+            free(memory);
+            return (0);
+        }
+        if (ft_atoi(av[2]) < 60 || ft_atoi(av[3]) < 60 || ft_atoi(av[4]) < 60)
+        {
+            printf("Error: Time must be at least 60ms\n");
+            free(memory);
+            return (0);
+        }
         initialze_memory(memory, ac, av);
         // print_memory(memory);
     }

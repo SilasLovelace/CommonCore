@@ -6,7 +6,7 @@
 /*   By: sopperma <sopperma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/04 13:45:45 by sopperma          #+#    #+#             */
-/*   Updated: 2024/10/08 17:37:58 by sopperma         ###   ########.fr       */
+/*   Updated: 2024/10/15 14:16:31 by sopperma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,11 @@ void cleanup(t_memory *memory)
     pthread_mutex_destroy(memory->died_mutex);
     pthread_mutex_destroy(memory->full_mutex);
     pthread_mutex_destroy(memory->all_full_mutex);
+    pthread_mutex_destroy(memory->threads_created_mutex);
     free(memory->print_mutex);
     free(memory->died_mutex);
     free(memory->full_mutex);
     free(memory->all_full_mutex);
+    free(memory->threads_created_mutex);
     free(memory);
 }
