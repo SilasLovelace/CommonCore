@@ -6,7 +6,7 @@
 /*   By: sopperma <sopperma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 17:05:41 by sopperma          #+#    #+#             */
-/*   Updated: 2024/10/09 14:26:09 by sopperma         ###   ########.fr       */
+/*   Updated: 2024/10/15 13:19:57 by sopperma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ typedef struct s_memory
 	pthread_mutex_t	*all_full_mutex;
 	int full_philosophers;
 	pthread_mutex_t	*full_mutex;
+	// int threads_created;
+	pthread_mutex_t	*threads_created_mutex;
 	pthread_t		overseer_thread;
 	t_philosopher	*philosophers;
 	pthread_mutex_t	*print_mutex;

@@ -6,7 +6,7 @@
 /*   By: sopperma <sopperma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 14:01:46 by sopperma          #+#    #+#             */
-/*   Updated: 2024/10/09 14:39:58 by sopperma         ###   ########.fr       */
+/*   Updated: 2024/10/15 13:21:42 by sopperma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ void create_threads(t_memory *memory)
     int i = 0;
 
     philosopher = memory->philosophers;
+    pthread_mutex_lock(memory->threads_created_mutex);
     pthread_create(&memory->overseer_thread, NULL, &overseer, memory);
     while (i < memory->num_philo)
     {
@@ -45,7 +46,8 @@ void create_threads(t_memory *memory)
         }
         philosopher = philosopher->next;
         i++;
-    } 
+    }
+    pthread_mutex_unlock(memory->threads_created_mutex);
     i=0;
     while (i < memory->num_philo)
     {

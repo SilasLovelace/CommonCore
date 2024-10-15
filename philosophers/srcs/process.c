@@ -6,7 +6,7 @@
 /*   By: sopperma <sopperma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 14:03:41 by sopperma          #+#    #+#             */
-/*   Updated: 2024/10/09 15:29:28 by sopperma         ###   ########.fr       */
+/*   Updated: 2024/10/15 13:24:57 by sopperma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,18 +78,18 @@ int print_event(t_philosopher *phil, char event)
 
 int eats(t_philosopher *phil)
 {
-if ((uintptr_t)&(phil->fork_mutex) < (uintptr_t)&(phil->next->fork_mutex)) {
+/* if ((uintptr_t)&(phil->fork_mutex) < (uintptr_t)&(phil->next->fork_mutex)) {
     pthread_mutex_lock(&(phil->fork_mutex));
     pthread_mutex_lock(&(phil->next->fork_mutex));
 } else {
     pthread_mutex_lock(&(phil->next->fork_mutex));
     pthread_mutex_lock(&(phil->fork_mutex));
-}
+} */
 
-    // pthread_mutex_lock(phil->fork_mutex);
-    // print_event(phil, FORK);
-    // pthread_mutex_lock(phil->next->fork_mutex);
-    // print_event(phil, FORK);
+    pthread_mutex_lock(phil->fork_mutex);
+    print_event(phil, FORK);
+    pthread_mutex_lock(phil->next->fork_mutex);
+    print_event(phil, FORK);
 
     if (print_event(phil, EATING) == 0)
     {
@@ -135,6 +135,8 @@ void *overseer(void *memory)
     t_philosopher *philosopher;
     
     philosopher = mem->philosophers;
+    pthread_mutex_lock(mem->threads_created_mutex);
+    pthread_mutex_unlock(mem->threads_created_mutex);
     while (1)
     {
         pthread_mutex_lock(philosopher->last_meal_mutex);
@@ -165,7 +167,8 @@ void *philo_process(void *philosopher)
 {
     t_philosopher *philo = (t_philosopher *)philosopher;
     int i = 0;
-
+    pthread_mutex_lock(philo->memory->threads_created_mutex);
+    pthread_mutex_unlock(philo->memory->threads_created_mutex);
     while (1)
     {
         if(is_odd(philo->num))
