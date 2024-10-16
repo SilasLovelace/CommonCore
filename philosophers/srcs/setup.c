@@ -6,7 +6,7 @@
 /*   By: sopperma <sopperma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 13:09:05 by sopperma          #+#    #+#             */
-/*   Updated: 2024/10/16 13:09:08 by sopperma         ###   ########.fr       */
+/*   Updated: 2024/10/16 13:11:04 by sopperma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void create_threads(t_memory *memory)
 	{
 		if (pthread_create(&philosopher->fork, NULL, &philo_process, philosopher) != 0)
 		{
-			printf("Thread failed\n");   
+			ft_putstr_fd("Thread creation failed\n", 2);   
 			return ;
 		}
 		philosopher = philosopher->next;
@@ -53,7 +53,7 @@ void create_threads(t_memory *memory)
 	{
 	 if (pthread_join(philosopher->fork, NULL) != 0)
 		{
-			printf("Thread join failed\n");
+			ft_putstr_fd("Thread join failed\n", 2);
 			return;
 		}
 		philosopher = philosopher->next;

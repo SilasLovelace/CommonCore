@@ -6,7 +6,7 @@
 /*   By: sopperma <sopperma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 13:09:34 by sopperma          #+#    #+#             */
-/*   Updated: 2024/10/16 13:09:36 by sopperma         ###   ########.fr       */
+/*   Updated: 2024/10/16 13:10:17 by sopperma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,6 @@ int is_odd(int i)
 	return (i % 2);
 }
 
-
-
 int print_event(t_philosopher *phil, char event)
 {
 	pthread_mutex_lock(phil->memory->print_mutex);
@@ -82,7 +80,6 @@ int print_event(t_philosopher *phil, char event)
 		pthread_mutex_unlock(phil->memory->print_mutex);
 		return (0);
 	}
-	// printf("%d %d is eating, ate %d times\n",get_current_time(phil) ,phil->num, phil->times_eaten + 1);
 	if (event == FORK)
 		printf("%d %d has taken a fork\n", get_current_time(phil), phil->num);
 	if (event == EATING)
