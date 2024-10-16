@@ -6,7 +6,7 @@
 /*   By: sopperma <sopperma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 17:05:41 by sopperma          #+#    #+#             */
-/*   Updated: 2024/10/15 13:19:57 by sopperma         ###   ########.fr       */
+/*   Updated: 2024/10/16 12:38:36 by sopperma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ typedef struct s_memory
 	int	t_sleep;
 	int	max_meals;
 	long long start_time;
+	int dead_philosopher;
 	int died;
 	pthread_mutex_t	*died_mutex;
 	int all_full;
@@ -65,6 +66,11 @@ typedef struct s_philosopher
 #define DEAD 5
 #define FORK 6
 #define FORK 6
+
+#define ARGUMENT_OVERFLOW 1
+#define PHILO_NUM_ERROR 2
+#define PHILO_EAT_ERROR 3
+#define PHILO_TIME_ERROR 4
 
 //process.c
 void *philo_process(void *philosopher);
