@@ -1,4 +1,4 @@
-objs/srcs/cleanup.o: srcs/cleanup.c includes/philosophers.h \
+objs/srcs/libft1.o: srcs/libft1.c includes/philosophers.h \
   /usr/include/unistd.h /usr/include/features.h \
   /usr/include/features-time64.h \
   /usr/include/x86_64-linux-gnu/bits/wordsize.h \

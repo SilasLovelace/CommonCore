@@ -6,13 +6,12 @@
 /*   By: sopperma <sopperma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 17:05:41 by sopperma          #+#    #+#             */
-/*   Updated: 2024/10/16 13:16:32 by sopperma         ###   ########.fr       */
+/*   Updated: 2024/10/22 11:26:01 by sopperma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PHILOSOPHERS_H
 # define PHILOSOPHERS_H
-# include "../libft/libft.h"
 # include <unistd.h>
 # include <stdlib.h>
 # include <string.h> 
@@ -78,10 +77,33 @@ void	*overseer(void *memory);
 void	create_philosophers(t_memory *memory);
 
 //testing.c
-void	print_philosophers(t_memory *memory);
-void	print_memory(t_memory *memory);
+// void	print_philosophers(t_memory *memory);
+// void	print_memory(t_memory *memory);
+void	*single_philo_process(t_philosopher *philosopher);
+int		is_odd(int i);
+void	lock_forks(t_philosopher *phil);
+void	unlock_forks(t_philosopher *phil);
 
 //cleanup.c
 void	cleanup(t_memory *memory);
+
+//time.c
+int		check_sim_end(t_philosopher *philospher);
+void	my_usleep(long time, t_philosopher *philosopher);
+int		get_current_time(t_philosopher *phil);
+
+//activities.c
+int		eats(t_philosopher *phil);
+int		sleeps(t_philosopher *phil);
+
+//libft.c
+int		ft_atoi(const char *str);
+char	*ft_itoa(int n);
+void	ft_putstr_fd(char *s, int fd);
+size_t	ft_strlen(const char *str);
+
+//libft1.c
+int		ft_strncmp(const char *str1, const char *str2, size_t num);
+void	ft_bzero(void *ptr, size_t num);
 
 #endif

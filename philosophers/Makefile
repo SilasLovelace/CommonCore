@@ -7,7 +7,7 @@ RM			= rm -rf
 CFLAGS		= -Wall -Wextra -Werror -MD -MP -g -I $(INCLUDES) #-fsanitize=thread,undefined 
 MAKEFLAGS	= -j$(nproc) --no-print-directory
 
-NAME		= philosophers
+NAME		= philo
 
 SRCSDIR		= srcs
 INCLUDES	= includes
@@ -17,19 +17,17 @@ SRCS		= \
 			$(SRCSDIR)/process.c \
 			$(SRCSDIR)/setup.c \
 			$(SRCSDIR)/testing.c \
-			$(SRCSDIR)/cleanup.c
+			$(SRCSDIR)/cleanup.c \
+			$(SRCSDIR)/activities.c \
+			$(SRCSDIR)/time.c \
+			$(SRCSDIR)/libft.c \
+			$(SRCSDIR)/libft1.c
+
 
 
 OBJSDIR		= objs
 OBJS		= $(addprefix $(OBJSDIR)/, $(SRCS:.c=.o))
 DEPS		= $(addprefix $(OBJSDIR)/, $(SRCS:.c=.d))
-
-################################################################################
-######                               LIBFT                                ######
-################################################################################
-
-LIBDIR		= ./libft
-LIBFT		= ${LIBDIR}/libft.a
 
 ################################################################################
 ######                               RULES                                ######
@@ -40,12 +38,10 @@ all		: $(NAME)
 bonus	: $(NAME_B)
 
 $(NAME)	: ${OBJS}
-		$(MAKE) -C ${LIBDIR} all
-		$(CC) ${CFLAGS} -o $@ $^ -L. ${LIBFT}
+		$(CC) ${CFLAGS} -o $@ $^
 
 $(NAME_B)	: ${OBJS_B}
-		$(MAKE) -C ${LIBDIR} all
-		$(CC) ${CFLAGS} -o $@ $^ -L. ${LIBFT}
+		$(CC) ${CFLAGS} -o $@ $^
 
 ${OBJSDIR}/%.o	: %.c
 		@mkdir -p $(dir $@)
@@ -56,23 +52,15 @@ ${OBJSDIR_B}/%.o	: %.c
 		${CC} ${CFLAGS} -c $< -o $@
 
 clean	:
-		$(MAKE) -C ${LIBDIR} clean
-		$(RM) $(OBJSDIR) $(OBJSDIR_B)
+		$(RM) $(OBJSDIR)
 
 fclean	:
-		$(MAKE) -C ${LIBDIR} fclean
-		$(RM) $(OBJSDIR) $(NAME) $(OBJSDIR_B) $(NAME_B)
+		$(RM) $(OBJSDIR) $(NAME)
 
 re		:
-		$(MAKE) -C ${LIBDIR} fclean
 		$(RM) $(OBJSDIR) $(NAME)
 		$(MAKE) all
 
-reb		:
-		$(MAKE) -C ${LIBDIR} fclean
-		$(RM) $(OBJSDIR_B) $(NAME_B)
-		$(MAKE) bonus
-
 -include $(DEPS)
 
-.PHONY	: all clean fclean re bonus reb
+.PHONY	: all clean fclean re
