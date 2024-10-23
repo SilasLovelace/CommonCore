@@ -6,7 +6,7 @@
 /*   By: sopperma <sopperma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 13:09:34 by sopperma          #+#    #+#             */
-/*   Updated: 2024/10/16 13:10:17 by sopperma         ###   ########.fr       */
+/*   Updated: 2024/10/23 12:19:39 by sopperma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,18 +45,18 @@ void	my_usleep(long time, t_philosopher *philosopher)
 	start = get_current_time(philosopher);
 	while (get_current_time(philosopher) - start < time)
 	{
-		pthread_mutex_lock(philosopher->last_meal_mutex);
-		if (get_current_time(philosopher) - philosopher->last_meal > philosopher->memory->t_death)
-		{
-			pthread_mutex_lock(philosopher->memory->died_mutex);
-			philosopher->memory->died = 1;
-			philosopher->memory->dead_philosopher = philosopher->num;
-			pthread_mutex_unlock(philosopher->memory->died_mutex);
-			pthread_mutex_unlock(philosopher->last_meal_mutex);
-			print_event(philosopher, DEAD);
-			return ;
-		}
-		pthread_mutex_unlock(philosopher->last_meal_mutex);
+		// pthread_mutex_lock(philosopher->last_meal_mutex);
+		// if (get_current_time(philosopher) - philosopher->last_meal > philosopher->memory->t_death)
+		// {
+		// 	pthread_mutex_lock(philosopher->memory->died_mutex);
+		// 	philosopher->memory->died = 1;
+		// 	philosopher->memory->dead_philosopher = philosopher->num;
+		// 	pthread_mutex_unlock(philosopher->memory->died_mutex);
+		// 	pthread_mutex_unlock(philosopher->last_meal_mutex);
+		// 	print_event(philosopher, DEAD);
+		// 	return ;
+		// }
+		// pthread_mutex_unlock(philosopher->last_meal_mutex);
 		if (check_sim_end(philosopher) == 0)
 			return ;
 		usleep(100);
@@ -202,7 +202,7 @@ void *overseer(void *memory)
 		}
 		pthread_mutex_unlock(philosopher->memory->died_mutex);
 		philosopher = philosopher->next;
-		usleep(10);
+		usleep(1);
 	}
 }
 
