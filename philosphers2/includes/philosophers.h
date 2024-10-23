@@ -6,7 +6,7 @@
 /*   By: sopperma <sopperma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 17:05:41 by sopperma          #+#    #+#             */
-/*   Updated: 2024/10/22 11:26:01 by sopperma         ###   ########.fr       */
+/*   Updated: 2024/10/23 15:56:56 by sopperma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,28 +30,26 @@ typedef struct s_memory
 	long long		start_time;
 	int				dead_philosopher;
 	int				died;
-	pthread_mutex_t	*died_mutex;
-	int				all_full;
-	pthread_mutex_t	*all_full_mutex;
 	int				full_philosophers;
-	pthread_mutex_t	*full_mutex;
-	pthread_mutex_t	*threads_created_mutex;
-	pthread_t		overseer_thread;
-	t_philosopher	*philosophers;
+	// pthread_mutex_t	*threads_created_mutex;
+	
+	pthread_mutex_t	*status;
 	pthread_mutex_t	*print_mutex;
+	pthread_mutex_t	*last_meal_mutex;
+
+	pthread_t		*philosopher_threads;
+	t_philosopher	*philosophers;
+	pthread_mutex_t	*forks;
 }	t_memory;
 
 typedef struct s_philosopher
 {
-	pthread_t				fork;
-	pthread_mutex_t			*fork_mutex;
+	pthread_mutex_t			*l_fork_mutex;
+	pthread_mutex_t			*r_fork_mutex;
 	long long				last_meal;
-	pthread_mutex_t			*last_meal_mutex;
 	int						num;
 	int						times_eaten;
 	t_memory				*memory;
-	struct s_philosopher	*next;
-	struct s_philosopher	*prev;
 }	t_philosopher;
 
 # define EATING 1
@@ -74,18 +72,19 @@ int		print_event(t_philosopher *phil, char event);
 void	*overseer(void *memory);
 
 //setup.c
-void	create_philosophers(t_memory *memory);
+int	create_philosophers(t_memory *memory);
 
 //testing.c
 // void	print_philosophers(t_memory *memory);
 // void	print_memory(t_memory *memory);
-void	*single_philo_process(t_philosopher *philosopher);
+int		single_philo_process(t_philosopher *philosopher);
 int		is_odd(int i);
 void	lock_forks(t_philosopher *phil);
 void	unlock_forks(t_philosopher *phil);
 
 //cleanup.c
-void	cleanup(t_memory *memory);
+int	cleanup(t_memory *memory);
+int	free_allocs(t_memory *memory);
 
 //time.c
 int		check_sim_end(t_philosopher *philospher);

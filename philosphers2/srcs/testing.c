@@ -6,7 +6,7 @@
 /*   By: sopperma <sopperma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 13:08:37 by sopperma          #+#    #+#             */
-/*   Updated: 2024/10/22 10:56:27 by sopperma         ###   ########.fr       */
+/*   Updated: 2024/10/23 15:56:40 by sopperma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,16 +45,16 @@ void	lock_forks(t_philosopher *phil)
 {
 	if (is_odd(phil->num))
 	{
-		pthread_mutex_lock(phil->fork_mutex);
+		pthread_mutex_lock(phil->l_fork_mutex);
 		print_event(phil, FORK);
-		pthread_mutex_lock(phil->next->fork_mutex);
+		pthread_mutex_lock(phil->r_fork_mutex);
 		print_event(phil, FORK);
 	}
 	else
 	{
-		pthread_mutex_lock(phil->next->fork_mutex);
+		pthread_mutex_lock(phil->r_fork_mutex);
 		print_event(phil, FORK);
-		pthread_mutex_lock(phil->fork_mutex);
+		pthread_mutex_lock(phil->l_fork_mutex);
 		print_event(phil, FORK);
 	}
 }
@@ -63,25 +63,26 @@ void	unlock_forks(t_philosopher *phil)
 {
 	if (is_odd(phil->num))
 	{
-		pthread_mutex_unlock(phil->next->fork_mutex);
-		pthread_mutex_unlock(phil->fork_mutex);
+		pthread_mutex_unlock(phil->r_fork_mutex);
+		pthread_mutex_unlock(phil->l_fork_mutex);
 	}
 	else
 	{
-		pthread_mutex_unlock(phil->fork_mutex);
-		pthread_mutex_unlock(phil->next->fork_mutex);
+		pthread_mutex_unlock(phil->l_fork_mutex);
+		pthread_mutex_unlock(phil->r_fork_mutex);
 	}
 }
 
-void	*single_philo_process(t_philosopher *philosopher)
+int	single_philo_process(t_philosopher *philosopher)
 {
-	pthread_mutex_lock(philosopher->fork_mutex);
+	print_event(philosopher, THINKING);
+	pthread_mutex_lock(philosopher->l_fork_mutex);
 	print_event(philosopher, FORK);
 	my_usleep(philosopher->memory->t_death, philosopher);
-	pthread_mutex_unlock(philosopher->fork_mutex);
+	pthread_mutex_unlock(philosopher->l_fork_mutex);
 	print_event(philosopher, DEAD);
-	pthread_mutex_lock(philosopher->memory->died_mutex);
+	pthread_mutex_lock(philosopher->memory->status);
 	philosopher->memory->died = 1;
-	pthread_mutex_unlock(philosopher->memory->died_mutex);
-	return (NULL);
+	pthread_mutex_unlock(philosopher->memory->status);
+	return (0);
 }

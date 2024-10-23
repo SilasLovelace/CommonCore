@@ -6,13 +6,13 @@
 /*   By: sopperma <sopperma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 13:09:23 by sopperma          #+#    #+#             */
-/*   Updated: 2024/10/16 13:23:57 by sopperma         ###   ########.fr       */
+/*   Updated: 2024/10/23 16:04:35 by sopperma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-static void	initialze_memory(t_memory *memory, int ac, char **av)
+static int	initialze_memory(t_memory *memory, int ac, char **av)
 {
 	struct timeval	time;
 
@@ -25,21 +25,20 @@ static void	initialze_memory(t_memory *memory, int ac, char **av)
 	memory->t_sleep = ft_atoi(av[4]);
 	if (ac == 6)
 		memory->max_meals = ft_atoi(av[5]);
-	memory->print_mutex = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t));
+	//protect here
+	memory->status = malloc(sizeof(pthread_mutex_t));
+	pthread_mutex_init(memory->status, NULL);
+	memory->print_mutex = malloc(sizeof(pthread_mutex_t));
 	pthread_mutex_init(memory->print_mutex, NULL);
-	memory->died_mutex = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t));
-	pthread_mutex_init(memory->died_mutex, NULL);
-	memory->full_mutex = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t));
-	pthread_mutex_init(memory->full_mutex, NULL);
-	memory->all_full_mutex = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t));
-	pthread_mutex_init(memory->all_full_mutex, NULL);
-	memory->threads_created_mutex = \
-		(pthread_mutex_t *)malloc(sizeof(pthread_mutex_t));
-	pthread_mutex_init(memory->threads_created_mutex, NULL);
-	create_philosophers(memory);
+	memory->last_meal_mutex = malloc(sizeof(pthread_mutex_t));
+	pthread_mutex_init(memory->last_meal_mutex, NULL);
+	//
+	if (create_philosophers(memory) == 0)
+		return (cleanup(memory));
+	return (1);
 }
 
-int	free_error(t_memory *memory, int error)
+int	free_error(int error)
 {
 	if (error == ARGUMENT_OVERFLOW)
 		ft_putstr_fd("Error: Argument overflows!\n", 2);
@@ -50,11 +49,10 @@ int	free_error(t_memory *memory, int error)
 		ft_putstr_fd("Error: Number of meals must be at least 1\n", 2);
 	if (error == PHILO_TIME_ERROR)
 		ft_putstr_fd("Error: Time must be at least 60ms\n", 2);
-	free(memory);
 	return (0);
 }
 
-int	check_inputs(int ac, char **av, t_memory *memory)
+int	check_inputs(int ac, char **av)
 {
 	int	i;
 
@@ -63,35 +61,54 @@ int	check_inputs(int ac, char **av, t_memory *memory)
 	{
 		if (ft_strncmp(ft_itoa(ft_atoi(av[i])), \
 			av[i], ft_strlen(av[i])) != 0)
-			return (free_error(memory, ARGUMENT_OVERFLOW));
+			return (free_error(ARGUMENT_OVERFLOW));
 		i++;
 	}
 	if (ft_atoi(av[1]) < 1 || ft_atoi(av[1]) > 200)
-		return (free_error(memory, PHILO_NUM_ERROR));
+		return (free_error(PHILO_NUM_ERROR));
 	if (ac == 6 && ft_atoi(av[5]) < 1)
-		return (free_error(memory, PHILO_EAT_ERROR));
+		return (free_error(PHILO_EAT_ERROR));
 	if (ft_atoi(av[2]) < 60 || ft_atoi(av[3]) < 60 || ft_atoi(av[4]) < 60)
-		return (free_error(memory, PHILO_TIME_ERROR));
+		return (free_error(PHILO_TIME_ERROR));
+	return (1);
+}
+
+int allocate_arrays(t_memory *memory)
+{
+	
+	memory->philosophers = malloc(sizeof(t_philosopher) * memory->num_philo);
+	if (memory->philosophers == NULL)
+		return free_allocs(memory);
+	memory->philosopher_threads = malloc(sizeof(pthread_t) * memory->num_philo);
+	if (memory->philosopher_threads == NULL)
+		return free_allocs(memory);
+	memory->forks = malloc(sizeof(pthread_mutex_t) * memory->num_philo);
+	if (memory->forks == NULL)
+		return free_allocs(memory);
 	return (1);
 }
 
 int	main(int ac, char **av)
 {
 	t_memory	*memory;
-
+	
+	if (check_inputs(ac, av) == 0)
+		return (0);
 	memory = malloc(sizeof(t_memory));
 	ft_bzero(memory, sizeof(t_memory));
+	if (allocate_arrays(memory) == 0)
+		return (0);
 	if (ac == 5 || ac == 6)
-	{
-		if (check_inputs(ac, av, memory) == 0)
+	{	
+		if (initialze_memory(memory, ac, av) == 0)
 			return (0);
-		initialze_memory(memory, ac, av);
 	}
 	else
 	{
 		ft_putstr_fd("Error: Invalid number of arguments\n", 2);
 		return (0);
 	}
-	cleanup(memory);
+	// cleanup working?
+	// cleanup(memory);
 	return (0);
 }
