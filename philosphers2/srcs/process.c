@@ -6,7 +6,7 @@
 /*   By: sopperma <sopperma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 13:09:34 by sopperma          #+#    #+#             */
-/*   Updated: 2024/10/23 15:57:25 by sopperma         ###   ########.fr       */
+/*   Updated: 2024/10/31 15:54:53 by sopperma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,10 +54,10 @@ int philosopher_starved(t_philosopher *philosopher)
 		pthread_mutex_unlock(philosopher->memory->last_meal_mutex);
 		pthread_mutex_unlock(philosopher->memory->status);
 		print_event(philosopher, DEAD);
-		return (1);
+		return (0);
 	}
 	pthread_mutex_unlock(philosopher->memory->last_meal_mutex);
-	return (0);
+	return (1);
 }
 
 void	*overseer(void *memory)
@@ -76,9 +76,15 @@ void	*overseer(void *memory)
 		{
 			philosopher = &mem->philosophers[i];
 			if (all_full(&mem->philosophers[i]))
+			{
+				printf("full philosophers: %d\n", mem->full_philosophers);
 				return (NULL);
+			}
 			if (philosopher_starved(philosopher) == 0)
+			{
+				// printf("dead philosophers\n");
 				return (NULL);
+			}
 			i++;
 		}
 		usleep(10);
@@ -122,7 +128,14 @@ void	*philo_process(void *philosopher)
 	if (philo->memory->num_philo == 1)
 		if (single_philo_process(philo) == 0)
 			return (NULL);
+	printf("process started\n");
 	while (1)
-		core_process(philo, &i);
+	{
+		if (core_process(philo, &i) == 0)
+		{
+			printf("process terminated\n");
+			return (NULL);	
+		}
+	}
 	return (NULL);
 }

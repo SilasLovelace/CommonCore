@@ -6,7 +6,7 @@
 /*   By: sopperma <sopperma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 17:05:41 by sopperma          #+#    #+#             */
-/*   Updated: 2024/10/23 15:56:56 by sopperma         ###   ########.fr       */
+/*   Updated: 2024/10/31 15:24:26 by sopperma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ typedef struct s_memory
 	pthread_mutex_t	*last_meal_mutex;
 
 	pthread_t		*philosopher_threads;
+	pthread_t		overseer_thread;
 	t_philosopher	*philosophers;
 	pthread_mutex_t	*forks;
 }	t_memory;

@@ -6,11 +6,39 @@
 /*   By: sopperma <sopperma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 13:09:23 by sopperma          #+#    #+#             */
-/*   Updated: 2024/10/23 16:04:35 by sopperma         ###   ########.fr       */
+/*   Updated: 2024/10/31 15:15:54 by sopperma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
+
+int destroy_prev_mutex(t_memory *memory, int num)
+{
+	int i;
+
+	i = 0;
+	while (i < num)
+	{
+		pthread_mutex_destroy(&memory->forks[i]);
+		i++;
+	}
+	return (0);
+}
+
+int create_forks(t_memory *memory)
+{
+	int i;
+
+	i = 0;
+	while (i < memory->num_philo)
+	{
+		// if (pthread_mutex_init(&memory->forks[i], NULL) != 0)
+		// 	return (destroy_prev_mutex(memory, i));
+		pthread_mutex_init(&memory->forks[i], NULL);
+		i++;
+	}
+	return (1);
+}
 
 static int	initialze_memory(t_memory *memory, int ac, char **av)
 {
@@ -33,6 +61,8 @@ static int	initialze_memory(t_memory *memory, int ac, char **av)
 	memory->last_meal_mutex = malloc(sizeof(pthread_mutex_t));
 	pthread_mutex_init(memory->last_meal_mutex, NULL);
 	//
+	if (create_forks(memory) == 0)
+		return (cleanup(memory));
 	if (create_philosophers(memory) == 0)
 		return (cleanup(memory));
 	return (1);
@@ -75,14 +105,13 @@ int	check_inputs(int ac, char **av)
 
 int allocate_arrays(t_memory *memory)
 {
-	
-	memory->philosophers = malloc(sizeof(t_philosopher) * memory->num_philo);
+	memory->philosophers = malloc(sizeof(t_philosopher) * (memory->num_philo));
 	if (memory->philosophers == NULL)
 		return free_allocs(memory);
-	memory->philosopher_threads = malloc(sizeof(pthread_t) * memory->num_philo);
+	memory->philosopher_threads = malloc(sizeof(pthread_t) * (memory->num_philo));
 	if (memory->philosopher_threads == NULL)
 		return free_allocs(memory);
-	memory->forks = malloc(sizeof(pthread_mutex_t) * memory->num_philo);
+	memory->forks = malloc(sizeof(pthread_mutex_t) * (memory->num_philo));
 	if (memory->forks == NULL)
 		return free_allocs(memory);
 	return (1);
@@ -96,6 +125,7 @@ int	main(int ac, char **av)
 		return (0);
 	memory = malloc(sizeof(t_memory));
 	ft_bzero(memory, sizeof(t_memory));
+	memory->num_philo = ft_atoi(av[1]);
 	if (allocate_arrays(memory) == 0)
 		return (0);
 	if (ac == 5 || ac == 6)
