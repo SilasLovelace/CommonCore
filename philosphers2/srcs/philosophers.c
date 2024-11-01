@@ -6,7 +6,7 @@
 /*   By: sopperma <sopperma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 13:09:23 by sopperma          #+#    #+#             */
-/*   Updated: 2024/10/31 15:15:54 by sopperma         ###   ########.fr       */
+/*   Updated: 2024/11/01 11:00:01 by sopperma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,9 @@ int create_forks(t_memory *memory)
 	i = 0;
 	while (i < memory->num_philo)
 	{
-		// if (pthread_mutex_init(&memory->forks[i], NULL) != 0)
-		// 	return (destroy_prev_mutex(memory, i));
-		pthread_mutex_init(&memory->forks[i], NULL);
+		if (pthread_mutex_init(&memory->forks[i], NULL) != 0)
+			return (destroy_prev_mutex(memory, i));
+		// pthread_mutex_init(&memory->forks[i], NULL);
 		i++;
 	}
 	return (1);
@@ -42,6 +42,9 @@ int create_forks(t_memory *memory)
 
 static int	initialze_memory(t_memory *memory, int ac, char **av)
 {
+	// (void)memory;
+	// (void)ac;
+	// (void)av;	
 	struct timeval	time;
 
 	gettimeofday(&time, NULL);
@@ -85,13 +88,19 @@ int	free_error(int error)
 int	check_inputs(int ac, char **av)
 {
 	int	i;
+	char *num;
 
 	i = 1;
 	while (i < ac)
 	{
-		if (ft_strncmp(ft_itoa(ft_atoi(av[i])), \
+		num = ft_itoa(ft_atoi(av[i]));
+		if (ft_strncmp(num, \
 			av[i], ft_strlen(av[i])) != 0)
+		{
+			free(num);
 			return (free_error(ARGUMENT_OVERFLOW));
+		}
+		free(num);
 		i++;
 	}
 	if (ft_atoi(av[1]) < 1 || ft_atoi(av[1]) > 200)
@@ -121,15 +130,15 @@ int	main(int ac, char **av)
 {
 	t_memory	*memory;
 	
-	if (check_inputs(ac, av) == 0)
-		return (0);
-	memory = malloc(sizeof(t_memory));
-	ft_bzero(memory, sizeof(t_memory));
-	memory->num_philo = ft_atoi(av[1]);
-	if (allocate_arrays(memory) == 0)
-		return (0);
 	if (ac == 5 || ac == 6)
 	{	
+		if (check_inputs(ac, av) == 0)
+			return (0);
+		memory = malloc(sizeof(t_memory));
+		ft_bzero(memory, sizeof(t_memory));
+		memory->num_philo = ft_atoi(av[1]);
+		if (allocate_arrays(memory) == 0)
+			return (0);
 		if (initialze_memory(memory, ac, av) == 0)
 			return (0);
 	}
@@ -139,6 +148,6 @@ int	main(int ac, char **av)
 		return (0);
 	}
 	// cleanup working?
-	// cleanup(memory);
+	// free_memory(memory);
 	return (0);
 }

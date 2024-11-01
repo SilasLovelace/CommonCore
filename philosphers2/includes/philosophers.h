@@ -6,7 +6,7 @@
 /*   By: sopperma <sopperma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 17:05:41 by sopperma          #+#    #+#             */
-/*   Updated: 2024/10/31 15:24:26 by sopperma         ###   ########.fr       */
+/*   Updated: 2024/11/01 10:39:24 by sopperma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ void	unlock_forks(t_philosopher *phil);
 //cleanup.c
 int	cleanup(t_memory *memory);
 int	free_allocs(t_memory *memory);
+int	free_memory(t_memory *memory);
 
 //time.c
 int		check_sim_end(t_philosopher *philospher);

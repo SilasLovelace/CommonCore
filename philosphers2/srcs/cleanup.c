@@ -6,7 +6,7 @@
 /*   By: sopperma <sopperma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 13:08:18 by sopperma          #+#    #+#             */
-/*   Updated: 2024/10/23 15:56:53 by sopperma         ###   ########.fr       */
+/*   Updated: 2024/11/01 10:57:48 by sopperma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,29 @@
 // 	free(memory);
 // }
 
+int free_memory(t_memory *memory)
+{
+	ft_putstr_fd("Freeing Memory\n", 2);
+	pthread_mutex_destroy(memory->status);
+	free(memory->status);
+	pthread_mutex_destroy(memory->print_mutex);
+	free(memory->print_mutex);
+	pthread_mutex_destroy(memory->last_meal_mutex);
+	free(memory->last_meal_mutex);
+	free_allocs(memory);
+	free(memory);
+	return (0);
+}
+
 int	cleanup(t_memory *memory)
 {
 	ft_putstr_fd("Error: Memory allocation failed\n", 2);
 	pthread_mutex_destroy(memory->status);
+	free(memory->status);
 	pthread_mutex_destroy(memory->print_mutex);
+	free(memory->print_mutex);
 	pthread_mutex_destroy(memory->last_meal_mutex);
+	free(memory->last_meal_mutex);
 	free_allocs(memory);
 	free(memory);
 	return (0);
