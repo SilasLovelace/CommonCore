@@ -6,7 +6,7 @@
 /*   By: sopperma <sopperma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 10:32:51 by sopperma          #+#    #+#             */
-/*   Updated: 2024/11/01 11:06:02 by sopperma         ###   ########.fr       */
+/*   Updated: 2024/11/01 11:17:07 by sopperma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,8 @@ int	check_sim_end(t_philosopher *philosopher)
 		pthread_mutex_unlock(philosopher->memory->status);
 		return (0);
 	}
-	if (philosopher->memory->full_philosophers == philosopher->memory->num_philo)
+	if (philosopher->memory->full_philosophers == \
+		philosopher->memory->num_philo)
 	{
 		pthread_mutex_unlock(philosopher->memory->status);
 		return (0);

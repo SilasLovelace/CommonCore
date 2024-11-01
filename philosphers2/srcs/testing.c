@@ -6,7 +6,7 @@
 /*   By: sopperma <sopperma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 13:08:37 by sopperma          #+#    #+#             */
-/*   Updated: 2024/11/01 10:50:14 by sopperma         ###   ########.fr       */
+/*   Updated: 2024/11/01 11:23:48 by sopperma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,19 @@
 int	is_odd(int i)
 {
 	return (i % 2);
+}
+
+int	all_full(t_philosopher *philosopher)
+{
+	pthread_mutex_lock(philosopher->memory->status);
+	if (philosopher->memory->full_philosophers == \
+		philosopher->memory->num_philo)
+	{
+		pthread_mutex_unlock(philosopher->memory->status);
+		return (1);
+	}
+	pthread_mutex_unlock(philosopher->memory->status);
+	return (0);
 }
 
 void	lock_forks(t_philosopher *phil)

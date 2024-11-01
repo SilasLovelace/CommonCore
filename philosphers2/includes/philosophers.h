@@ -6,7 +6,7 @@
 /*   By: sopperma <sopperma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 17:05:41 by sopperma          #+#    #+#             */
-/*   Updated: 2024/11/01 10:39:24 by sopperma         ###   ########.fr       */
+/*   Updated: 2024/11/01 11:24:01 by sopperma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,9 @@ typedef struct s_memory
 	int				dead_philosopher;
 	int				died;
 	int				full_philosophers;
-	// pthread_mutex_t	*threads_created_mutex;
-	
 	pthread_mutex_t	*status;
 	pthread_mutex_t	*print_mutex;
 	pthread_mutex_t	*last_meal_mutex;
-
 	pthread_t		*philosopher_threads;
 	pthread_t		overseer_thread;
 	t_philosopher	*philosophers;
@@ -73,20 +70,19 @@ int		print_event(t_philosopher *phil, char event);
 void	*overseer(void *memory);
 
 //setup.c
-int	create_philosophers(t_memory *memory);
+int		create_philosophers(t_memory *memory);
 
 //testing.c
-// void	print_philosophers(t_memory *memory);
-// void	print_memory(t_memory *memory);
 int		single_philo_process(t_philosopher *philosopher);
 int		is_odd(int i);
 void	lock_forks(t_philosopher *phil);
 void	unlock_forks(t_philosopher *phil);
+int		all_full(t_philosopher *philosopher);
 
 //cleanup.c
-int	cleanup(t_memory *memory);
-int	free_allocs(t_memory *memory);
-int	free_memory(t_memory *memory);
+int		cleanup(t_memory *memory);
+int		free_allocs(t_memory *memory);
+// int		free_memory(t_memory *memory);
 
 //time.c
 int		check_sim_end(t_philosopher *philospher);
@@ -96,6 +92,11 @@ int		get_current_time(t_philosopher *phil);
 //activities.c
 int		eats(t_philosopher *phil);
 int		sleeps(t_philosopher *phil);
+
+//inputs_allocations.c
+int		free_error(int error);
+int		check_inputs(int ac, char **av);
+int		allocate_arrays(t_memory *memory);
 
 //libft.c
 int		ft_atoi(const char *str);

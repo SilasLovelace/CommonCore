@@ -6,7 +6,7 @@
 /*   By: sopperma <sopperma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 13:09:34 by sopperma          #+#    #+#             */
-/*   Updated: 2024/11/01 10:46:35 by sopperma         ###   ########.fr       */
+/*   Updated: 2024/11/01 11:24:14 by sopperma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,23 +34,12 @@ int	print_event(t_philosopher *phil, char event)
 	return (1);
 }
 
-int all_full(t_philosopher *philosopher)
+int	philosopher_starved(t_philosopher *philosopher)
 {
-	pthread_mutex_lock(philosopher->memory->status);
-	if (philosopher->memory->full_philosophers == philosopher->memory->num_philo)
+	pthread_mutex_lock(philosopher->memory->last_meal_mutex);
+	if (get_current_time(philosopher) - philosopher->last_meal > \
+		philosopher->memory->t_death)
 	{
-		pthread_mutex_unlock(philosopher->memory->status);
-		return (1);
-	}
-	pthread_mutex_unlock(philosopher->memory->status);
-	return (0);
-}
-
-int philosopher_starved(t_philosopher *philosopher)
-{
-	pthread_mutex_lock(philosopher->memory->last_meal_mutex);	
-	if (get_current_time(philosopher) - philosopher->last_meal > philosopher->memory->t_death)
-	{	
 		pthread_mutex_lock(philosopher->memory->status);
 		philosopher->memory->died = 1;
 		philosopher->memory->dead_philosopher = philosopher->num;
@@ -67,11 +56,9 @@ void	*overseer(void *memory)
 {
 	t_memory		*mem;
 	t_philosopher	*philosopher;
-	int i;
+	int				i;
 
 	mem = (t_memory *)memory;
-	// pthread_mutex_lock(mem->threads_created_mutex);
-	// pthread_mutex_unlock(mem->threads_created_mutex);
 	while (1)
 	{
 		i = 0;
@@ -79,15 +66,9 @@ void	*overseer(void *memory)
 		{
 			philosopher = &mem->philosophers[i];
 			if (all_full(&mem->philosophers[i]))
-			{
-				// printf("full philosophers: %d\n", mem->full_philosophers);
 				return (NULL);
-			}
 			if (philosopher_starved(philosopher) == 0)
-			{
-				// printf("dead philosophers\n");
 				return (NULL);
-			}
 			i++;
 		}
 		usleep(10);
@@ -126,19 +107,13 @@ void	*philo_process(void *philosopher)
 
 	i = 0;
 	philo = (t_philosopher *)philosopher;
-	// pthread_mutex_lock(philo->memory->threads_created_mutex);
-	// pthread_mutex_unlock(philo->memory->threads_created_mutex);
 	if (philo->memory->num_philo == 1)
 		if (single_philo_process(philo) == 0)
 			return (NULL);
-	// printf("process started\n");
 	while (1)
 	{
 		if (core_process(philo, &i) == 0)
-		{
-			// printf("process terminated\n");
-			return (NULL);	
-		}
+			return (NULL);
 	}
 	return (NULL);
 }

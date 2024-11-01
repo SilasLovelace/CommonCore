@@ -21,7 +21,8 @@ SRCS		= \
 			$(SRCSDIR)/activities.c \
 			$(SRCSDIR)/time.c \
 			$(SRCSDIR)/libft.c \
-			$(SRCSDIR)/libft1.c
+			$(SRCSDIR)/libft1.c \
+			$(SRCSDIR)/inputs_allocations.c
 
 
 
