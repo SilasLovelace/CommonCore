@@ -6,7 +6,7 @@
 /*   By: sopperma <sopperma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 13:09:05 by sopperma          #+#    #+#             */
-/*   Updated: 2024/10/31 15:43:50 by sopperma         ###   ########.fr       */
+/*   Updated: 2024/11/01 11:11:11 by sopperma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,8 @@ int	create_threads(t_memory *memory)
 		}
 		i++;
 	}
-	pthread_create(&memory->overseer_thread, NULL, &overseer, memory);
+	if (memory->num_philo > 1)
+		pthread_create(&memory->overseer_thread, NULL, &overseer, memory);
 	// pthread_mutex_unlock(memory->threads_created_mutex);
 	if (join_threads(memory) != 0)
 		return (0);
