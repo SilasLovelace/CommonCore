@@ -6,7 +6,7 @@
 /*   By: sopperma <sopperma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 10:32:51 by sopperma          #+#    #+#             */
-/*   Updated: 2024/10/31 15:52:15 by sopperma         ###   ########.fr       */
+/*   Updated: 2024/11/01 11:06:02 by sopperma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,11 @@ void	my_usleep(long time, t_philosopher *philosopher)
 
 	start = get_current_time(philosopher);
 	while (get_current_time(philosopher) - start < time)
+	{
+		if (check_sim_end(philosopher) == 0)
+			return ;
 		usleep(100);
+	}
 }
 
 int	get_current_time(t_philosopher *phil)

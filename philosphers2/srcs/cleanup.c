@@ -6,7 +6,7 @@
 /*   By: sopperma <sopperma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 13:08:18 by sopperma          #+#    #+#             */
-/*   Updated: 2024/11/01 10:57:48 by sopperma         ###   ########.fr       */
+/*   Updated: 2024/11/01 11:07:16 by sopperma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int free_memory(t_memory *memory)
 
 int	cleanup(t_memory *memory)
 {
-	ft_putstr_fd("Error: Memory allocation failed\n", 2);
+	// ft_putstr_fd("Error: Memory allocation failed\n", 2);
 	pthread_mutex_destroy(memory->status);
 	free(memory->status);
 	pthread_mutex_destroy(memory->print_mutex);
