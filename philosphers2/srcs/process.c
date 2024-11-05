@@ -6,7 +6,7 @@
 /*   By: sopperma <sopperma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 13:09:34 by sopperma          #+#    #+#             */
-/*   Updated: 2024/11/05 12:51:51 by sopperma         ###   ########.fr       */
+/*   Updated: 2024/11/05 15:56:26 by sopperma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,14 @@ int	print_event(t_philosopher *phil, char event)
 		pthread_mutex_unlock(phil->memory->print_mutex);
 		return (0);
 	}
-	if (event == FORK)
-		printf("%d %d has taken a fork\n", get_current_time(phil), phil->num);
-	if (event == EATING)
-		printf("%d %d is eating\n", get_current_time(phil), phil->num);
-	else if (event == SLEEPING)
-		printf("%d %d is sleeping\n", get_current_time(phil), phil->num);
-	else if (event == THINKING)
-		printf("%d %d is thinking\n", get_current_time(phil), phil->num);
+	// if (event == FORK)
+	// 	printf("%d %d has taken a fork\n", get_current_time(phil), phil->num);
+	// if (event == EATING)
+	// 	printf("%d %d is eating\n", get_current_time(phil), phil->num);
+	// else if (event == SLEEPING)
+	// 	printf("%d %d is sleeping\n", get_current_time(phil), phil->num);
+	// else if (event == THINKING)
+	// 	printf("%d %d is thinking\n", get_current_time(phil), phil->num);
 	pthread_mutex_unlock(phil->memory->print_mutex);
 	return (1);
 }
@@ -37,7 +37,13 @@ int	print_event(t_philosopher *phil, char event)
 int	philosopher_starved(t_philosopher *philosopher)
 {
 	pthread_mutex_lock(philosopher->memory->last_meal_mutex);
-	if (get_current_time(philosopher) - philosopher->last_meal > \
+	// printf("%lld\n", philosopher->memory->start_time);
+	// printf("%d\n", get_current_time(philosopher));
+	// printf("%zu\n", get_current_time(philosopher) - philosopher->memory->start_time);
+	// printf("%lld\n", get_current_time(philosopher) - philosopher->last_meal);
+	// printf("%d , %lld\n",philosopher->num , philosopher->last_meal);
+	// printf("%d\n", get_current_time(philosopher) - philosopher->last_meal);
+	if (get_current_time(philosopher) - philosopher->last_meal >= \
 		philosopher->memory->t_death)
 	{
 		pthread_mutex_lock(philosopher->memory->status);
@@ -71,7 +77,7 @@ void	*overseer(void *memory)
 				return (NULL);
 			i++;
 		}
-		usleep(10);
+		usleep(1);
 	}
 }
 
