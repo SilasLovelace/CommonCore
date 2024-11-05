@@ -6,7 +6,7 @@
 /*   By: sopperma <sopperma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 13:09:34 by sopperma          #+#    #+#             */
-/*   Updated: 2024/11/01 11:24:14 by sopperma         ###   ########.fr       */
+/*   Updated: 2024/11/05 12:51:51 by sopperma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,10 @@ int	core_process(t_philosopher *philosopher, int *i)
 			sleeps(philosopher) == 0 || \
 			print_event(philosopher, THINKING) == 0)
 			return (0);
+		if (*i < 1 && is_odd(philosopher->memory->num_philo))
+		{
+			my_usleep(philosopher->memory->t_eat / 2, philosopher);
+		}
 	}
 	else
 	{
@@ -110,6 +114,8 @@ void	*philo_process(void *philosopher)
 	if (philo->memory->num_philo == 1)
 		if (single_philo_process(philo) == 0)
 			return (NULL);
+	if (is_odd(philo->num) && philo->num == philo->memory->num_philo)
+		print_event(philo, THINKING);
 	while (1)
 	{
 		if (core_process(philo, &i) == 0)
