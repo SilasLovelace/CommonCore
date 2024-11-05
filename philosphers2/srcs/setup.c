@@ -6,7 +6,7 @@
 /*   By: sopperma <sopperma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 13:09:05 by sopperma          #+#    #+#             */
-/*   Updated: 2024/11/01 11:24:39 by sopperma         ###   ########.fr       */
+/*   Updated: 2024/11/05 15:04:48 by sopperma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ int	create_philosophers(t_memory *memory)
 		memory->philosophers[i].num = i + 1;
 		memory->philosophers[i].times_eaten = 0;
 		memory->philosophers[i].memory = memory;
-		memory->philosophers[i].last_meal = memory->start_time;
+		memory->philosophers[i].last_meal = 0;
 		i++;
 	}
 	if (create_threads(memory) == 0)
