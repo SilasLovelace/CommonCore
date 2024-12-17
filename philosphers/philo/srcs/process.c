@@ -6,7 +6,7 @@
 /*   By: sopperma <sopperma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 13:09:34 by sopperma          #+#    #+#             */
-/*   Updated: 2024/12/17 16:32:43 by sopperma         ###   ########.fr       */
+/*   Updated: 2024/12/17 17:57:41 by sopperma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,29 +50,6 @@ int	philosopher_starved(t_philosopher *philosopher)
 	}
 	pthread_mutex_unlock(philosopher->memory->last_meal_mutex);
 	return (1);
-}
-
-void	*overseer(void *memory)
-{
-	t_memory		*mem;
-	t_philosopher	*philosopher;
-	int				i;
-
-	mem = (t_memory *)memory;
-	while (1)
-	{
-		i = 0;
-		while (i < mem->num_philo)
-		{
-			philosopher = &mem->philosophers[i];
-			if (all_full(&mem->philosophers[i]))
-				return (NULL);
-			if (philosopher_starved(philosopher) == 0)
-				return (NULL);
-			i++;
-		}
-		usleep(1);
-	}
 }
 
 int	core_process(t_philosopher *philosopher, int *i)

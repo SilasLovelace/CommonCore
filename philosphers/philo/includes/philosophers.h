@@ -6,7 +6,7 @@
 /*   By: sopperma <sopperma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 17:05:41 by sopperma          #+#    #+#             */
-/*   Updated: 2024/12/17 17:32:22 by sopperma         ###   ########.fr       */
+/*   Updated: 2024/12/17 17:50:12 by sopperma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ void	*philo_process(void *philosopher);
 int		get_current_time(t_philosopher *phil);
 int		print_event(t_philosopher *phil, char event);
 void	*overseer(void *memory);
+int	philosopher_starved(t_philosopher *philosopher);
 
 //setup.c
 int		create_philosophers(t_memory *memory);

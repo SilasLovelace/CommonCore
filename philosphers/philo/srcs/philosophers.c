@@ -6,7 +6,7 @@
 /*   By: sopperma <sopperma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 13:09:23 by sopperma          #+#    #+#             */
-/*   Updated: 2024/12/17 17:41:08 by sopperma         ###   ########.fr       */
+/*   Updated: 2024/12/17 18:04:44 by sopperma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,31 @@ static int	initialze_memory(t_memory *memory, int ac, char **av)
 	return (1);
 }
 
+int end_simulation(t_memory *memory)
+{
+	join_threads(memory);
+	free_memory_variables(memory, 4);
+	free(memory);
+	return (0);
+}
+int check_sim(t_memory *memory)
+{
+	while (1)
+	{
+		int i = 0;
+		t_philosopher *philosopher;
+		while (i < memory->num_philo)
+		{
+			philosopher = &memory->philosophers[i];
+			if (all_full(&memory->philosophers[i]))
+				return (end_simulation(memory));
+			if (philosopher_starved(philosopher) == 0)
+				return (end_simulation(memory));
+			i++;
+		}
+		usleep(1);
+	}
+}
 int	main(int ac, char **av)
 {
 	t_memory	*memory;
@@ -91,7 +116,7 @@ int	main(int ac, char **av)
 			return (free(memory), 0);
 		if (initialze_memory(memory, ac, av) == 0)
 			return (free(memory), 0);
-		// return (free_memory_variables(memory, 4), free(memory), 0);
+		return (check_sim(memory));
 	}
 	else
 	{
