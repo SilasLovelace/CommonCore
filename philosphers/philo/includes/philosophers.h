@@ -6,7 +6,7 @@
 /*   By: sopperma <sopperma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 17:05:41 by sopperma          #+#    #+#             */
-/*   Updated: 2024/12/17 17:50:12 by sopperma         ###   ########.fr       */
+/*   Updated: 2024/12/17 18:11:40 by sopperma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,11 +68,12 @@ void	*philo_process(void *philosopher);
 int		get_current_time(t_philosopher *phil);
 int		print_event(t_philosopher *phil, char event);
 void	*overseer(void *memory);
-int	philosopher_starved(t_philosopher *philosopher);
+int		philosopher_starved(t_philosopher *philosopher);
 
 //setup.c
 int		create_philosophers(t_memory *memory);
 int		join_threads(t_memory *memory);
+void	set_basic_values(t_memory *memory, int ac, char **av);
 
 //testing.c
 int		single_philo_process(t_philosopher *philosopher);
@@ -84,7 +85,7 @@ int		all_full(t_philosopher *philosopher);
 //cleanup.c
 int		free_memory_variables(t_memory *memory, int location);
 int		free_allocs(t_memory *memory);
-// int		free_memory(t_memory *memory);
+int		destroy_prev_mutex(t_memory *memory, int num);
 
 //time.c
 int		check_sim_end(t_philosopher *philospher);

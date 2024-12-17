@@ -6,11 +6,26 @@
 /*   By: sopperma <sopperma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 13:09:05 by sopperma          #+#    #+#             */
-/*   Updated: 2024/12/17 17:57:35 by sopperma         ###   ########.fr       */
+/*   Updated: 2024/12/17 18:10:51 by sopperma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
+
+void	set_basic_values(t_memory *memory, int ac, char **av)
+{
+	struct timeval	time;
+
+	gettimeofday(&time, NULL);
+	memory->start_time = ((long long)time.tv_sec * 1000) \
+		+ ((long long)time.tv_usec / 1000);
+	memory->num_philo = ft_atoi(av[1]);
+	memory->t_death = ft_atoi(av[2]);
+	memory->t_eat = ft_atoi(av[3]);
+	memory->t_sleep = ft_atoi(av[4]);
+	if (ac == 6)
+		memory->max_meals = ft_atoi(av[5]);
+}
 
 int	join_threads(t_memory *memory)
 {

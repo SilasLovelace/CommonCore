@@ -6,11 +6,24 @@
 /*   By: sopperma <sopperma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 13:08:18 by sopperma          #+#    #+#             */
-/*   Updated: 2024/12/17 17:21:31 by sopperma         ###   ########.fr       */
+/*   Updated: 2024/12/17 18:11:15 by sopperma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
+
+int	destroy_prev_mutex(t_memory *memory, int num)
+{
+	int	i;
+
+	i = 0;
+	while (i < num)
+	{
+		pthread_mutex_destroy(&memory->forks[i]);
+		i++;
+	}
+	return (0);
+}
 
 void	destroy_fork_mutexes(t_memory *memory)
 {
@@ -26,11 +39,11 @@ void	destroy_fork_mutexes(t_memory *memory)
 
 int	free_memory_variables(t_memory *memory, int location)
 {
-	if (location == 1 || location == 2|| location == 3)
+	if (location == 1 || location == 2 || location == 3)
 		pthread_mutex_destroy(memory->status);
 	if (location == 2 || location == 3)
 		pthread_mutex_destroy(memory->print_mutex);
-	if (location == 3)	
+	if (location == 3)
 		pthread_mutex_destroy(memory->last_meal_mutex);
 	if (memory->status)
 		free(memory->status);
