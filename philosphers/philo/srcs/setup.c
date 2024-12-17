@@ -6,7 +6,7 @@
 /*   By: sopperma <sopperma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 13:09:05 by sopperma          #+#    #+#             */
-/*   Updated: 2024/12/17 17:35:06 by sopperma         ###   ########.fr       */
+/*   Updated: 2024/12/17 17:42:29 by sopperma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,20 +17,15 @@ int	join_threads(t_memory *memory)
 	int				i;
 
 	i = 0;
-	
+	pthread_join(memory->overseer_thread, NULL);
 	while (i < memory->num_philo)
 	{
 		if (pthread_join(memory->philosopher_threads[i], NULL) != 0)
 		{
-			ft_putstr_fd("Philo Thread join failed\n", 2);
+			ft_putstr_fd("Thread join failed\n", 2);
 			return (0);
 		}
 		i++;
-	}
-	if(pthread_join(memory->overseer_thread, NULL) != 0)
-	{
-		ft_putstr_fd("Overseer Thread join failed\n", 2);
-		return (0);
 	}
 	return (1);
 }
@@ -55,14 +50,9 @@ int	create_threads(t_memory *memory)
 		i++;
 	}
 	if (memory->num_philo > 1)
-	{
-		if (pthread_create(&memory->overseer_thread, NULL, &overseer, memory) != 0)
-		while (--i >= 0)
-				pthread_join(memory->philosopher_threads[i], NULL);
-		return (0);
-	}
+		pthread_create(&memory->overseer_thread, NULL, &overseer, memory);
 	if (join_threads(memory) != 0)
-			return (0);
+		return (0);
 	return (1);
 }
 

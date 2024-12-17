@@ -6,7 +6,7 @@
 /*   By: sopperma <sopperma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 13:09:23 by sopperma          #+#    #+#             */
-/*   Updated: 2024/12/17 17:34:31 by sopperma         ###   ########.fr       */
+/*   Updated: 2024/12/17 17:41:08 by sopperma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ int	main(int ac, char **av)
 			return (free(memory), 0);
 		if (initialze_memory(memory, ac, av) == 0)
 			return (free(memory), 0);
-		return (free_memory_variables(memory, 4), free(memory), 0);
+		// return (free_memory_variables(memory, 4), free(memory), 0);
 	}
 	else
 	{
