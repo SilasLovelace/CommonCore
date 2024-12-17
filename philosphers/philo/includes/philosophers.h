@@ -6,7 +6,7 @@
 /*   By: sopperma <sopperma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 17:05:41 by sopperma          #+#    #+#             */
-/*   Updated: 2024/12/17 16:28:18 by sopperma         ###   ########.fr       */
+/*   Updated: 2024/12/17 17:32:22 by sopperma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ void	*overseer(void *memory);
 
 //setup.c
 int		create_philosophers(t_memory *memory);
+int		join_threads(t_memory *memory);
 
 //testing.c
 int		single_philo_process(t_philosopher *philosopher);
@@ -80,7 +81,7 @@ void	unlock_forks(t_philosopher *phil);
 int		all_full(t_philosopher *philosopher);
 
 //cleanup.c
-int		cleanup(t_memory *memory);
+int		free_memory_variables(t_memory *memory, int location);
 int		free_allocs(t_memory *memory);
 // int		free_memory(t_memory *memory);
 
