@@ -15,7 +15,7 @@ SRCS		= \
 			phonebook.cpp \
 
 OBJSDIR		= objs
-OBJS		= $(SRCS:.c=.o)
+OBJS		= $(SRCS:.cpp=.o)
 DEPS		= $(addprefix $(OBJSDIR)/, $(SRCS:.c=.d))
 
 ################################################################################
@@ -27,7 +27,7 @@ all		: $(NAME)
 $(NAME)	: ${OBJS}
 		$(CC) ${CFLAGS} -o $@ $^
 
-%.o	: %.c
+%.o	: %.cpp
 		@mkdir -p $(dir $@)
 		${CC} ${CFLAGS} -c $< -o $@
 

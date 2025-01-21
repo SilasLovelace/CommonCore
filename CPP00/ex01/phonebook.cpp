@@ -6,7 +6,7 @@
 /*   By: sopperma <sopperma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 14:28:56 by sopperma          #+#    #+#             */
-/*   Updated: 2025/01/02 16:15:40 by sopperma         ###   ########.fr       */
+/*   Updated: 2025/01/20 13:59:16 by sopperma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ int main () {
     while (1) {
         std::string input;
         std::cout << "Enter ADD or SEARCH or EXIT: ";
-        std::getline(std::cin, input);
+        if (!std::getline(std::cin, input))
+            exit(0);
         
         if (input == "ADD")
             phonebook.addContact();

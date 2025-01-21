@@ -7,12 +7,13 @@ RM			= rm -rf
 CFLAGS		= -Wall -Wextra -Werror -MD -MP -g -I -std=c++98 #-fsanitize=thread,undefined 
 MAKEFLAGS	= -j$(nproc) --no-print-directory
 
-NAME		= megaphone
+NAME		= harl
 
 SRCSDIR		= srcs
 
 SRCS		= \
-			megaphone.cpp \
+			main.cpp \
+			Harl.cpp
 
 OBJSDIR		= objs
 OBJS		= $(SRCS:.cpp=.o)

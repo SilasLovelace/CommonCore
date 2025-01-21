@@ -7,12 +7,15 @@ RM			= rm -rf
 CFLAGS		= -Wall -Wextra -Werror -MD -MP -g -I -std=c++98 #-fsanitize=thread,undefined 
 MAKEFLAGS	= -j$(nproc) --no-print-directory
 
-NAME		= megaphone
+NAME		= zombieHorde
 
 SRCSDIR		= srcs
 
 SRCS		= \
-			megaphone.cpp \
+			main.cpp \
+			Weapon.cpp \
+			HumanA.cpp \
+			HumanB.cpp
 
 OBJSDIR		= objs
 OBJS		= $(SRCS:.cpp=.o)
