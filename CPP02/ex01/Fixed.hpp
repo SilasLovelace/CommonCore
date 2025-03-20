@@ -4,11 +4,12 @@
 #include <iostream>
 #include <string>
 #include <sstream>
+#include <cmath>
 
 class Fixed{
     private:
-        int fixed_point;
-        static const int bits = 8;
+        int _fixed_point;
+        static const int _bits = 8;
     public:
         Fixed();
         Fixed(const int value);
