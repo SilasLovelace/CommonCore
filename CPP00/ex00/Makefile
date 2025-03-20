@@ -4,7 +4,7 @@
 
 CC			= c++
 RM			= rm -rf
-CFLAGS		= -Wall -Wextra -Werror -MD -MP -g -I -std=c++98 #-fsanitize=thread,undefined 
+CFLAGS		= -Wall -Wextra -Werror -MD -MP -g -std=c++98 #-fsanitize=thread,undefined 
 MAKEFLAGS	= -j$(nproc) --no-print-directory
 
 NAME		= megaphone
@@ -15,8 +15,8 @@ SRCS		= \
 			megaphone.cpp \
 
 OBJSDIR		= objs
-OBJS		= $(SRCS:.cpp=.o)
-DEPS		= $(addprefix $(OBJSDIR)/, $(SRCS:.c=.d))
+OBJS		= $(addprefix $(OBJSDIR)/, $(SRCS:.cpp=.o))
+DEPS		= $(OBJS:.o=.d)
 
 ################################################################################
 ######                               RULES                                ######
@@ -27,19 +27,17 @@ all		: $(NAME)
 $(NAME)	: ${OBJS}
 		$(CC) ${CFLAGS} -o $@ $^
 
-%.o	: %.cpp
+$(OBJSDIR)/%.o : %.cpp
 		@mkdir -p $(dir $@)
 		${CC} ${CFLAGS} -c $< -o $@
 
 clean	:
-		$(RM) 
+		$(RM) $(OBJSDIR)
 
-fclean	:
+fclean	: clean
 		$(RM) $(NAME)
 
-re		:
-		$(RM) $(NAME)
-		$(MAKE) all
+re		: fclean all
 
 -include $(DEPS)
 
