@@ -6,7 +6,7 @@
 /*   By: sopperma <sopperma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 12:00:50 by sopperma          #+#    #+#             */
-/*   Updated: 2025/01/13 12:01:30 by sopperma         ###   ########.fr       */
+/*   Updated: 2025/03/21 13:09:25 by sopperma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,5 +21,5 @@ Zombie::~Zombie(){
 }
 
 void Zombie::announce(){
-    std::cout << this->name << " BraiiiiiiinnnzzzZ...\n";
+    std::cout << this->name << ": BraiiiiiiinnnzzzZ...\n";
 }

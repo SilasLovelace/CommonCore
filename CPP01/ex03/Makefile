@@ -30,18 +30,17 @@ all		: $(NAME)
 $(NAME)	: ${OBJS}
 		$(CC) ${CFLAGS} -o $@ $^
 
-%.o	: %.cpp
-		@mkdir -p $(dir $@)
+$(OBJSDIR)/%.o : %.cpp
 		${CC} ${CFLAGS} -c $< -o $@
 
 clean	:
-		$(RM) 
+		$(RM) $(OBJSDIR)
 
-fclean	:
+fclean	: clean
 		$(RM) $(NAME)
 
-re		:
-		$(RM) $(NAME)
+re		: 
+		$(RM) $(OBJSDIR) $(NAME)
 		$(MAKE) all
 
 -include $(DEPS)

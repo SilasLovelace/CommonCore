@@ -12,7 +12,9 @@ NAME		= phonebook
 SRCSDIR		= srcs
 
 SRCS		= \
-			phonebook.cpp \
+			main.cpp \
+			Phonebook.cpp \
+			Contact.cpp
 
 OBJSDIR		= objs
 OBJS		= $(SRCS:.cpp=.o)
