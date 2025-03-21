@@ -6,13 +6,11 @@
 /*   By: sopperma <sopperma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 14:28:56 by sopperma          #+#    #+#             */
-/*   Updated: 2025/01/20 13:59:16 by sopperma         ###   ########.fr       */
+/*   Updated: 2025/03/21 11:39:19 by sopperma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "phonebook.hpp"
-
-
 
 int main () {
     PhoneBook phonebook;
@@ -21,7 +19,6 @@ int main () {
         std::cout << "Enter ADD or SEARCH or EXIT: ";
         if (!std::getline(std::cin, input))
             exit(0);
-        
         if (input == "ADD")
             phonebook.addContact();
         else if (input == "SEARCH")

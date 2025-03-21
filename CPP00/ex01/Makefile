@@ -16,7 +16,7 @@ SRCS		= \
 
 OBJSDIR		= objs
 OBJS		= $(SRCS:.cpp=.o)
-DEPS		= $(addprefix $(OBJSDIR)/, $(SRCS:.c=.d))
+DEPS		= $(SRCS:.cpp=.d)
 
 ################################################################################
 ######                               RULES                                ######
@@ -28,7 +28,6 @@ $(NAME)	: ${OBJS}
 		$(CC) ${CFLAGS} -o $@ $^
 
 $(OBJSDIR)/%.o : %.cpp
-		@mkdir -p $(dir $@)
 		${CC} ${CFLAGS} -c $< -o $@
 
 clean	:
@@ -37,7 +36,9 @@ clean	:
 fclean	: clean
 		$(RM) $(NAME)
 
-re		: fclean all
+re		: 
+		$(RM) $(OBJSDIR) $(NAME)
+		$(MAKE) all
 
 -include $(DEPS)
 

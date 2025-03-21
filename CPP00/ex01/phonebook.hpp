@@ -6,7 +6,7 @@
 /*   By: sopperma <sopperma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 15:02:24 by sopperma          #+#    #+#             */
-/*   Updated: 2025/03/20 15:47:35 by sopperma         ###   ########.fr       */
+/*   Updated: 2025/03/21 11:39:44 by sopperma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,6 @@
 #include <iostream>
 #include <string>
 #include <sstream>
-#include <limits>
-#include <boost/algorithm/string.hpp>
 
 #define caseNumber 0
 #define caseFirstName 1
@@ -41,7 +39,7 @@
 #define prompt_Range_Error "Index out of Range!\n"
 #define prompt_NaN "Input must consist only of numbers\n"
 #define prompt_Too_Long "Max length of Input 50 Characters\n"
-#define prompt_Invalid_Characters "Invalid Characters! Can only contain letters and spaces!\n"
+#define prompt_Invalid_Characters "Invalid Characters! Can only contain printable characters! -> ASCII\n"
 
 
 class Contact {
@@ -85,19 +83,31 @@ private:
     int size{0};
 
     bool isValidInt(std::string input) {
-        for (char c : input) {
-            if (!std::isdigit(c))
+        for (int i = 0; i < input.length(); i++) {
+            if (!std::isdigit(input.at(i)))
                 return false;
         }
         return true;
     }
 
     bool isValidString(std::string input) {
-        for (char c : input) {
-            if (!std::isalpha(c) && !(c == ' '))
+        int count = 0;
+        for (int i = 0; i < input.length(); i++) {
+            if (!(input.at(i) >= 32 && input.at(i) <= 122))
                 return false;
+            else
+                input.at(i) == 32 ? count : count++;
         }
+        if (count == 0)
+            return false;
         return true;
+    }
+
+    std::string trim(const std::string& str) {
+    size_t first = str.find_first_not_of(" \t\n\r");
+    if (first == std::string::npos) return "";
+    size_t last = str.find_last_not_of(" \t\n\r");
+    return str.substr(first, last - first + 1);
     }
 
     std::string getprompt (int prompt)
@@ -151,7 +161,8 @@ private:
                     std::cout << getprompt(caseNaN);
                     continue;
                 }
-                if (std::stoi(input) < 0 || std::stoi(input) >= size || std::stoi(input) >= INT_MAX) {
+                int trimmed_num = std::stoi(trim(input));
+                if (trimmed_num < 0 || trimmed_num >= size || trimmed_num >= 8) {
                     std::cout << getprompt(caseRange);
                     continue;
                 }
@@ -165,7 +176,7 @@ private:
                     std::cout << getprompt(caseInvalidCharacters);
                     continue;
                 }
-                boost::trim(input);
+                input = trim(input);
             }
             return input;
         }
@@ -181,11 +192,11 @@ private:
     
     std::string printInfo (Contact contact) {
         std::string info = "";
-        info += contact.getFirstName() + "\n";
-        info += contact.getLastName() + "\n";
-        info += contact.getNickname() + "\n";
-        info += contact.getPhoneNumber() + "\n";
-        info += contact.getDarkestSecret() + "\n";
+        info +="FIRST NAME : " + contact.getFirstName() + "\n";
+        info +="LAST NAME  : " + contact.getLastName() + "\n";
+        info +="NICKNAME   : " + contact.getNickname() + "\n";
+        info +="NUMBA      : " + contact.getPhoneNumber() + "\n";
+        info +="BORING INFO: " + contact.getDarkestSecret() + "\n";
         return info;
     }
     
