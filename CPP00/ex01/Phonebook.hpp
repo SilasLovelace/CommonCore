@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   phonebook.hpp                                      :+:      :+:    :+:   */
+/*   Phonebook.hpp                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sopperma <sopperma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 15:02:24 by sopperma          #+#    #+#             */
-/*   Updated: 2025/03/21 11:39:44 by sopperma         ###   ########.fr       */
+/*   Updated: 2025/03/21 11:51:27 by sopperma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include <iostream>
 #include <string>
 #include <sstream>
+#include "Contact.hpp"
 
 #define caseNumber 0
 #define caseFirstName 1
@@ -40,41 +41,6 @@
 #define prompt_NaN "Input must consist only of numbers\n"
 #define prompt_Too_Long "Max length of Input 50 Characters\n"
 #define prompt_Invalid_Characters "Invalid Characters! Can only contain printable characters! -> ASCII\n"
-
-
-class Contact {
-private:
-    std::string phoneNumber;
-    std::string firstName;
-    std::string lastName;
-    std::string nickname;
-    std::string darkestSecret;
-public:
-    Contact () {}
-
-    Contact(std::string phoneNumber, std::string firstName, std::string lastName, std::string nickname, std::string secret) {
-        this->phoneNumber = phoneNumber;
-        this->firstName = firstName;
-        this->lastName = lastName;
-        this->nickname = nickname;
-        this->darkestSecret = secret;
-    }
-    std::string getPhoneNumber() {
-        return phoneNumber;
-    }
-    std::string getFirstName() {
-        return firstName;
-    }
-    std::string getLastName() {
-        return lastName;
-    }
-    std::string getNickname() {
-        return nickname;
-    }
-    std::string getDarkestSecret() {
-        return darkestSecret;
-    }
-};
 
 class PhoneBook {
 private:
