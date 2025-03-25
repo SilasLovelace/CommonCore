@@ -7,7 +7,7 @@ RM			= rm -rf
 CFLAGS		= -Wall -Wextra -Werror -MD -MP -g -I -std=c++98 #-fsanitize=thread,undefined 
 MAKEFLAGS	= -j$(nproc) --no-print-directory
 
-NAME		= zombieHorde
+NAME		= fightclub
 
 SRCSDIR		= srcs
 

@@ -6,7 +6,7 @@
 /*   By: sopperma <sopperma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 12:59:45 by sopperma          #+#    #+#             */
-/*   Updated: 2025/01/21 14:46:29 by sopperma         ###   ########.fr       */
+/*   Updated: 2025/03/25 11:38:18 by sopperma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,17 +39,12 @@ void Harl::error(void){
 
 void Harl::complain(std::string level)
 {
-    int levelIndex = -1;
-    std::string levels[] = {"DEBUG", "INFO", "WARNING", "ERROR"};
+    int i = 0;
+    std::string levels[4] = {"DEBUG", "INFO", "WARNING", "ERROR"};
 
-    for (int i = 0; i < 4; i++) {
-        if (level == levels[i]) {
-            levelIndex = i;
-            break;
-        }
-    }
+    while (level != levels[i] && i < 4) i++;
 
-    switch (levelIndex) {
+    switch (i) {
         case 0:
             this->debug();
         case 1:
