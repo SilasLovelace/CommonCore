@@ -7,36 +7,38 @@ RM			= rm -rf
 CFLAGS		= -Wall -Wextra -Werror -MD -MP -g -I -std=c++98 #-fsanitize=thread,undefined 
 MAKEFLAGS	= -j$(nproc) --no-print-directory
 
-NAME		= phonebook
+NAME		= Account
 
 SRCSDIR		= srcs
 
 SRCS		= \
-			phonebook.cpp \
+			Account.cpp \
+			tests.cpp
 
 OBJSDIR		= objs
-OBJS		= $(SRCS:.cpp=.o)
-DEPS		= $(addprefix $(OBJSDIR)/, $(SRCS:.c=.d))
+OBJS		= $(addprefix $(OBJSDIR)/, $(SRCS:.cpp=.o))
+DEPS		= $(addprefix $(OBJSDIR)/, $(SRCS:.cpp=.d))
 
-################################################################################
-######                               RULES                                ######
-################################################################################
+#------------------------------------------------------------------------------#
+#------------------------------------RULES-------------------------------------#
+#------------------------------------------------------------------------------#
 
 all		: $(NAME)
 
 $(NAME)	: ${OBJS}
-		$(CC) ${CFLAGS} -o $@ $^
+		$(CC) ${CFLAGS} -o $@ $^ 
 
-$(OBJSDIR)/%.o : %.cpp
+${OBJSDIR}/%.o	: %.cpp
+		@mkdir -p $(dir $@)
 		${CC} ${CFLAGS} -c $< -o $@
 
 clean	:
 		$(RM) $(OBJSDIR)
 
-fclean	: clean
-		$(RM) $(NAME)
+fclean	:
+		$(RM) $(OBJSDIR) $(NAME)
 
-re		: 
+re		:
 		$(RM) $(OBJSDIR) $(NAME)
 		$(MAKE) all
 

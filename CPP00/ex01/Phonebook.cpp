@@ -6,7 +6,7 @@
 /*   By: sopperma <sopperma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 15:02:24 by sopperma          #+#    #+#             */
-/*   Updated: 2025/03/21 15:12:10 by sopperma         ###   ########.fr       */
+/*   Updated: 2025/03/25 10:19:25 by sopperma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,34 @@
 PhoneBook::PhoneBook() {}
 PhoneBook::~PhoneBook() {}
 
+#define caseNumber 0
+#define caseFirstName 1
+#define caseLastName 2
+#define caseNickname 3
+#define caseSecret 4
+#define caseError 5
+#define caseIndex 6
+#define caseRange 7
+#define caseNaN 8
+#define caseTooLong 9
+#define caseInvalidCharacters 10
+#define caseOnlyOneDigit 11
+
+#define prompt_Number "Enter the number: "
+#define prompt_FirstName "Enter the first name: "
+#define prompt_LastName "Enter the last name: "
+#define prompt_Nickname "Enter the nickname: "
+#define prompt_Secret "Enter the darkest secret: "
+#define prompt_Notempty "Input cannot be empty!\n"
+#define prompt_Index "Enter the index: "
+#define prompt_Range_Error "Index out of Range!\n"
+#define prompt_NaN "Input must consist only of numbers\n"
+#define prompt_Too_Long "Max length of Input 50 Characters\n"
+#define prompt_Wrong_Index "Index must be a single digit and available for search, no whitespaces!\n"
+#define prompt_Invalid_Characters "Invalid Characters! Can only contain printable characters! -> ASCII\n"
+
 bool PhoneBook::isValidInt(std::string input) {
-    for (int i = 0; i < input.length(); i++) {
+    for (unsigned long i = 0; i < input.length(); i++) {
         if (!std::isdigit(input.at(i)))
             return false;
     }
@@ -24,7 +50,7 @@ bool PhoneBook::isValidInt(std::string input) {
 
 bool PhoneBook::isValidString(std::string input) {
     int count = 0;
-    for (int i = 0; i < input.length(); i++) {
+    for (unsigned long i = 0; i < input.length(); i++) {
         if (!(input.at(i) >= 32 && input.at(i) <= 122))
             return false;
         else
@@ -65,6 +91,8 @@ std::string PhoneBook::getprompt (int prompt)
             return prompt_Too_Long;
         case caseInvalidCharacters:
             return prompt_Invalid_Characters;
+        case caseOnlyOneDigit:
+            return prompt_Wrong_Index;
         default:
             return prompt_Notempty;
     }
@@ -89,12 +117,16 @@ std::string PhoneBook::prompt (int prompt){
             continue;
         }
         if (prompt == caseIndex) {
+            if(input.length() > 1) {
+                std::cout << getprompt(caseOnlyOneDigit);
+                continue;
+            }
             if (!isValidInt(input)) {
                 std::cout << getprompt(caseNaN);
                 continue;
             }
-            int trimmed_num = std::stoi(trim(input));
-            if (trimmed_num < 0 || trimmed_num >= this->size || trimmed_num >= 8) {
+            int i = std::stoi(input);
+            if (i < 0 || i >= this->size || i >= 8) {
                 std::cout << getprompt(caseRange);
                 continue;
             }
