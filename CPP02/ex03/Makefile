@@ -7,14 +7,14 @@ RM			= rm -rf
 CFLAGS		= -Wall -Wextra -Werror -MD -MP -g -I -std=c++98
 MAKEFLAGS	= -j$(nproc) --no-print-directory
 
-NAME		= zombieHorde
+NAME		= bsp
 
 SRCSDIR		= srcs
 
 SRCS		= \
 			main.cpp \
-			Zombie.cpp \
-			zombieHorde.cpp
+			Fixed.cpp \
+			Point.cpp \
 
 OBJSDIR		= objs
 OBJS		= $(addprefix $(OBJSDIR)/, $(SRCS:.cpp=.o))

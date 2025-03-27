@@ -4,7 +4,7 @@
 
 CC			= c++
 RM			= rm -rf
-CFLAGS		= -Wall -Wextra -Werror -MD -MP -g -I -std=c++98 #-fsanitize=thread,undefined 
+CFLAGS		= -Wall -Wextra -Werror -MD -MP -g -I -std=c++98
 MAKEFLAGS	= -j$(nproc) --no-print-directory
 
 NAME		= Fixed
@@ -16,30 +16,30 @@ SRCS		= \
 			Fixed.cpp 
 
 OBJSDIR		= objs
-OBJS		= $(SRCS:.cpp=.o)
-DEPS		= $(addprefix $(OBJSDIR)/, $(SRCS:.c=.d))
+OBJS		= $(addprefix $(OBJSDIR)/, $(SRCS:.cpp=.o))
+DEPS		= $(addprefix $(OBJSDIR)/, $(SRCS:.cpp=.d))
 
-################################################################################
-######                               RULES                                ######
-################################################################################
+#------------------------------------------------------------------------------#
+#------------------------------------RULES-------------------------------------#
+#------------------------------------------------------------------------------#
 
 all		: $(NAME)
 
 $(NAME)	: ${OBJS}
-		$(CC) ${CFLAGS} -o $@ $^
+		$(CC) ${CFLAGS} -o $@ $^ 
 
-%.o	: %.cpp
+${OBJSDIR}/%.o	: %.cpp
 		@mkdir -p $(dir $@)
 		${CC} ${CFLAGS} -c $< -o $@
 
 clean	:
-		$(RM) 
+		$(RM) $(OBJSDIR)
 
 fclean	:
-		$(RM) $(NAME)
+		$(RM) $(OBJSDIR) $(NAME)
 
 re		:
-		$(RM) $(NAME)
+		$(RM) $(OBJSDIR) $(NAME)
 		$(MAKE) all
 
 -include $(DEPS)

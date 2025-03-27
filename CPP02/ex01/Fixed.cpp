@@ -10,7 +10,7 @@ Fixed::Fixed(const int value){
         std::cout << "Int-Value out of range -8388608 -> 8388607!\n";
         return;
     }
-    this->_fixed_point = (int)(value << _bits);
+    this->_fixed_point = (1 << _bits) * value;
     std::cout << "Default constructor called" << std::endl;
 }
 
@@ -19,17 +19,13 @@ Fixed::Fixed(const float value){
         std::cout << "Float-Value out of range -8388608 -> 8388607.99609375!\n";
         return;
     }
-    double temp= static_cast<double>(value * (1 <<_bits));
-    printf("temp: %f\n", temp);
-
-    this->_fixed_point = roundf(temp); 
-    printf("this->_fixed_point: %d\n", this->_fixed_point);
-
+    int temp= roundf(value * (1 <<_bits));  
+    this->_fixed_point = temp;
     std::cout << "Default constructor called" << std::endl;
 }
 
 float Fixed::toFloat(void) const{
-    return static_cast<float>((this->_fixed_point / (1 <<_bits)));
+    return static_cast<float>(this->_fixed_point) / (1 <<_bits);
 }
 
 int Fixed::toInt(void) const{

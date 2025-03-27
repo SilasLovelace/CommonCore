@@ -6,7 +6,7 @@
 /*   By: sopperma <sopperma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 11:49:15 by sopperma          #+#    #+#             */
-/*   Updated: 2025/01/13 15:47:05 by sopperma         ###   ########.fr       */
+/*   Updated: 2025/03/25 14:16:16 by sopperma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 # define ZOMBIE_HPP
 
 #include <iostream>
-#include <string>
-#include <sstream>
 
 class Zombie{
     private:

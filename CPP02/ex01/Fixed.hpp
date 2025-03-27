@@ -16,12 +16,14 @@ class Fixed{
         Fixed(const float value);
         Fixed(const Fixed &src);
         Fixed& operator=(const Fixed& rhs);
-        friend std::ostream& operator<<(std::ostream& os, const Fixed& rhs);
         ~Fixed();
         int getRawBits(void) const;
         void setRawBits( int const raw );
         float toFloat( void ) const;
         int toInt( void ) const;
-};
+
+        
+    };
+    std::ostream& operator<<(std::ostream& os, const Fixed& rhs);
 
 #endif
