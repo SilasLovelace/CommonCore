@@ -1,13 +1,12 @@
 #include "ClapTrap.hpp"
 
 ClapTrap::ClapTrap(){
-    this->name = "Orphan";
     std::cout << "ClapTrap default constructor called" << std::endl;
 }
 
 ClapTrap::ClapTrap(std::string name){
     std::cout << "ClapTrap parameter constructor called" << std::endl;
-    name.empty() ? this->name = "Orphan" : this->name = name;
+    this->name = name;
 }
 
 ClapTrap::ClapTrap(ClapTrap &src){
@@ -28,13 +27,13 @@ ClapTrap &ClapTrap::operator=(ClapTrap &rhs){
 }
 
 void ClapTrap::attack(std::string const & target){
-    if (this->energy_points > 0 && this->hitpoints > 0){
+    if (this->energy_points > 0){
         std::cout << "ClapTrap " << this->name << " attacks " << target << ", causing " << this->attack_damage << " points of damage!" << std::endl;
         this->energy_points -= 1;
         
     }
     else{
-        std::cout << "ClapTrap " << this->name << " is out of energy points or dead and can't attack!" << std::endl;
+        std::cout << "ClapTrap " << this->name << " is out of energy points and can't attack!" << std::endl;
     }
 }
 
@@ -55,23 +54,12 @@ void ClapTrap::beRepaired(unsigned int amount){
     if (this->hitpoints > 0)
     {
         if (this->energy_points > 0){
-            if (this->hitpoints + amount > this->max_hitpoints && this->hitpoints != this->max_hitpoints){
-                amount = this->max_hitpoints - this->hitpoints;
-                this->hitpoints += amount;
-                std::cout << "ClapTrap " << this->name << " is being repaired for " << amount << " points!" << std::endl;
-            }
-            else if (this->hitpoints == this->max_hitpoints){
-                std::cout << "ClapTrap " << this->name << " is already at max hitpoints!" << std::endl;
-                return;
-            }
-            else{
-                this->hitpoints += amount;
-                std::cout << "ClapTrap " << this->name << " is being repaired for " << amount << " points!" << std::endl;
-            }
+            std::cout << "ClapTrap " << this->name << " is being repaired for " << amount << " points!" << std::endl;
             this->energy_points -= 1;
+            this->hitpoints += amount;     
         }
         else{
-            std::cout << "ClapTrap " << this->name << " is out of energy points and can't repair!" << std::endl;
+            std::cout << "ClapTrap " << this->name << " is out of energy points adn can't repair!" << std::endl;
         }
     }
     else{

@@ -4,10 +4,7 @@ int main(){
     ClapTrap bub("Bub");
     bub.attack("The Financial system");
     bub.takeDamage(5);
-    bub.beRepaired(3);
-    bub.beRepaired(3);
-    bub.beRepaired(3);
-    bub.beRepaired(3);
+    bub.beRepaired(5);
     bub.attack("My Neighbor's Lawn Gnome");
     bub.attack("The DMV Waiting Line");
     bub.attack("My Cat's Indifference");
