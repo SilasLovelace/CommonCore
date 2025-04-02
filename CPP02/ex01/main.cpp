@@ -14,5 +14,42 @@ int main( void ) {
     std::cout << "b is " << b.toInt() << " as integer" << std::endl;
     std::cout << "c is " << c.toInt() << " as integer" << std::endl;
     std::cout << "d is " << d.toInt() << " as integer" << std::endl;
+    try
+    {
+        Fixed const e( 8388608 );
+        std::cout << "e is " << e << std::endl;
+    }
+    catch(const std::exception& e)
+    {
+        std::cerr << e.what();
+    }
+    try
+    {
+        Fixed const e( -8388609 );
+        std::cout << "e is " << e << std::endl;
+    }
+    catch(const std::exception& e)
+    {
+        std::cerr << e.what();
+    }
+    try
+    {
+        Fixed const e( 8388607.999999f );
+        std::cout << "e is " << e << std::endl;
+    }
+    catch(const std::exception& e)
+    {
+        std::cerr << e.what();
+    }
+    try
+    {
+        Fixed const e( -8388608.90000f );
+        std::cout << "e is " << e << std::endl;
+    }
+    catch(const std::exception& e)
+    {
+        std::cerr << e.what();
+    }
+
     return 0;
 }

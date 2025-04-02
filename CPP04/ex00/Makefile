@@ -7,13 +7,17 @@ RM			= rm -rf
 CFLAGS		= -Wall -Wextra -Werror -MD -MP -g -I -std=c++98
 MAKEFLAGS	= -j$(nproc) --no-print-directory
 
-NAME		= PoorPeopleBorderlands
+NAME		= AnimalFarm
 
 SRCSDIR		= srcs
 
 SRCS		= \
 			main.cpp \
-			ClapTrap.cpp 
+			Animal.cpp \
+			Dog.cpp \
+			Cat.cpp \
+			WrongAnimal.cpp \
+			WrongCat.cpp \
 
 OBJSDIR		= objs
 OBJS		= $(addprefix $(OBJSDIR)/, $(SRCS:.cpp=.o))

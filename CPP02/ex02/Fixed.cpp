@@ -2,26 +2,21 @@
 
 Fixed::Fixed(){
     this->_fixed_point = 0;
-    // std::cout << "Default constructor called" << std::endl;
 }
 
 Fixed::Fixed(const int value){
-    if (value < (-8388608) || value > 8388607){
-        std::cout << "Int-Value out of range -8388608 -> 8388607!\n";
-        return;
+    if (value < -8388608 || value > 8388607){
+        throw std::invalid_argument("Int-Value out of range -8388608 and 8388607!\n");
     }
     this->_fixed_point = (1 << _bits) * value;
-    // std::cout << "Default constructor called" << std::endl;
 }
 
 Fixed::Fixed(const float value){
-    if (value < (-8388608) || value > 8388607 + (1 - 255/256)){
-        std::cout << "Float-Value out of range -8388608 -> 8388607.99609375!\n";
-        return;
+    if (value < -8388608 || value > 8388607){
+        throw std::invalid_argument("Float-Value out of range -8388608 and 8388607!\n");
     }
     int temp= roundf(value * (1 <<_bits));  
     this->_fixed_point = temp;
-    // std::cout << "Default constructor called" << std::endl;
 }
 
 float Fixed::toFloat(void) const{
@@ -34,7 +29,6 @@ int Fixed::toInt(void) const{
 
 Fixed::Fixed(const Fixed &src){
     this->_fixed_point = src._fixed_point;
-    // std::cout << "Copy constructor called" << std::endl;
     *this = src;
 }
 
@@ -45,12 +39,14 @@ std::ostream& operator<<(std::ostream& os, const Fixed& rhs){
 }
 
 Fixed::~Fixed(){
-    // std::cout << "Destructor called\n";
 }
 
 int Fixed::getRawBits(void) const{
-    // std::cout << "getRawBits member function called\n";
     return this->_fixed_point;
+}
+
+void Fixed::setRawBits(int const raw){
+    this->_fixed_point = raw;
 }
 
 bool Fixed::operator>(const Fixed& rhs) const {
@@ -86,6 +82,7 @@ Fixed Fixed::operator-(const Fixed& rhs) const{
 }
 
 Fixed Fixed::operator*(const Fixed& rhs) const{
+    // return Fixed((float)((long)this->getRawBits() * (long)rhs.getRawBits()) / (1 << 16));
     return Fixed(this->toFloat() * rhs.toFloat());
 }
 

@@ -1,22 +1,15 @@
-#include "ClapTrap.hpp"
+#include "Animal.hpp"
+#include "Dog.hpp"
+#include "Cat.hpp"
 
 int main(){
-    ClapTrap bub("Bub");
-    bub.attack("The Financial system");
-    bub.takeDamage(5);
-    bub.beRepaired(5);
-    bub.attack("My Neighbor's Lawn Gnome");
-    bub.attack("The DMV Waiting Line");
-    bub.attack("My Cat's Indifference");
-    bub.attack("Monday Mornings");
-    bub.attack("IKEA Assembly Instructions");
-    bub.attack("Automated Phone Support");
-    bub.attack("My Printer");
-    bub.attack("Existential Dread");
-    bub.attack("Quantum Physics");
-    bub.beRepaired(5);
-    bub.takeDamage(5);
-    bub.takeDamage(5);
-    bub.beRepaired(5);
+    const Animal* meta = new Animal();
+    const Animal* j = new Dog();
+    const Animal* i = new Cat();
+    std::cout << j->getType() << " " << std::endl;
+    std::cout << i->getType() << " " << std::endl;
+    i->makeSound(); //will output the cat sound!
+    j->makeSound();
+    meta->makeSound();
     return 0;
 }

@@ -4,7 +4,7 @@
 #include "ClapTrap.hpp"
 
 class ScavTrap: public ClapTrap{
-    protected:
+    private:
         bool is_guarding = false;
     public:
         ScavTrap();
