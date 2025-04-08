@@ -1,11 +1,18 @@
 #include "ClapTrap.hpp"
 
+unsigned int ClapTrap::getHitpoints() const{
+    return this->hitpoints;
+}
+
 int main(){
     ClapTrap bub("Bub");
     bub.attack("The Financial system");
     bub.takeDamage(5);
+    std::cout << "Bub's hitpoints: " << bub.getHitpoints() << std::endl;
     bub.beRepaired(3);
-    bub.beRepaired(3);
+    std::cout << "Bub's hitpoints: " << bub.getHitpoints() << std::endl;
+    bub.beRepaired((unsigned int)4294967295);
+    std::cout << "Bub's hitpoints: " << bub.getHitpoints() << std::endl;
     bub.beRepaired(3);
     bub.beRepaired(3);
     bub.attack("My Neighbor's Lawn Gnome");

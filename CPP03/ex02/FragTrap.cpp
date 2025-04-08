@@ -26,7 +26,10 @@ void FragTrap::beRepaired(unsigned int amount){
     if (this->hitpoints > 0)
     {
         if (this->energy_points > 0){
-            if (this->hitpoints + amount > this->max_hitpoints && this->hitpoints != this->max_hitpoints){
+            if (this->hitpoints + amount < amount){
+                std::cout << "Overflow points!" << std::endl;
+            }
+            else if (this->hitpoints + amount > this->max_hitpoints && this->hitpoints != this->max_hitpoints){
                 amount = this->max_hitpoints - this->hitpoints;
                 this->hitpoints += amount;
                 std::cout << "FragTrap " << this->name << " is being repaired for " << amount << " points!" << std::endl;

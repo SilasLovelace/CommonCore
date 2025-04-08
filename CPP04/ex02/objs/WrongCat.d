@@ -1,4 +1,4 @@
-objs/main.o: main.cpp Animal.hpp \
+objs/WrongCat.o: WrongCat.cpp WrongCat.hpp \
   /usr/bin/../lib/gcc/x86_64-linux-gnu/11/../../../../include/c++/11/iostream \
   /usr/bin/../lib/gcc/x86_64-linux-gnu/11/../../../../include/x86_64-linux-gnu/c++/11/bits/c++config.h \
   /usr/bin/../lib/gcc/x86_64-linux-gnu/11/../../../../include/x86_64-linux-gnu/c++/11/bits/os_defines.h \
@@ -164,9 +164,9 @@ objs/main.o: main.cpp Animal.hpp \
   /usr/bin/../lib/gcc/x86_64-linux-gnu/11/../../../../include/c++/11/bits/ostream.tcc \
   /usr/bin/../lib/gcc/x86_64-linux-gnu/11/../../../../include/c++/11/istream \
   /usr/bin/../lib/gcc/x86_64-linux-gnu/11/../../../../include/c++/11/bits/istream.tcc \
-  Dog.hpp Cat.hpp
+  WrongAnimal.hpp
 
-Animal.hpp:
+WrongCat.hpp:
 
 /usr/bin/../lib/gcc/x86_64-linux-gnu/11/../../../../include/c++/11/iostream:
 
@@ -522,6 +522,4 @@ Animal.hpp:
 
 /usr/bin/../lib/gcc/x86_64-linux-gnu/11/../../../../include/c++/11/bits/istream.tcc:
 
-Dog.hpp:
-
-Cat.hpp:
+WrongAnimal.hpp:

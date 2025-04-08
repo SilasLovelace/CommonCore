@@ -4,10 +4,7 @@ Dog::Dog() {
     this->type = "Dog";
     std::cout << "Dog default constructor called" << std::endl;
 }
-Dog::Dog(std::string type) {
-    this->type = type;
-    std::cout << "Dog constructor called" << std::endl;
-}
+
 Dog::Dog(Dog &src) {
     this->type = src.type;
     std::cout << "Dog copy constructor called" << std::endl;

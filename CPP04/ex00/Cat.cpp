@@ -4,10 +4,7 @@ Cat::Cat() {
     this->type = "Cat";
     std::cout << "Cat default constructor called" << std::endl;
 }
-Cat::Cat(std::string type) {
-    this->type = type;
-    std::cout << "Cat constructor called" << std::endl;
-}
+
 Cat::Cat(Cat &src) {
     this->type = src.type;
     std::cout << "Cat copy constructor called" << std::endl;
