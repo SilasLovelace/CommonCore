@@ -59,5 +59,10 @@ int main(){
     delete newCat;
     delete cat;
     delete dog;
+
+    Dog basic;
+    {
+        Dog tmp = basic;
+    }
     return 0;
 }
