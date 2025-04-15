@@ -3,7 +3,6 @@
 
 #include <iostream>
 #include "Bureaucrat.hpp"
-class Bureaucrat;
 
 class Form
 {
@@ -15,7 +14,7 @@ class Form
 
     public:
         Form();
-        Form(std::string name, int signGrade, int executeGrade);
+        Form(const std::string& name, int signGrade, int executeGrade);
         Form(Form const &rhs);
         Form& operator=(Form const &rhs);
         ~Form();

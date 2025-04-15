@@ -4,7 +4,7 @@ Bureaucrat::Bureaucrat() : name("Mark S."), grade(150) {
     std::cout << "Default constructor called" << std::endl;
 }
 
-Bureaucrat::Bureaucrat(std::string name, int grade) : name(name) {
+Bureaucrat::Bureaucrat(int grade) : name("Mark S.") {
     if (grade < 1)
         throw Bureaucrat::GradeTooHighException();
     else if (grade > 150)

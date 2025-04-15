@@ -2,9 +2,9 @@
 ######                             PROPERTIES                             ######
 ################################################################################
 
-CC			= c++
+CXX			= c++
 RM			= rm -rf
-CFLAGS		= -Wall -Wextra -Werror -MD -MP -g -I -std=c++98
+CXXFLAGS	= -Wall -Wextra -Werror -MD -MP -I -std=c++98
 MAKEFLAGS	= -j$(nproc) --no-print-directory
 
 NAME		= Bureaucracy
@@ -27,12 +27,15 @@ DEPS		= $(addprefix $(OBJSDIR)/, $(SRCS:.cpp=.d))
 
 all		: $(NAME)
 
+debug: 
+	$(MAKE) CXXFLAGS="$(CXXFLAGS) -g"
+
 $(NAME)	: ${OBJS}
-		$(CC) ${CFLAGS} -o $@ $^ 
+		$(CXX) ${CXXFLAGS} -o $@ $^ 
 
 ${OBJSDIR}/%.o	: %.cpp
 		@mkdir -p $(dir $@)
-		${CC} ${CFLAGS} -c $< -o $@
+		${CXX} ${CXXFLAGS} -c $< -o $@
 
 clean	:
 		$(RM) $(OBJSDIR)

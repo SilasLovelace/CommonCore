@@ -1,4 +1,5 @@
 #include "Bureaucrat.hpp"
+#include "Form.hpp"
 
 int main(void){
     
@@ -15,14 +16,11 @@ int main(void){
         std::cout << e.what() << std::endl;
     }
 
-
     Bureaucrat bureaucrat_A("Bureacraty A.", 1);
     Form form_A("Form A", 1, 1);
     Bureaucrat bureaucrat_B("Baurucrot B.", 150);
     Form form_B("Form B", 150, 149);
     Form form_C("Form C", 149, 149);
-
-
 
     bureaucrat_B.signForm(form_A);
     bureaucrat_B.signForm(form_B);

@@ -1,4 +1,4 @@
-objs/AForm.o: AForm.cpp AForm.hpp \
+objs/main.o: main.cpp ClapTrap.hpp \
   /usr/bin/../lib/gcc/x86_64-linux-gnu/11/../../../../include/c++/11/iostream \
   /usr/bin/../lib/gcc/x86_64-linux-gnu/11/../../../../include/x86_64-linux-gnu/c++/11/bits/c++config.h \
   /usr/bin/../lib/gcc/x86_64-linux-gnu/11/../../../../include/x86_64-linux-gnu/c++/11/bits/os_defines.h \
@@ -163,10 +163,9 @@ objs/AForm.o: AForm.cpp AForm.hpp \
   /usr/bin/../lib/gcc/x86_64-linux-gnu/11/../../../../include/c++/11/bits/basic_ios.tcc \
   /usr/bin/../lib/gcc/x86_64-linux-gnu/11/../../../../include/c++/11/bits/ostream.tcc \
   /usr/bin/../lib/gcc/x86_64-linux-gnu/11/../../../../include/c++/11/istream \
-  /usr/bin/../lib/gcc/x86_64-linux-gnu/11/../../../../include/c++/11/bits/istream.tcc \
-  Bureaucrat.hpp
+  /usr/bin/../lib/gcc/x86_64-linux-gnu/11/../../../../include/c++/11/bits/istream.tcc
 
-AForm.hpp:
+ClapTrap.hpp:
 
 /usr/bin/../lib/gcc/x86_64-linux-gnu/11/../../../../include/c++/11/iostream:
 
@@ -521,5 +520,3 @@ AForm.hpp:
 /usr/bin/../lib/gcc/x86_64-linux-gnu/11/../../../../include/c++/11/istream:
 
 /usr/bin/../lib/gcc/x86_64-linux-gnu/11/../../../../include/c++/11/bits/istream.tcc:
-
-Bureaucrat.hpp:

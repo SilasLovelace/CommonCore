@@ -1,10 +1,11 @@
 #include "Bureaucrat.hpp"
+#include "Form.hpp"
 
 Bureaucrat::Bureaucrat() : name("Mark S."), grade(150) {
     std::cout << "Default constructor called" << std::endl;
 }
 
-Bureaucrat::Bureaucrat(std::string name, int grade) : name(name) {
+Bureaucrat::Bureaucrat(int grade) : name("Mark S.") {
     if (grade < 1)
         throw Bureaucrat::GradeTooHighException();
     else if (grade > 150)
@@ -12,6 +13,18 @@ Bureaucrat::Bureaucrat(std::string name, int grade) : name(name) {
     this->grade = grade;
     std::cout << "Constructor called" << std::endl;
 }
+
+Bureaucrat::Bureaucrat(const std::string& name, int grade) : name(name) {
+    if (name.empty())
+        throw std::invalid_argument("Name cannot be empty");
+    if (grade < 1)
+        throw Bureaucrat::GradeTooHighException();
+    else if (grade > 150)
+        throw Bureaucrat::GradeTooLowException();
+    this->grade = grade;
+    std::cout << "Constructor called" << std::endl;
+}
+
 Bureaucrat::Bureaucrat(Bureaucrat const &rhs) : name(rhs.getName()) {
     this->grade = rhs.getGrade();
     std::cout << "Copy constructor called" << std::endl;

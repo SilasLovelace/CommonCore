@@ -10,7 +10,7 @@ class Bureaucrat
         int grade;
     public:
         Bureaucrat();
-        Bureaucrat(std::string name, int grade);
+        Bureaucrat(int grade);
         Bureaucrat(Bureaucrat const &rhs);
         Bureaucrat& operator=(Bureaucrat const &rhs);
         ~Bureaucrat();

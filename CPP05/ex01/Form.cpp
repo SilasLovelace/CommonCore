@@ -4,7 +4,9 @@ Form::Form(): name("Default Form"), isSigned(false), signGrade(150), executeGrad
     // std::cout << "Default Form constructor called" << std::endl;
 }
 
-Form::Form(std::string name, int signGrade, int executeGrade) : name(name), isSigned(false), signGrade(signGrade), executeGrade(executeGrade) {
+Form::Form(const std::string& name, int signGrade, int executeGrade) : name(name), isSigned(false), signGrade(signGrade), executeGrade(executeGrade) {
+    if (name.empty())
+        throw std::invalid_argument("Name cannot be empty");
     if (signGrade < 1 || executeGrade < 1)
         throw Form::GradeTooHighException();
     else if (signGrade > 150 || executeGrade > 150)
