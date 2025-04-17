@@ -2,12 +2,9 @@
 #define BUREAUCRAT_HPP
 
 #include <iostream>
-
-#define CHAR 0
-#define INT 1
-#define FLOAT 2
-#define DOUBLE 3
-#define INVALID 4
+#include <iomanip>
+#include <sstream>
+#include <limits>
 
 class ScalarConverter
 {
