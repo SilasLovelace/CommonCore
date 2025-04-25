@@ -11,7 +11,7 @@ Span &Span::operator=(const Span &other) {
     return *this;
 }
 Span::~Span() {}
-void Span::addNumber(int number) {
+void Span::addNumber(const int number) {
     if (_vector.size() >= _max_size) {
         throw std::out_of_range("Vector is full");
     }

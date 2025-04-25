@@ -7,15 +7,13 @@ RM			= rm -rf
 CXXFLAGS	= -Wall -Wextra -Werror -MD -MP -std=c++98
 MAKEFLAGS	= -j$(nproc) --no-print-directory
 
-NAME		= Serializer
+NAME		= PMergeMe
 
 SRCSDIR		= srcs
 
 SRCS		= \
 			main.cpp \
-			Serializer.cpp \
-			Data.cpp \
-
+			PmergeMe.cpp \
 
 OBJSDIR		= objs
 OBJS		= $(addprefix $(OBJSDIR)/, $(SRCS:.cpp=.o))

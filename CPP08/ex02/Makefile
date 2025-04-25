@@ -4,7 +4,7 @@
 
 CXX			= c++
 RM			= rm -rf
-CXXFLAGS	= -Wall -Wextra -Werror -MD -MP -I -std=c++98
+CXXFLAGS	= -Wall -Wextra -Werror -MD -MP -std=c++98
 MAKEFLAGS	= -j$(nproc) --no-print-directory
 
 NAME		= MutantStack
