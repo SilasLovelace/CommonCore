@@ -9,14 +9,17 @@ int main (int argc, char **argv)
         PmergeMe mergeMe;
         try
         {
-            mergeMe.parseInput(argv[1]);
-            if (mergeMe.getInput().empty())
+            mergeMe.parseInput_v(argv[1]);
+            if (mergeMe.getInput_v().empty())
             {
                 std::cerr << "Error: No valid input provided." << std::endl;
                 return 1;
             }
-            mergeMe.sortInput(mergeMe.getInput());
-            // mergeMe.printInput();
+            mergeMe.print(mergeMe.getInput_v());
+            mergeMe.sorted_v = mergeMe.sortInputVector(mergeMe.getInput_v());
+            mergeMe.sorted_d = mergeMe.sortInputDeque(mergeMe.getInput_d());
+
+            mergeMe.print(mergeMe.getSorted_v());
         }
         catch (std::exception &e)
         {
