@@ -4,17 +4,16 @@
 
 CXX			= c++
 RM			= rm -rf
-CXXFLAGS	= -Wall -Wextra -Werror -MD -MP -I -std=c++98
+CXXFLAGS	= -Wall -Wextra -Werror -MD -MP -std=c++98
 MAKEFLAGS	= -j$(nproc) --no-print-directory
 
-NAME		= ScalarConverter
+NAME		= RPN
 
 SRCSDIR		= srcs
 
 SRCS		= \
 			main.cpp \
-			ScalarConverter.cpp \
-
+			RPN.cpp \
 
 OBJSDIR		= objs
 OBJS		= $(addprefix $(OBJSDIR)/, $(SRCS:.cpp=.o))

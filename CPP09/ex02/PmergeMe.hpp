@@ -8,6 +8,7 @@
 #include <stdexcept>
 #include <string>
 #include <algorithm>
+#include <ctime>
 
 #include <deque>
 
@@ -21,11 +22,11 @@ typedef std::deque<std::pair<int, int> >::iterator i_pair_d_iterator;
 class PmergeMe
 {
     private:
-        std::vector<int> input_v;
-        std::deque<int> input_d;
         PmergeMe(const PmergeMe &src);
         PmergeMe &operator=(const PmergeMe &rhs);
     public:
+        std::vector<int> input_v;
+        std::deque<int> input_d;
         std::vector<int> sorted_v;
         std::deque<int> sorted_d;
         PmergeMe();
@@ -35,9 +36,13 @@ class PmergeMe
         std::vector<int>& getSorted_v() ;
         std::deque<int>& getSorted_d() ;
         void parseInput_v(const std::string &inputStr);
+        void parseInput_d(const std::string &inputStr);
         std::vector<int> sortInputVector(std::vector<int> &input);
-        std::deque<int> sortInputDeque(std::vector<int> &input);
+        std::deque<int> sortInputDeque(std::deque<int> &input);
         void print(std::vector<int> v) const;
+        void print_d(std::deque<int> d) const;
+        void sort_pairs_v(std::vector<std::pair<int, int> > &pairs);
+
 };
     
 
