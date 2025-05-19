@@ -4,12 +4,12 @@
 
 int main (int argc, char **argv)
 {
-    if (argc == 2)
+    if (argc >= 2)
     {
         PmergeMe mergeMe;
         try {
             std::clock_t start = std::clock();
-            mergeMe.parseInput_v(argv[1]);
+            mergeMe.parseInput_v(argc, argv);
             if (mergeMe.getInput_v().empty())
             {
                 std::cerr << "Error: No valid input provided." << std::endl;

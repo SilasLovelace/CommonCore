@@ -38,7 +38,7 @@ class PmergeMe
         std::vector<std::vector<int> >& getSorted_v() ;
         std::deque<int>& getSorted_d() ;
         size_t jacobsthal(int n);
-        void parseInput_v(const std::string &inputStr);
+        void parseInput_v(int argc, char* argv[]);
         void parseInput_d(const std::string &inputStr);
         std::vector<std::vector<int> > sortInputVector(std::vector<std::vector<int> > &input);
         std::deque<int> sortInputDeque(std::deque<int> &input);
