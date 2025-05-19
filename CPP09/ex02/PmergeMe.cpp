@@ -110,10 +110,55 @@ void add_indices_v (std::vector<std::vector<int> > &sorted)
     std::cout << std::endl;
 }
 
-size_t PmergeMe::jacobsthal(int n) {
-    if (n == 0) return 0;
-    if (n == 1) return 1;
-    return jacobsthal(n - 1) + 2 * jacobsthal(n - 2);
+std::vector<int> generateJacobsthalPattern(int N) {
+    N++;
+    //0, 1, 3, 5, 11, 21, 43
+    // 0, 1, 3, 2, 5 , 4, 11, 10, 9, 8, 7, 6, 21, 20, 19, 18, 17, 16, 15, 14, 13, 12
+   
+    std::vector<int> jacobsthal;
+    jacobsthal.push_back(0);
+    jacobsthal.push_back(1);
+
+    // Generate Jacobsthal numbers up to < N
+    while (true) {
+        int next = jacobsthal.back() + 2 * jacobsthal[jacobsthal.size() - 2];
+        if (next >= N)
+            break;
+        jacobsthal.push_back(next);
+    }
+    
+    std::vector<int> result;
+    if (N > 2) {
+        jacobsthal.erase(jacobsthal.begin(), jacobsthal.begin() + 2);
+    }
+
+    // std::cout << "Jacobsthal numbers: ";
+    // for (size_t i = 0; i < jacobsthal.size(); ++i) {
+    //     std::cout << jacobsthal[i] << " ";
+    // }
+    // std::cout << std::endl;
+
+      for (size_t i = 0; i < jacobsthal.size(); ++i) {
+        int start = jacobsthal[i];
+        int end = jacobsthal[i - 1];
+
+        // Print descending from start down to end+1
+        for (int num = start; num > end; --num) {
+            result.push_back(num);
+            // std::cout << num << " ";
+        }
+
+    }
+    if (jacobsthal.back() < N) {
+        for (int num = jacobsthal.back() + 1; num < N; ++num) {
+            result.push_back(num);
+            // std::cout << num << " ";
+        }
+    }
+    for (size_t i = 0; i < result.size(); ++i) 
+        result[i] = result[i] - 1;
+    // std::cout << std::endl;
+    return result;
 }
 
 
@@ -125,15 +170,12 @@ std::vector<std::vector<int> > PmergeMe::sortInputVector(std::vector<std::vector
 
     std::vector<int> singleton;
     if (input.size() % 2 != 0)
-    {
         singleton = input.back();
-        input.pop_back();
-    }
-    
+
     std::vector<std::pair<std::vector<int>,std::vector<int> > > pairs;
     i_v_iterator end = input.end();
     i_v_iterator it = input.begin();
-    while (it != end)
+    while (it != end && (it + 1) != end)
     {
         std::vector<int> left = *it;
         std::vector<int> right = *(it + 1);
