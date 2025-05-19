@@ -53,11 +53,11 @@ void PmergeMe::sort_pairs_v(std::vector<std::pair<std::vector<int>, std::vector<
     {
          if (it->first[0] > it->second[0])
          {
-             comparisons++;
              std::vector<int> temp = it->first;
              it->first = it->second;
              it->second = temp;
-         }
+            }
+        comparisons++;
         it->first.push_back(i);
         it->second.push_back(i);
         std::cout << "pair"<< i << ": ";
