@@ -193,7 +193,11 @@ std::vector<std::vector<int> > PmergeMe::sortInputVector(std::vector<std::vector
 
     std::vector<int> singleton;
     if (input.size() % 2 != 0)
+    {
         singleton = input.back();
+        singleton.insert(singleton.begin(), -1);
+        singleton.push_back(-1);
+    }
 
     std::vector<std::pair<std::vector<int>,std::vector<int> > > pairs;
     i_v_iterator end = input.end();
@@ -255,6 +259,9 @@ std::vector<std::vector<int> > PmergeMe::sortInputVector(std::vector<std::vector
                  upper = median;
             comparisons++;
         }
+        // erases only because i had to insert -1 beginning and end for later removing it with the entire right hand
+        singleton.pop_back();
+        singleton.erase(singleton.begin());
         right_hand.insert(lower, singleton);
     }
     return right_hand;
