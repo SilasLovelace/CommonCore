@@ -6,11 +6,11 @@
 
 class RPN{
     private:
-        std::stack<int> _stack;
+        std::stack<double> _stack;
+        RPN &operator=(const RPN &src);
+        RPN(const RPN &src);
     public:
         RPN();
-        RPN(const RPN &src);
-        RPN &operator=(const RPN &src);
         ~RPN();
         void execute(const std::string &inputStr);
 };

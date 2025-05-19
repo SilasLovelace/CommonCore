@@ -192,12 +192,16 @@ std::vector<std::vector<int> > PmergeMe::sortInputVector(std::vector<std::vector
     add_indices_v(right_hand);
     //at this point all right hand have the indices of the respective pair per level as the top
     //and their own indices in the original sorted order as bottom
-    int j_t_num = 0;
-    int len = right_hand.size();
-    while (j_t_num < len)
+    std::vector<int> jacobsthal = generateJacobsthalPattern(right_hand.size());
+    for (size_t i = 0; i < jacobsthal.size(); ++i)
     {
         i_v_iterator upper;
-        std::vector<int> to_insert = find_partner_v(pairs, right_hand, j_t_num, upper);
+        std::vector<int> to_insert = find_partner_v(pairs, right_hand, jacobsthal[i], upper);
+        if (jacobsthal[i] == 0)
+        {
+            right_hand.insert(right_hand.begin(), to_insert);
+            continue;
+        }
         i_v_iterator lower = right_hand.begin();
         i_v_iterator median = lower + (upper - lower + 1)/2;
         while (lower < upper)
@@ -212,7 +216,6 @@ std::vector<std::vector<int> > PmergeMe::sortInputVector(std::vector<std::vector
         std::cout << "Inserting" << std::endl;
         right_hand.insert(lower, to_insert);
         print_v(right_hand);
-        j_t_num++;
     }
     //removes the current level pair indeces and right hand original indices
     for (i_v_iterator it = right_hand.begin(); it != right_hand.end(); ++it)
@@ -229,10 +232,10 @@ std::vector<std::vector<int> > PmergeMe::sortInputVector(std::vector<std::vector
         {
             median = lower + (upper - lower) / 2;
             if (singleton[0] > (*median)[0])
-            lower = median + 1;
-        else
-        upper = median;
-        comparisons++;
+                lower = median + 1;
+            else
+                 upper = median;
+            comparisons++;
         }
         right_hand.insert(lower, singleton);
     }

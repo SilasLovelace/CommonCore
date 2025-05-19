@@ -1,15 +1,6 @@
 #include "RPN.hpp"
 
 RPN::RPN() {}
-RPN::RPN(const RPN &src) : _stack(src._stack) {}
-RPN &RPN::operator=(const RPN &src)
-{
-    if (this != &src)
-    {
-        _stack = src._stack;
-    }
-    return *this;
-}
 RPN::~RPN() {}
 
 int my_stoi (std::string token)
@@ -40,10 +31,10 @@ void RPN::execute(const std::string &inputStr)
                 if (token == "+" || token == "-" || token == "*" || token == "/")
                 {
                     if (_stack.size() < 2)
-                        throw std::runtime_error("Error: Not enough operands");
-                    int b = _stack.top();
+                        throw std::runtime_error("Error: too many operands");
+                    double b = _stack.top();
                     _stack.pop();
-                    int a = _stack.top();
+                    double a = _stack.top();
                     _stack.pop();
                     if (token == "+")
                         _stack.push(a + b);
@@ -57,15 +48,17 @@ void RPN::execute(const std::string &inputStr)
                             throw std::runtime_error("Error: Division by zero");
                         _stack.push(a / b);
                     }
+                    if (_stack.top() > 2147483647 || _stack.top() < -2147483648)
+                        throw std::runtime_error("Error: Overflow of int");
                 }
                 else
                 {
-                    int num = my_stoi(token);
+                    double num = my_stoi(token);
                     _stack.push(num);
                 }
         }
     }
     if (_stack.size() != 1)
-        throw std::runtime_error("Error: Too many operands remaining");
-    std::cout << "Result: " << _stack.top() << std::endl;
+        throw std::runtime_error("Error: Not enough operands");
+    std::cout << "Result: " << static_cast<int>(_stack.top()) << std::endl;
 }
