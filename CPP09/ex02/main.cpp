@@ -18,21 +18,21 @@ int main (int argc, char **argv)
             mergeMe.sorted_v = mergeMe.sortInputVector(mergeMe.getInput_v());
             std::clock_t end = std::clock();
             double time = static_cast<double>(end - start) / CLOCKS_PER_SEC * 1000000.0;
-            mergeMe.print(mergeMe.getInput_v());
-            mergeMe.print(mergeMe.getSorted_v());
+            mergeMe.print_v(mergeMe.getInput_v());
+            mergeMe.print_v(mergeMe.getSorted_v());
             std::cout << "Time taken to sort Vector of " << mergeMe.getInput_v().size() <<" elements: " << time << " microseconds" << std::endl;
-            std::cout << "Number of comparisons: " << mergeMe.vecCompare << std::endl;
-            start = std::clock();
-            mergeMe.parseInput_d(argv[1]);
-            if (mergeMe.getInput_d().empty())
-            {
-                std::cerr << "Error: No valid input provided." << std::endl;
-                return 1;
-            }
-            mergeMe.sorted_d = mergeMe.sortInputDeque(mergeMe.getInput_d());
-            end = std::clock();
-            time = static_cast<double>(end - start) / CLOCKS_PER_SEC * 1000000.0;
-            std::cout << "Time taken to sort Deque of " << mergeMe.getInput_d().size() <<" elements: " << time << " microseconds" << std::endl;
+            std::cout << "Number of comparisons: " << mergeMe.comparisons << std::endl;
+            // start = std::clock();
+            // mergeMe.parseInput_d(argv[1]);
+            // if (mergeMe.getInput_d().empty())
+            // {
+            //     std::cerr << "Error: No valid input provided." << std::endl;
+            //     return 1;
+            // }
+            // mergeMe.sorted_d = mergeMe.sortInputDeque(mergeMe.getInput_d());
+            // end = std::clock();
+            // time = static_cast<double>(end - start) / CLOCKS_PER_SEC * 1000000.0;
+            // std::cout << "Time taken to sort Deque of " << mergeMe.getInput_d().size() <<" elements: " << time << " microseconds" << std::endl;
 
         }
         catch (std::exception &e) {

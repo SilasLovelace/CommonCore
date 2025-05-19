@@ -7,12 +7,12 @@
 PmergeMe::PmergeMe() : comparisons(0) {}
 PmergeMe::~PmergeMe() {}
 
-std::vector<std::vector<int>>& PmergeMe::getInput_v()
+std::vector<std::vector<int> >& PmergeMe::getInput_v()
 {
     return this->input_v;
 }
 
-std::vector<int>& PmergeMe::getSorted_v() 
+std::vector<std::vector<int> >& PmergeMe::getSorted_v() 
 {
     return this->sorted_v;
 }
@@ -43,67 +43,83 @@ void PmergeMe::parseInput_v(const std::string &inputStr)
 }
 
 
-void PmergeMe::sort_pairs_v(std::vector<std::pair<std::vector<int>, std::vector<int>> > &pairs)
+void PmergeMe::sort_pairs_v(std::vector<std::pair<std::vector<int>, std::vector<int> > > &pairs)
 {
     i_pair_v_iterator begin =  pairs.begin();
     i_pair_v_iterator end =  pairs.end();
     int i = 0;
+    std::cout << "sorting pairs" << std::endl;
     for (i_pair_v_iterator it = begin; it != end; ++it)
     {
          if (it->first[0] > it->second[0])
          {
              comparisons++;
-             int temp = it->first[0];
-             it->first[0] = it->second[0];
-             it->second[0] = temp;
+             std::vector<int> temp = it->first;
+             it->first = it->second;
+             it->second = temp;
          }
         it->first.push_back(i);
         it->second.push_back(i);
+        std::cout << "pair"<< i << ": ";
+        for (size_t j = 0; j < it->first.size(); ++j)
+            std::cout << it->first[j] << " ";
+        std::cout << "; ";
+        for (size_t j = 0; j < it->second.size(); ++j)
+            std::cout << it->second[j]  << " ";
+        std::cout << std::endl;
         i++;
     }
 }
 
-std::vector<int> find_partner_v (std::vector<std::pair<std::vector<int>,std::vector<int>> > &pairs, std::vector<std::vector<int>> &right_hand, int j_t_num, int &index)
+std::vector<int> find_partner_v (vector_int_pair &pairs, vector_int &right_hand, int j_t_num, i_v_iterator &upper)
 {
-    index = 0;
+    std::cout << "jacobsthal index: "<< j_t_num << std::endl;
     i_v_iterator it = right_hand.begin();
     while (it != right_hand.end() && *(it->begin()) != j_t_num)
-    {
-        ++index;
         ++it;
-    }
+    std::cout << "upper: " << *(it->begin()+1) << " " << it->back() << std::endl;
+    upper = it;
     if (it == right_hand.end())
-        throw std::invalid_argument("Error: No partner found");
+        throw std::invalid_argument("Error: 1No partner found");
     i_pair_v_iterator pit = pairs.begin();
-    while (pit != pairs.end() && it->back() != pit->first.back())
+    while (pit != pairs.end() && upper->back() != pit->first.back())
         ++pit;
     if (pit == pairs.end())
-        throw std::invalid_argument("Error: No partner found");
-    pit->second.insert(pit->second.begin(), -1);
-    return pit->second;
+        throw std::invalid_argument("Error: 2No partner found");
+    std::cout << "partner: " << *(pit->first.begin())<< " " << pit->first.back() << std::endl;
+    pit->first.insert(pit->first.begin(), -1);
+    return pit->first;
 }
 
-void add_indices_v (std::vector<std::vector<int>> &sorted)
+void add_indices_v (std::vector<std::vector<int> > &sorted)
 {
     i_v_iterator it = sorted.begin();
     int i = 0;
+    std::cout << "adding_indices_v" << std::endl;
     while (it != sorted.end())
     {
         it->insert(it->begin(), i);
-        ++it;
+        for (size_t j = 0; j < it->size(); ++j)
+        {
+            std::cout << (*it)[j] << " ";
+        }
+        std::cout << ",";
+        it++;
         i++;
     }
+    std::cout << std::endl;
 }
 
-int PmergeMe::jacobsthal(int n) {
+size_t PmergeMe::jacobsthal(int n) {
     if (n == 0) return 0;
     if (n == 1) return 1;
     return jacobsthal(n - 1) + 2 * jacobsthal(n - 2);
 }
 
 
-std::vector<std::vector<int>> PmergeMe::sortInputVector(std::vector<std::vector<int>> &input)
+std::vector<std::vector<int> > PmergeMe::sortInputVector(std::vector<std::vector<int> > &input)
 {
+    print_v(input);
     if (input.size() < 2)
         return input;
 
@@ -111,11 +127,10 @@ std::vector<std::vector<int>> PmergeMe::sortInputVector(std::vector<std::vector<
     if (input.size() % 2 != 0)
     {
         singleton = input.back();
-        singleton.insert(singleton.begin(), -1);
         input.pop_back();
     }
     
-    std::vector<std::pair<std::vector<int>,std::vector<int>> > pairs;
+    std::vector<std::pair<std::vector<int>,std::vector<int> > > pairs;
     i_v_iterator end = input.end();
     i_v_iterator it = input.begin();
     while (it != end)
@@ -128,7 +143,7 @@ std::vector<std::vector<int>> PmergeMe::sortInputVector(std::vector<std::vector<
     //sorts left right and assigns pair-indeces for current level
     sort_pairs_v(pairs);
 
-    std::vector<std::vector<int>> right_hand;
+    std::vector<std::vector<int> > right_hand;
     for (i_pair_v_iterator pit = pairs.begin(); pit != pairs.end(); ++pit)
         right_hand.push_back(pit->second);
     right_hand = sortInputVector(right_hand);
@@ -136,11 +151,11 @@ std::vector<std::vector<int>> PmergeMe::sortInputVector(std::vector<std::vector<
     //at this point all right hand have the indices of the respective pair per level as the top
     //and their own indices in the original sorted order as bottom
     int j_t_num = 0;
-    for (i_v_iterator it = right_hand.begin(); it != right_hand.end(); ++it)
+    int len = right_hand.size();
+    while (j_t_num < len)
     {
-        int index = 0;
-        std::vector<int> to_insert = find_partner_v(pairs, right_hand, j_t_num, index);
-        i_v_iterator upper = right_hand.begin() + index;
+        i_v_iterator upper;
+        std::vector<int> to_insert = find_partner_v(pairs, right_hand, j_t_num, upper);
         i_v_iterator lower = right_hand.begin();
         i_v_iterator median = lower + (upper - lower + 1)/2;
         while (lower < upper)
@@ -152,9 +167,17 @@ std::vector<std::vector<int>> PmergeMe::sortInputVector(std::vector<std::vector<
                 upper = median;
             comparisons++;
         }
+        std::cout << "Inserting" << std::endl;
         right_hand.insert(lower, to_insert);
+        print_v(right_hand);
+        j_t_num++;
     }
-
+    //removes the current level pair indeces and right hand original indices
+    for (i_v_iterator it = right_hand.begin(); it != right_hand.end(); ++it)
+    {
+        it->pop_back();
+        it->erase(it->begin());
+    }
     if (singleton.size() > 0)
     {
         i_v_iterator upper = right_hand.end();
@@ -163,30 +186,28 @@ std::vector<std::vector<int>> PmergeMe::sortInputVector(std::vector<std::vector<
         while (lower < upper)
         {
             median = lower + (upper - lower) / 2;
-            if (singleton[1] > (*median)[1])
-                lower = median + 1;
-            else
-                upper = median;
-            comparisons++;
+            if (singleton[0] > (*median)[0])
+            lower = median + 1;
+        else
+        upper = median;
+        comparisons++;
         }
         right_hand.insert(lower, singleton);
-    }
-    //removes the current level pair indeces and right hand original indices
-    for (i_v_iterator it = right_hand.begin(); it != right_hand.end(); ++it)
-    {
-        it->pop_back();
-        it->erase(it->begin());
     }
     return right_hand;
 }
 
-void PmergeMe::print_v(std::vector<std::vector<int>> v) const
+void PmergeMe::print_v(std::vector<std::vector<int> > v) const
 {
     i_v_iterator begin =  v.begin();
     i_v_iterator end = v.end();
     for (i_v_iterator it = begin; it != end; ++it)
     {
-        std::cout << (*it)[0] << " ";
+        for (size_t i = 0; i < it->size(); ++i)
+        {
+            std::cout << (*it)[i] << " ";
+        }
+        std::cout << ",";
     }
     std::cout << std::endl;
 }
