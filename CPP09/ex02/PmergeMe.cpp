@@ -119,7 +119,6 @@ std::vector<int> generateJacobsthalPattern(int N) {
     jacobsthal.push_back(0);
     jacobsthal.push_back(1);
 
-    // Generate Jacobsthal numbers up to < N
     while (true) {
         int next = jacobsthal.back() + 2 * jacobsthal[jacobsthal.size() - 2];
         if (next >= N)
@@ -142,7 +141,6 @@ std::vector<int> generateJacobsthalPattern(int N) {
         int start = jacobsthal[i];
         int end = jacobsthal[i - 1];
 
-        // Print descending from start down to end+1
         for (int num = start; num > end; --num) {
             result.push_back(num);
             // std::cout << num << " ";
@@ -150,11 +148,12 @@ std::vector<int> generateJacobsthalPattern(int N) {
 
     }
     if (jacobsthal.back() < N) {
-        for (int num = jacobsthal.back() + 1; num < N; ++num) {
-            result.push_back(num);
-            // std::cout << num << " ";
-        }
+            for (int num = N - 1; num > jacobsthal.back(); --num) {
+        result.push_back(num);
+        // std::cout << num << " ";
     }
+    }
+
     for (size_t i = 0; i < result.size(); ++i) 
         result[i] = result[i] - 1;
     // std::cout << std::endl;
@@ -197,11 +196,6 @@ std::vector<std::vector<int> > PmergeMe::sortInputVector(std::vector<std::vector
     {
         i_v_iterator upper;
         std::vector<int> to_insert = find_partner_v(pairs, right_hand, jacobsthal[i], upper);
-        if (jacobsthal[i] == 0)
-        {
-            right_hand.insert(right_hand.begin(), to_insert);
-            continue;
-        }
         i_v_iterator lower = right_hand.begin();
         i_v_iterator median = lower + (upper - lower + 1)/2;
         while (lower < upper)
