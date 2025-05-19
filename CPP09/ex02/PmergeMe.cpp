@@ -84,13 +84,13 @@ void PmergeMe::sort_pairs_v(std::vector<std::pair<std::vector<int>, std::vector<
         comparisons++;
         it->first.push_back(i);
         it->second.push_back(i);
-        std::cout << "pair"<< i << ": ";
-        for (size_t j = 0; j < it->first.size(); ++j)
-            std::cout << it->first[j] << " ";
-        std::cout << "; ";
-        for (size_t j = 0; j < it->second.size(); ++j)
-            std::cout << it->second[j]  << " ";
-        std::cout << std::endl;
+        // std::cout << "pair"<< i << ": ";
+        // for (size_t j = 0; j < it->first.size(); ++j)
+        //     std::cout << it->first[j] << " ";
+        // std::cout << "; ";
+        // for (size_t j = 0; j < it->second.size(); ++j)
+        //     std::cout << it->second[j]  << " ";
+        // std::cout << std::endl;
         i++;
     }
 }
@@ -131,7 +131,7 @@ void add_indices_v (std::vector<std::vector<int> > &sorted)
         it++;
         i++;
     }
-    std::cout << std::endl;
+    // std::cout << std::endl;
 }
 
 std::vector<int> generateJacobsthalPattern(int N) {
