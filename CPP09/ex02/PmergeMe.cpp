@@ -230,8 +230,8 @@ std::vector<std::vector<int> > PmergeMe::sortInputVector(std::vector<std::vector
         {
             median = lower + (upper - lower) / 2;
             if (to_insert[1] > (*median)[1])
-                lower = median + 1;
-            else
+            lower = median + 1;
+        else
                 upper = median;
             comparisons++;
         }
@@ -239,30 +239,31 @@ std::vector<std::vector<int> > PmergeMe::sortInputVector(std::vector<std::vector
         right_hand.insert(lower, to_insert);
         // print_v(right_hand);
     }
-    //removes the current level pair indeces and right hand original indices
-    for (i_v_iterator it = right_hand.begin(); it != right_hand.end(); ++it)
-    {
-        it->pop_back();
-        it->erase(it->begin());
-    }
     if (singleton.size() > 0)
     {
+        // std::cout << "singleton: ";
+        // for (size_t i = 0; i < singleton.size(); ++i)
+        //     std::cout << singleton[i] << " ";
+        // std::cout << std::endl;
         i_v_iterator upper = right_hand.end();
         i_v_iterator lower = right_hand.begin();
         i_v_iterator median = lower + (upper - lower + 1)/2;
         while (lower < upper)
         {
             median = lower + (upper - lower) / 2;
-            if (singleton[0] > (*median)[0])
+            if (singleton[1] > (*median)[1])
                 lower = median + 1;
             else
                  upper = median;
             comparisons++;
         }
-        // erases only because i had to insert -1 beginning and end for later removing it with the entire right hand
-        singleton.pop_back();
-        singleton.erase(singleton.begin());
         right_hand.insert(lower, singleton);
+    }
+    //removes the current level pair indeces and right hand original indices
+    for (i_v_iterator it = right_hand.begin(); it != right_hand.end(); ++it)
+    {
+        it->pop_back();
+        it->erase(it->begin());
     }
     return right_hand;
 }
