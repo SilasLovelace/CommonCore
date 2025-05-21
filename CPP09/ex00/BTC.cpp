@@ -52,7 +52,7 @@ bool checkformat(const std::string &line) {
     return true;
 }
 
-void BitcoinExchange::parsefile(std::string filename)
+void BitcoinExchange::  parsefile(std::string filename)
 {
     std::ifstream file(filename.c_str());
     std::map<std::string, int>::iterator it;
@@ -61,6 +61,9 @@ void BitcoinExchange::parsefile(std::string filename)
         throw std::runtime_error("Error: could not open file");
     }
     std::string line;
+    std::getline(file, line);
+    if (line != "date | value")
+        throw std::runtime_error("Error: first line must be date | value");
     while (std::getline(file, line))
     {
         if (line.empty())
