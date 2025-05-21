@@ -97,11 +97,11 @@ void PmergeMe::sort_pairs_v(std::vector<std::pair<std::vector<int>, std::vector<
 
 std::vector<int> find_partner_v (vector_int_pair &pairs, vector_int &right_hand, int j_t_num, i_v_iterator &upper)
 {
-    // std::cout << "jacobsthal index: "<< j_t_num << std::endl;
+    std::cout << "jacobsthal index: "<< j_t_num << std::endl;
     i_v_iterator it = right_hand.begin();
     while (it != right_hand.end() && *(it->begin()) != j_t_num)
         ++it;
-    // std::cout << "upper: " << *(it->begin()+1) << " " << it->back() << std::endl;
+    std::cout << "upper: " << *(it->begin()+1) << " " << it->back() << std::endl;
     upper = it;
     if (it == right_hand.end())
         throw std::invalid_argument("Error: 1No partner found");
@@ -110,7 +110,7 @@ std::vector<int> find_partner_v (vector_int_pair &pairs, vector_int &right_hand,
         ++pit;
     if (pit == pairs.end())
         throw std::invalid_argument("Error: 2No partner found");
-    // std::cout << "partner: " << *(pit->first.begin())<< " " << pit->first.back() << std::endl;
+    std::cout << "partner: " << *(pit->first.begin())<< " " << pit->first.back() << std::endl;
     pit->first.insert(pit->first.begin(), -1);
     return pit->first;
 }
@@ -172,15 +172,21 @@ std::vector<int> generateJacobsthalPattern(int N) {
 
     }
     if (jacobsthal.back() < N) {
-            for (int num = N - 1; num > jacobsthal.back(); --num) {
-        result.push_back(num);
+        // if (std::find(jacobsthal.begin(), jacobsthal.end(), result.back()) == jacobsthal.end())
+        //     result.push_back(0);
+        for (int num = N - 1; num > jacobsthal.back(); --num) {
+            result.push_back(num);
         // std::cout << num << " ";
     }
     }
 
     for (size_t i = 0; i < result.size(); ++i) 
         result[i] = result[i] - 1;
-    // std::cout << std::endl;
+    std::cout << "Final Jacobsthal pattern: ";
+    for (size_t i = 0; i < result.size(); ++i) {
+        std::cout << result[i] << " ";
+    }
+    std::cout << std::endl;
     return result;
 }
 
@@ -219,11 +225,23 @@ std::vector<std::vector<int> > PmergeMe::sortInputVector(std::vector<std::vector
     add_indices_v(right_hand);
     //at this point all right hand have the indices of the respective pair per level as the top
     //and their own indices in the original sorted order as bottom
-    std::vector<int> jacobsthal = generateJacobsthalPattern(right_hand.size());
+    int right_hand_size = right_hand.size();
+    std::vector<int> jacobsthal = generateJacobsthalPattern(singleton.size() >  0 ? right_hand.size() + 1 : right_hand.size());
     for (size_t i = 0; i < jacobsthal.size(); ++i)
     {
         i_v_iterator upper;
-        std::vector<int> to_insert = find_partner_v(pairs, right_hand, jacobsthal[i], upper);
+        std::vector<int> to_insert;
+        if ((jacobsthal[i]) == right_hand_size)
+        {
+            std::cout << "singleton: ";
+            for (size_t j = 0; j < singleton.size(); ++j)
+                std::cout << singleton[j] << " ";
+            std::cout << std::endl;
+            to_insert = singleton;
+            upper = right_hand.end();
+        }
+        else
+            to_insert = find_partner_v(pairs, right_hand, jacobsthal[i], upper);
         i_v_iterator lower = right_hand.begin();
         i_v_iterator median = lower + (upper - lower + 1)/2;
         while (lower < upper)
@@ -239,26 +257,27 @@ std::vector<std::vector<int> > PmergeMe::sortInputVector(std::vector<std::vector
         right_hand.insert(lower, to_insert);
         // print_v(right_hand);
     }
-    if (singleton.size() > 0)
-    {
-        // std::cout << "singleton: ";
-        // for (size_t i = 0; i < singleton.size(); ++i)
-        //     std::cout << singleton[i] << " ";
-        // std::cout << std::endl;
-        i_v_iterator upper = right_hand.end();
-        i_v_iterator lower = right_hand.begin();
-        i_v_iterator median = lower + (upper - lower + 1)/2;
-        while (lower < upper)
-        {
-            median = lower + (upper - lower) / 2;
-            if (singleton[1] > (*median)[1])
-                lower = median + 1;
-            else
-                 upper = median;
-            comparisons++;
-        }
-        right_hand.insert(lower, singleton);
-    }
+    // if (singleton.size() > 0)
+    // {
+    //     // std::cout << "singleton: ";
+    //     // for (size_t i = 0; i < singleton.size(); ++i)
+    //     //     std::cout << singleton[i] << " ";
+    //     // std::cout << std::endl;
+    //     i_v_iterator upper = right_hand.end();
+    //     i_v_iterator lower = right_hand.begin();
+    //     i_v_iterator median = lower + (upper - lower + 1)/2;
+    //     while (lower < upper)
+    //     {
+    //         median = lower + (upper - lower) / 2;
+    //         if (singleton[1] > (*median)[1])
+    //             lower = median + 1;
+    //         else
+    //              upper = median;
+    //         comparisons++;
+    //     }
+    //     right_hand.insert(lower, singleton);
+    //     singleton.clear();
+    // }
     //removes the current level pair indeces and right hand original indices
     for (i_v_iterator it = right_hand.begin(); it != right_hand.end(); ++it)
     {
