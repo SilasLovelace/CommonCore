@@ -7,12 +7,13 @@ RM			= rm -rf
 CXXFLAGS	= -Wall -Wextra -Werror -MD -MP -std=c++98
 MAKEFLAGS	= -j$(nproc) --no-print-directory
 
-NAME		= easyfind
+NAME		= btc
 
 SRCSDIR		= srcs
 
 SRCS		= \
 			main.cpp \
+			BTC.cpp \
 
 OBJSDIR		= objs
 OBJS		= $(addprefix $(OBJSDIR)/, $(SRCS:.cpp=.o))

@@ -16,7 +16,7 @@ int main (int argc, char **argv)
     }
     else
     {
-        std::cerr << "Wrong number of arguments: " << std::endl;
+        std::cerr << "Wrong number of arguments, must be list of positive integers between 0 and 10 and operands * / + - " << std::endl;
         return 1;
     }
     return 0;
