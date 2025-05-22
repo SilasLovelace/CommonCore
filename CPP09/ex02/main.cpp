@@ -40,7 +40,7 @@ int main (int argc, char **argv)
             // mergeMe.print_v(mergeMe.getSorted_v());
             std::cout << "Time taken to sort Deque of " << mergeMe.getInput_d().size() <<" elements: " << time << " microseconds" << std::endl;
             
-            std::cout << "Number of comparisons: " << mergeMe.comparisons << std::endl;
+            // std::cout << "Number of comparisons: " << mergeMe.comparisons << std::endl;
         }
         catch (std::exception &e) {
             std::cerr << e.what() << std::endl;

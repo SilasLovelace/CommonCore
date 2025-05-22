@@ -3,20 +3,6 @@
 RPN::RPN() {}
 RPN::~RPN() {}
 
-int my_stoi (std::string token)
-{
-    int num = 0;
-    for (std::basic_string<char>::size_type i = 0; i < token.size(); ++i)
-    {
-        num = num * 10 + (token[i] - '0');
-        if (num < 0)
-        {
-            throw std::invalid_argument("Overflow of: " + token);
-            break;
-        }
-    }
-    return num;
-}
 void RPN::execute(const std::string &inputStr)
 {
     std::istringstream iss(inputStr);
@@ -34,29 +20,35 @@ void RPN::execute(const std::string &inputStr)
                     _stack.pop();
                     double a = _stack.top();
                     _stack.pop();
-                    if (token == "+")
-                        _stack.push(a + b);
-                    else if (token == "-")
-                        _stack.push(a - b);
-                    else if (token == "*")
-                        _stack.push(a * b);
-                    else if (token == "/")
+                    switch (token[0])
                     {
-                        if (b == 0)
-                            throw std::runtime_error("Error: Division by zero");
-                        _stack.push(a / b);
+                        case '+':
+                            _stack.push(a + b);
+                            break;
+                        case '-':
+                            _stack.push(a - b);
+                            break;
+                        case '*':
+                            _stack.push(a * b);
+                            break;
+                        case '/':
+                            if (b == 0)
+                                throw std::runtime_error("Error: Division by zero");
+                            _stack.push(a / b);
+                            break;
+                        default:
+                            throw std::invalid_argument("Invalid operator: " + token);
                     }
-                    if (_stack.top() > 2147483647 || _stack.top() < -2147483648)
-                        throw std::runtime_error("Error: Overflow of int");
+
                 }
                 else
                 {
-                    double num = my_stoi(token);
+                    double num = std::atoi(token.c_str());
                     _stack.push(num);
                 }
         }
     }
     if (_stack.size() != 1)
         throw std::runtime_error("Error: Not enough operands");
-    std::cout << "Result: " << static_cast<int>(_stack.top()) << std::endl;
+    std::cout << "Result: " << _stack.top() << std::endl;
 }

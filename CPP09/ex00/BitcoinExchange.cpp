@@ -1,7 +1,4 @@
 #include "BitcoinExchange.hpp"
-#include <algorithm>
-#include <cstdlib>
-#include <iostream>
 
 BitcoinExchange::BitcoinExchange(){};
 BitcoinExchange::~BitcoinExchange(){};
@@ -9,8 +6,9 @@ BitcoinExchange::~BitcoinExchange(){};
 bool isValidNumber(const std::string &s, float &value) {
     if (s.find_first_not_of("0123456789.") != std::string::npos)
         return false;
-    value = std::strtof(s.c_str(), NULL);
-    if (value < 0 || value > 100)
+    char *end;
+    value = std::strtof(s.c_str(), &end);
+    if (*end != '\0' || value < 0 || value > 1000)
         return false;
     return !s.empty();
 }

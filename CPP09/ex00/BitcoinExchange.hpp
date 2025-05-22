@@ -1,14 +1,11 @@
 #ifndef BTC_HPP
 #define BTC_HPP
 #include <iostream>
-#include <string>
 #include <map>
 #include <fstream>
-#include <sstream>
 #include <stdexcept>
-#include <climits>
+#include <cstdlib>
 
-#define INPUT 1
 class BitcoinExchange
 {
     private:
