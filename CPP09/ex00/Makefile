@@ -13,7 +13,7 @@ SRCSDIR		= srcs
 
 SRCS		= \
 			main.cpp \
-			BTC.cpp \
+			BitcoinExchange.cpp \
 
 OBJSDIR		= objs
 OBJS		= $(addprefix $(OBJSDIR)/, $(SRCS:.cpp=.o))

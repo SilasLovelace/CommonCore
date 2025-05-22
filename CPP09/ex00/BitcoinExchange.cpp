@@ -1,4 +1,4 @@
-#include "BTC.hpp"
+#include "BitcoinExchange.hpp"
 #include <algorithm>
 #include <cstdlib>
 #include <iostream>
@@ -32,7 +32,7 @@ bool isValidDate(int year, int month, int day) {
 
 bool checkformat(const std::string &line, float &btc) {
     std::string date, value;
-    if (line[11] != '|' || line[10] != ' ' || line[12] != ' ' ) 
+    if (line.length() < 14 ||line[11] != '|' || line[10] != ' ' || line[12] != ' ')
         throw std::runtime_error("Error: bad input");
 
     date = line.substr(0, 10);

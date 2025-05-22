@@ -23,9 +23,7 @@ void RPN::execute(const std::string &inputStr)
     std::string token;
     while (iss >> token)
     {
-        if (token.empty() || token.find_first_not_of("0123456789+-*/") != std::string::npos || token.size() > 2
-        || (token.find_first_of("0123456789") != std::string::npos && token.find_first_of("+-*/") != std::string::npos)
-        || (token.size() == 2 && token != "10") || (token.size() == 2 && token.find_first_of("+-*/") != std::string::npos))
+        if (token.empty() || token.find_first_not_of("0123456789+-*/") != std::string::npos || token.size() > 1)
             throw std::invalid_argument("Invalid Input: " + token);
         else{
                 if (token == "+" || token == "-" || token == "*" || token == "/")
