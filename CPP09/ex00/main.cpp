@@ -6,7 +6,8 @@ int main (int ac , char **av)
     {
         BitcoinExchange btc;
         try{
-            btc.parsefile(av[1]);
+            btc.parsefile("data.csv");
+            btc.parseinput(av[1]);
         }
         catch (const std::exception &e)
         {

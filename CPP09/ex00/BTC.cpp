@@ -1,15 +1,16 @@
 #include "BTC.hpp"
+#include <algorithm>
 #include <cstdlib>
 #include <iostream>
 
 BitcoinExchange::BitcoinExchange(){};
 BitcoinExchange::~BitcoinExchange(){};
 
-bool isValidNumber(const std::string &s) {
+bool isValidNumber(const std::string &s, float &value) {
     if (s.find_first_not_of("0123456789.") != std::string::npos)
         return false;
-    float value = std::strtof(s.c_str(), NULL);
-    if (value < 0 || value > static_cast<double>(INT_MAX))
+    value = std::strtof(s.c_str(), NULL);
+    if (value < 0 || value > 100)
         return false;
     return !s.empty();
 }
@@ -29,7 +30,7 @@ bool isValidDate(int year, int month, int day) {
     return day <= daysInMonth[month - 1] && year >= 2009;
 }
 
-bool checkformat(const std::string &line) {
+bool checkformat(const std::string &line, float &btc) {
     std::string date, value;
     if (line[11] != '|' || line[10] != ' ' || line[12] != ' ' ) 
         throw std::runtime_error("Error: bad input");
@@ -46,16 +47,33 @@ bool checkformat(const std::string &line) {
     if (!isValidDate(year, month, day))
         throw std::runtime_error("Error: Invalid Date");
 
-    if (!isValidNumber(value))
+    if (!isValidNumber(value, btc))
         throw std::runtime_error("Error: not a valid number");
 
     return true;
 }
 
-void BitcoinExchange::  parsefile(std::string filename)
+void BitcoinExchange::parsefile(std::string filename)
 {
     std::ifstream file(filename.c_str());
-    std::map<std::string, int>::iterator it;
+    if (!file.is_open())
+    {
+        throw std::runtime_error("Error: could not open file");
+    }
+    std::string line;
+    std::getline(file, line);
+    while (std::getline(file, line))
+    {
+        if (line.empty())
+            continue;
+        rates[line.substr(0, 10)] = std::strtof(line.substr(11, line.length() - 11).c_str(), NULL);
+    }
+    file.close();
+}
+
+void BitcoinExchange::parseinput(std::string filename)
+{
+    std::ifstream file(filename.c_str());
     if (!file.is_open())
     {
         throw std::runtime_error("Error: could not open file");
@@ -64,20 +82,21 @@ void BitcoinExchange::  parsefile(std::string filename)
     std::getline(file, line);
     if (line != "date | value")
         throw std::runtime_error("Error: first line must be date | value");
+    float value;
     while (std::getline(file, line))
     {
         if (line.empty())
             continue;
         try {
-            checkformat(line);
-            std::cout << line << std::endl;
-
+            checkformat(line, value);
+            std::map<std::string, float>::iterator it = rates.lower_bound(line.substr(0, 10));
+            if (it->first != line.substr(0, 10))
+                it--;
+            std::cout << line << " -> " << it->second * value << std::endl;
         }
         catch (const std::exception &e) {
             std::cout << line << " -> ";
-
             std::cerr << e.what() << std::endl;
-            continue;
         }
     }
     file.close();

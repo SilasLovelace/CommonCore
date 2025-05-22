@@ -8,6 +8,7 @@
 #include <stdexcept>
 #include <climits>
 
+#define INPUT 1
 class BitcoinExchange
 {
     private:
@@ -16,10 +17,10 @@ class BitcoinExchange
     public:
         BitcoinExchange();
         ~BitcoinExchange();
-        std::map<std::string, int> rates;
+        std::map<std::string, float> rates;
 
-        void parseinput(std::string input);
-        void parsefile(std::string filename);
+         void parsefile(std::string filename);
+         void parseinput(std::string filename);
 };
 
 #endif
